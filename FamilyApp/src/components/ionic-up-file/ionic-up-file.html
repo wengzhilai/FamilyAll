@@ -1,0 +1,33 @@
+<!-- Generated template for the IonicUpFileComponent component -->
+<ng-container>
+    <ion-item class="moduleIco" *ngIf="CanEdit || AllFiles.length>0">
+        <ion-row>
+            <ng-container *ngIf="AllFiles!=null && AllFiles.length>0">
+                <ng-container *ngFor="let o of AllFiles">
+                    <ion-col>
+                        <img *ngIf="IsImage(o.NAME)" width="80" height="80" alt="{{o.NAME}}" title="{{o.NAME}}" src="{{o.URL|ImgUrl}}" (click)="upImg(o)" />
+                        <ng-container *ngIf="!IsImage(o.NAME)">
+                            <img *ngIf="o.URL==null || o.URL==''" alt="{{o.NAME}}" title="{{o.NAME}}" width="80" height="80" src="assets/images/file.png" (click)="upImg(o)"
+                            />
+                            <ng-container *ngIf="o.URL!=null && o.URL!=''">
+                                <img alt="{{o.NAME}}" title="{{o.NAME}}" src="assets/images/{{GetFileMiMe(o.NAME).Type}}.png" width="80" height="80" (click)="upImg(o)" />
+                            </ng-container>
+                        </ng-container>
+                        <div>
+                            <span>{{decodeURI(o.NAME)}}</span>
+                        </div>
+                    </ion-col>
+                </ng-container>
+            </ng-container>
+
+            <ion-col>
+                <img *ngIf="CanEdit" src="assets/images/add.png" width="80" height="80" (click)="AddImg()" />
+            </ion-col>
+        </ion-row>
+    </ion-item>
+</ng-container>
+<!-- <ng-container *ngIf="!isApp">
+    <ion-item>
+        <up-file [CanEdit]="CanEdit" (ChangeFileJson)="changeFileJson($event)"></up-file>
+    </ion-item>
+</ng-container> -->

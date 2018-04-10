@@ -1,0 +1,21 @@
+<!-- Generated template for the IonicUpFileComponent component -->
+<ng-container>
+        <img *ngIf="IsImage(FileDict.NAME)" width="80" height="80" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" src="{{FileDict.URL|ImgUrl}}" (click)="upImg(FileDict)"
+        />
+        <ng-container *ngIf="!IsImage(FileDict.NAME)">
+            <img *ngIf="FileDict.URL==null || FileDict.URL==''" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" width="80" height="80" src="assets/images/file.png"
+                (click)="upImg(FileDict)" />
+            <ng-container *ngIf="FileDict.URL!=null && FileDict.URL!=''">
+                <img alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" src="assets/images/{{GetFileMiMe(FileDict.NAME).Type}}.png" width="80" height="80" (click)="upImg(FileDict)"
+                />
+            </ng-container>
+        </ng-container>
+        <div *ngIf="FileDict.NAME!=null">
+            <span>{{decodeURI(FileDict.NAME)}}</span>
+        </div>
+</ng-container>
+<!-- <ng-container *ngIf="!isApp">
+    <ion-item>
+        <up-file [CanEdit]="CanEdit" (ChangeFileJson)="changeFileJson($event)"></up-file>
+    </ion-item>
+</ng-container> -->

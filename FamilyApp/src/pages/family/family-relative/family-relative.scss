@@ -1,0 +1,25 @@
+page-family-relative {
+    canvas{
+        position:absolute;
+        width:8000px; 
+        height:6000px; 
+        border-radius: 3px; 
+        border: 1px solid rgba(0, 0, 0, .09); 
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .04); 
+        outline: none; 
+    }
+    .canvasDiv{
+        overflow:auto;
+    }
+    // .fabTitle{
+    //     background-color: #488aff;
+    //     padding: 2px;
+    //     color: white;
+    // }
+    // .fabSpanDiv{
+    //     width: 80px;
+    // }
+    // ion-fab-list[side=left] .fab-in-list, ion-fab-list[side=right] .fab-in-list {
+    //     margin: 0px 0px 10px 8px;
+    // }
+}

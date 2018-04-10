@@ -1,0 +1,59 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{message}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="decline()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="row">
+    <ng-container *ngFor="let item of inputs | JsonFilter:'isTabs':false;let i = index">
+      <div class="col-sm-{{item.inputWidth?item.inputWidth:6}}" *ngIf="item.editable==null || item.editable==true">
+        <div class="form-group">
+          <label for="input{{i}}" tooltip="{{item.tooltip}}">{{item.placeholder}}</label>
+
+          <input *ngIf="item.editor==null || item.editor.type=='text';else elseBlock" id="input{{i}}" [(ngModel)]="bean[item.name]"
+            type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}">
+          <ng-template #elseBlock>
+            <ng-container [ngSwitch]="item.editor.type">
+              <select *ngSwitchCase="'list'" id="input{{i}}" [(ngModel)]="bean[item.name]" class="form-control">
+                <option *ngFor="let opt of item.editor.config.list" value="{{opt.value}}">{{opt.title}}</option>
+              </select>
+              <select *ngSwitchCase="'completer'" id="input{{i}}" [(ngModel)]="bean[item.name]" class="form-control">
+                <option *ngFor="let opt of item.editor.config.completer.data" value="{{opt.value}}">{{opt.title}}</option>
+              </select>
+              <textarea *ngSwitchCase="'textarea'" id="input{{i}}" [(ngModel)]="bean[item.name]" rows="3" placeholder="{{item.placeholder}}"
+                class="form-control"></textarea>
+              <ngx-treeview *ngSwitchCase="'treeview'" id="input{{i}}" [config]="config" [items]="items" (selectedChange)="onSelectedChange($event,item.name)">
+              </ngx-treeview>
+              <ngx-dropdown-treeview 
+                *ngSwitchCase="'dropdown-treeview'" 
+                [config]="GetTreeviewConfig(item.editor.config,item.editor.dataFig,item.name)" 
+                [items]="ValuesBean[item.name]" 
+                (selectedChange)="onSelectedChange($event,item.name)">
+              </ngx-dropdown-treeview>
+              <select *ngSwitchCase="'dropdown-treeview-select'" id="input{{i}}" (click)="LoadSelectData(item.editor.config,item.editor.dataFig,item.name)" [(ngModel)]="bean[item.name]" class="form-control">
+                <option *ngFor="let opt of ValuesBean[item.name]" value="{{opt.value}}">{{opt.text}}</option>
+              </select>
+              <input *ngSwitchDefault id="input{{i}}" [(ngModel)]="bean[item.name]" type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}">
+            </ng-container>
+          </ng-template>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="row" *ngIf="inputsIsTabs.length>0" style="height:300px">
+    <nb-card>
+      <nb-tabset>
+        <nb-tab tabTitle="{{item.placeholder}}" tooltip="{{item.tooltip}}" *ngFor="let item of inputsIsTabs">
+          <textarea [(ngModel)]="bean[item.name]" rows="8" placeholder="{{item.placeholder}}" class="form-control"></textarea>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-hero-success" (click)="confirm()">{{OkText}}</button>
+  <button type="button" class="btn btn-primary" (click)="decline()">{{ChancelText}}</button>
+</div>

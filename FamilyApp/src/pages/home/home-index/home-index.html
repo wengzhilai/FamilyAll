@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar color="twitter">
+      <ion-title>
+          {{title}}
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="moduleIco">
+      <ion-row row-wrap>
+          <ion-col *ngFor="let item of config.AllMoudle[0].children;index as i">
+              <button>
+                  <!-- <ion-badge *ngIf="item.badge=='witeNum' && witeNum>0">{{witeNum}}</ion-badge>
+                  <ion-badge *ngIf="item.badge=='ContractExtHandleNum' && pageData.ContractExtHandleNum>0">{{pageData.ContractExtHandleNum}}</ion-badge>
+                  <ion-badge *ngIf="item.badge=='ContractParkHandleNum' && pageData.ContractParkHandleNum>0">{{pageData.ContractParkHandleNum}}</ion-badge> -->
+                  <div class="backG{{i}}">
+                    <ion-icon name="{{item.Icon}}"></ion-icon>
+                </div>
+                  <div>{{item.text|translate}}</div>
+              </button>
+          </ion-col>
+      </ion-row>
+
+  </ion-list>
+</ion-content>

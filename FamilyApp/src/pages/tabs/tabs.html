@@ -1,0 +1,7 @@
+<ion-tabs #myTabs (ionChange)="changeTabs()">
+
+    <ion-tab *ngFor="let item of config.AllMoudle" root="{{item.root}}" [rootParams]="chatParams" tabTitle='{{item.text|translate}}'
+        tabIcon="{{item.Icon}}">
+    </ion-tab>
+
+</ion-tabs>

@@ -1,0 +1,73 @@
+page-home-index {
+    .moduleIco ion-row {
+        margin: 0px 0px;
+        ion-col {
+            flex-grow: 0;
+            min-width: 90px;
+            height: 110px;
+            button {
+                display: flex;
+                flex-flow: column;
+                align-items: center;
+                background-color: transparent;
+                ion-icon {
+                    line-height: 60px;
+                    font-size: 30px;
+                    color: white;
+                }
+            }
+        }
+    }
+    .backG{
+        margin: 5px;
+        border-radius: 30px;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+    }
+    .backG0{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#A9E641), to(#70D129));
+    }
+    .backG1{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#A9E641), to(#70D129));
+    }
+
+    .backG2{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#FFB602), to(#FE8100));
+    }
+    .backG3{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#FF8264), to(#FF422F));
+    }
+    .backG4{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#5A9BF9), to(#5A9BF0));
+    }
+    .backG5{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#FDB03E), to(#FEB13B));
+    }
+    .backG6{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#33CCF5), to(#2293F1));
+    }
+    .backG7{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#FFB600), to(#FF7F00));
+    }
+    .backG8{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#A9E641), to(#6FD229));
+    }
+    .backG9{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#33CCF5), to(#2293F1));
+    }
+    .backG10{
+        @extend .backG;
+        background:-webkit-gradient(linear, left top, right bottom, from(#33CCF5), to(#2293F1));
+    }
+}

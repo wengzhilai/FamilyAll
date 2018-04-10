@@ -1,0 +1,30 @@
+<h3>Components (
+  <a href="https://github.com/leovo2708/ngx-treeview/tree/master/src/demo/book" target="_blank">source code</a>)</h3>
+<ul>
+  <li>Exposing all of configuration of ngx-treeview & ngx-dropdown-treeview</li>
+  <li>There is no option to disable ngx-treeview & ngx-dropdown-treeview but you can implement it easily with a
+    <a href="https://github.com/leovo2708/ngx-treeview/blob/master/src/demo/disabled-on-selector.directive.ts" target="_blank">Angular directive</a>
+  </li>
+</ul>
+<div class="row">
+  <div class="col-12">
+    <div class="alert alert-success" role="alert">
+      Selected books: {{values}}
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="row">
+      <div class="col-lg-4 col-sm-12">
+        <div class="form-group">
+          <label>
+            <strong>ngx-treeview</strong>
+          </label>
+          <ngx-treeview [config]="config" [items]="items" (selectedChange)="values = $event">
+          </ngx-treeview>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

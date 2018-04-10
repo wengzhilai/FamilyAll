@@ -1,0 +1,30 @@
+<nb-auth-block>
+    <div style="text-align: center">
+        <span (click)="CheckAppUrl($event)">　</span>
+    </div>
+    <h2 class="title" translate>{{'login.Sign_Title'}}</h2>
+    <small class="form-text sub-title"></small>
+
+    <form [formGroup]="userForm" autocomplete="nope">
+
+        <div class="form-group">
+            <label for="input-email" class="sr-only" translate>{{'login.Login_Name'}}</label>
+            <input name="email" formControlName="loginName" (change)="ChangeLoginName()" id="input-email" class="form-control" placeholder="{{'login.Login_Name' | translate}}"
+                autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="input-password" class="sr-only" translate>{{'login.Password'}}</label>
+            <input name="password" formControlName="password" type="password" id="input-password" class="form-control" placeholder="{{'login.Password'|translate}}">
+        </div>
+
+        <div class="form-group accept-group col-sm-12">
+            <nb-checkbox [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberPwd">{{'login.Remember_Pwd'|translate}}</nb-checkbox>
+            <a class="forgot-password" routerLink="../request-password" translate>{{'login.Forgot_Password'}}</a>
+        </div>
+
+        <button (click)="login()" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
+            {{'login.Login_Btn'|translate}}
+        </button>
+    </form>
+</nb-auth-block>

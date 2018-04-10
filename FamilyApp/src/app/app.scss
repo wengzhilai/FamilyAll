@@ -1,0 +1,84 @@
+// http://ionicframework.com/docs/theming/
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+.MyTitle {
+    color: #7D7D7D;
+    // font-weight: bold;
+    font-size: 12px;
+    margin: 0 5px;
+}
+.list-ios .item-block .item-inner {
+    border-bottom: 1px solid #e0e0e0;
+}
+.content-ios {
+    color: #000;
+    // background-color:transparent;
+    -moz-background-size: auto 100%;
+    background-size: auto 100%;
+    background-image: url("../assets/images/1.jpg") // background-image: url("../assets/images/BS_bg.png")
+}
+
+.col {
+    font-size: 1.32rem;
+}
+
+.label-ios {
+    margin: 0;
+}
+
+.item-ios p:last-child {
+    margin-bottom: 2px;
+}
+
+.card-header-ios {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+}
+
+ion-note {
+    font-size: 12px;
+}
+
+.item-ios p:last-child {
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+
+.badge-ios {
+    border-radius: 20px;
+    color: #fff;
+    background-color: red;
+}
+.color_gray{
+    color: gray
+}
+.color_yellowgreen{
+    color:yellowgreen
+}
+.scroll-content {
+    background-color: transparent
+}
+
+//----- 设置手机的状态栏，重叠的问题
+// .back-button-ios {
+//     .button-inner{
+//         margin-bottom: -15px;
+//     }
+// }
+// .bar-buttons-ios[right] {
+//     margin-bottom: -15px;
+// }
+//-----

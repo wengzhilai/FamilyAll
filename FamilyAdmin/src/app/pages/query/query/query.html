@@ -1,0 +1,28 @@
+<nb-card>
+  <nb-card-header>
+    {{"query.list-title"|translate}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <div>
+      <div class="alert alert-primary">
+        {{queryEnt.REMARK}}
+        <span class="float-right">
+          <i (click)="ReLoad()" class="nb-loop"></i>
+          <i (click)="ShowMore=(!ShowMore)" class="ion-arrow-resize {{ ShowMore==true?'txtGray':''}}"></i>
+        </span>
+      </div>
+      <div class="alert alert-primary" *ngIf="ShowMore">
+        <ng-container *ngFor="let item of headBtnSet">
+          <button type="button" class="btn btn-primary btn-with-icon" (click)="HeadBtnClick(this,item.click)">
+            <i class="{{item.class}}"></i>
+            <span>{{item.title}}</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+    <ng2-smart-table #smartTable [settings]="settings" [source]="source" (delete)="onDelete($event)"
+      (edit)="onSave(this,$event)" (userRowSelect)="userRowSelect($event)" *ngIf="LoadSetting">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

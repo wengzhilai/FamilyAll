@@ -1,0 +1,16 @@
+<nb-card>
+  <nb-card-header >
+    {{"role.list-title"|translate}}
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table 
+    [settings]="settings" 
+    [source]="source" 
+    (create)="onSave($event)"
+    (delete)="onDelete($event)"
+    (edit)="onSave($event)"
+    >
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

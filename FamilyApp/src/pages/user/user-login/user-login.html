@@ -1,0 +1,29 @@
+
+<ion-content>
+  <div class="LoginFrom">
+    <ion-list [formGroup]="userForm">
+      <ion-item-divider>
+        登录
+      </ion-item-divider>
+      <ion-item>
+        <ion-icon item-start name="contact"></ion-icon>
+        <ion-input type="text" formControlName="loginName" placeholder="{{validationMessages.loginName.aliasName}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon item-start name="unlock"></ion-icon>
+        <ion-input type="password" formControlName="password" placeholder="{{validationMessages.password.aliasName}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>记住密码</ion-label>
+        <ion-toggle color="car" checked="true" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberPwd"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label left><button ion-button small color="car" (click)="GoFindPwd()">找回密码</button></ion-label>
+        <ion-label right style="text-align: right;"><button ion-button small color="car" (click)="GoRegister()">立即注册</button></ion-label>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button color="car" block (click)="submit()">登录</button>
+    </div>
+  </div>
+</ion-content>

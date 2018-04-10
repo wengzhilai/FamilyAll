@@ -1,0 +1,38 @@
+<ion-content>
+  <div class="changApi">
+      <span (click)="CheckAppUrl($event)">　　</span>
+  </div>
+  <div class="LoginFrom">
+      <ion-list [formGroup]="userForm">
+          <ion-item-divider translate>
+              {{'login.Sign_Title'|translate}}
+          </ion-item-divider>
+          <ion-item>
+              <ion-icon item-start name="contact"></ion-icon>
+              <ion-input type="text" formControlName="loginName" (change)="ChangeLoginName()" placeholder="{{validationMessages.loginName.aliasName}}"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-icon item-start name="unlock"></ion-icon>
+              <ion-input type="password" formControlName="password" placeholder="{{validationMessages.password.aliasName}}"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label> {{'login.Remember_Pwd'|translate}}</ion-label>
+              <ion-toggle color="car" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberPwd"></ion-toggle>
+          </ion-item>
+          <ion-item>
+              <ion-label> {{'login.Change_Lang'|translate}} </ion-label>
+              <ion-select placeholder="{{'login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
+                  (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+                  <ion-option *ngFor="let lang of cif.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
+              </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label left><button ion-button small color="car" (click)="GoFindPwd()">找回密码</button></ion-label>
+            <ion-label right style="text-align: right;"><button ion-button small color="car" (click)="GoRegister()">立即注册</button></ion-label>
+          </ion-item>
+      </ion-list>
+      <div padding>
+          <button ion-button color="car" block (click)="submit()">{{'login.Login_Btn'|translate}}</button>
+      </div>
+  </div>
+</ion-content>

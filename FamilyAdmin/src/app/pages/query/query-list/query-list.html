@@ -1,0 +1,21 @@
+<nb-card>
+  <nb-card-header >
+    {{"query.list-title"|translate}}
+  </nb-card-header>
+
+
+
+  <nb-card-body>
+      
+    <ng2-smart-table 
+    #smartTable
+    [settings]="settings" 
+    [source]="source" 
+    (create)="onSave($event)"
+    (delete)="onDelete($event)"
+    (userRowSelect)="userRowSelect($event)"
+    (edit)="onSave($event)"
+    >
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

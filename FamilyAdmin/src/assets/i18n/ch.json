@@ -1,0 +1,65 @@
+{
+  "welcome": "学习Ng网站开发",
+  "home":{
+    "Light":"主题1",
+    "Cosmic":"主题2",
+    "Profile":"配置文件",
+    "LogOut":"退出"
+  },
+  "role":{
+    "list-title":"角色管理"
+  },
+  "user":{
+    "list-title":"用户管理"
+  },
+  "query":{
+    "list-title":"查询管理"
+  },
+  "public": {
+    "Search": "搜索",
+    "Cancel": "取消",
+    "Done": "完成",
+    "Okay": "确定",
+    "Dismiss": "取消",
+    "Back": "返回",
+    "Invalid_input": "输入无效",
+    "Not_null": "不能为空",
+    "mini_string": "长度不能少于{{minNum}}个,当前是{{currNum}}个",
+    "max_string": "长度不能超过{{minNum}}个,当前是{{currNum}}个",
+    "Loading": "加载中...",
+    "LoginError": "登录错误，请联系管理员",
+    "pic": "图片",
+    "title": "提示",
+    "ChosePic": "选择图片",
+    "ChoseFile": "选择文件",
+    "ChoseCamera": "选择相机",
+    "ChoseImagsLibrary": "从手机相册选择",
+    "LookBigPic": "查看原图",
+    "Delete": "删除",
+    "Upload": "上传",
+    "Download": "下载",
+    "Ing": "中...",
+    "Succ": "成功",
+    "Error": "错误",
+    "pullingText": "下拉刷新",
+    "refreshingText": "刷新中...",
+    "loadingText": "加载更多...",
+    "StartTime": "开始时间",
+    "EndTime": "结束时间",
+    "NoPower": "无权限查看该信息",
+    "NoValid": "无效",
+    "Valid": "有效",
+    "UnValid": "无效",
+    "NoData": "没有数据"
+  },
+  "login": {
+    "Sign_Title": "登录",
+    "Remember_Pwd": "记住密码",
+    "Forgot_Password": "忘记密码",
+    "Email": "邮箱",
+    "Login_Name": "登录名",
+    "Change_Lang": "切换语言",
+    "Password": "密码",
+    "Login_Btn": "登录"
+  }
+}

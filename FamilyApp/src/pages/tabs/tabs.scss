@@ -1,0 +1,47 @@
+page-tabs {
+    .midlog{
+        font-size: 40px;
+        line-height: 66px;
+        position: fixed;
+        margin-top: -6px;
+        background-color: white;
+        border-radius: 66px;
+        height: 66px;
+        width: 66px;
+        border-style: solid;
+        border: 0.55px solid rgba(0, 0, 0, 0.3);
+    }
+    
+    .overDiv{
+        background-color: #f8f8f8;
+        height: 52px;
+        width: 75px;
+        margin-top: 12px;
+        position: absolute;
+    };
+
+    .overDiv-parent-icon{
+        position: relative;
+        height: 60px;
+        width: 60px;
+        line-height: 50px;
+        background:-webkit-gradient(linear, left top, right bottom, from(#488aff), to(#5A9BF0));
+        border-radius: 50px;
+        margin-left: 3px;
+        margin-top: 2px;
+        padding-top: 10px;
+    }
+
+    .overDiv-parent-icon-nocheck{
+        position: relative;
+        height: 60px;
+        width: 60px;
+        line-height: 50px;
+        background:-webkit-gradient(linear, left top, right bottom, from(rgb(243, 243, 243)), to(rgb(219, 219, 219)));
+        border-radius: 50px;
+        margin-left: 3px;
+        margin-top: 2px;
+        padding-top: 10px;
+    }
+
+}
