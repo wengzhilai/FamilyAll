@@ -44,3 +44,4 @@ flask
 iSoft/download
 .vscode/
 .vscode/
+package-lock.json
