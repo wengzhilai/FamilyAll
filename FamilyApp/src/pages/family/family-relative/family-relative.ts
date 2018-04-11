@@ -35,13 +35,20 @@ export class FamilyRelativePage implements OnInit {
     private alertCtrl: AlertController,
     public toPostService: ToPostService
   ) {
-    this.onSucc();
+    
   }
   ngOnInit() {
+    console.log(111)
+    console.log(this.mapElement)
     this.graph = new NetronGraph(this.mapElement.nativeElement);
     this.graph.ClickBlack=(x)=>{
       this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
     }
+    this.onSucc();
+    // this.test()
+    // var ctx=this.mapElement.nativeElement.getContext("2d");
+    // ctx.fillStyle="#FF0000";
+    // ctx.fillRect(0,0,10,10);
   }
 
   CancelKey(ev: any) {
@@ -97,12 +104,27 @@ export class FamilyRelativePage implements OnInit {
             this.graph.addConnection(allR[element.V].getConnector("reports"), allR[element.K].getConnector("manager"));
           }
         });
+        this.graph.update();
+        
       }
     })
   }
 
 
+  test(){
 
+    console.log(this.graph)
+    var e1 = this.graph.addElement(this.personTemplate, { x: 250, y: 50 }, "Michael Scott",{});
+    var e2 = this.graph.addElement(this.personTemplate, { x: 150, y: 150 }, "Angela Martin",{});
+    var e3 = this.graph.addElement(this.personTemplate, { x: 350, y: 150 }, "Dwight Schrute",{});
+    var e4 = this.graph.addElement(this.personTemplate, { x: 50, y: 250 }, "Kevin Malone",{});
+    var e5 = this.graph.addElement(this.personTemplate, { x: 250, y: 250 }, "Oscar Martinez",{});
+    this.graph.addConnection(e1.getConnector("reports"), e2.getConnector("manager"));
+    this.graph.addConnection(e1.getConnector("reports"), e3.getConnector("manager"));
+    this.graph.addConnection(e2.getConnector("reports"), e4.getConnector("manager"));
+    this.graph.addConnection(e2.getConnector("reports"), e5.getConnector("manager"));
+    this.graph.update();
+  }
 
 
   public personTemplate = {
@@ -135,9 +157,14 @@ export class FamilyRelativePage implements OnInit {
       }
     ],
     paint: (element, context) => {
+      console.log(element.content)
       var rectangle = element.rectangle;
       rectangle.x += context.canvas.offsetLeft;
       rectangle.y += context.canvas.offsetTop;
+      console.log(JSON.stringify(rectangle))
+      // var ctx=context;
+      // ctx.fillStyle="#FF0000";
+      // ctx.fillRect(0,0,20,70);
       //表示是自己
       if (element.Object.Id == this.userId) {
         context.fillStyle = "#c8d4e8";

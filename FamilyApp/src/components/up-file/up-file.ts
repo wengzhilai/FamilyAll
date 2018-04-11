@@ -15,9 +15,9 @@ export class UpFileComponent {
   ChangeFileJson: EventEmitter<any> = new EventEmitter<any>();
 
   uploader: FileUploader = new FileUploader({
-    url: cfg.api + "Public/upload",
+    url: cfg.Api_Upfile,
     method: "POST",
-    itemAlias: "uploadedfile",
+    itemAlias: "file",
     autoUpload: true,
     allowedFileType: ["image", "xls", "txt"],
   });

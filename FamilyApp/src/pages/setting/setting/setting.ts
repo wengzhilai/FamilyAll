@@ -71,7 +71,7 @@ export class SettingPage {
     console.log('ionViewDidLoad SettingPage');
     console.log(this.translate.currentLang);
 
-    this.PostData();
+    // this.PostData();
   }
   PostData() {
     this.commonService.showLoading();
@@ -128,5 +128,10 @@ export class SettingPage {
     this.translate.translations
     this.commonService.translate = this.translate;
 
+  }
+
+  ChangeFileJson(obj) {
+    console.log('获取值1111')
+    this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
   }
 }

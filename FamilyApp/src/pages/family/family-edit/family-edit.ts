@@ -235,6 +235,10 @@ export class FamilyEditPage {
       // this.diedDistantYears = nowYear - this.yeasStart;
       this.DoneDiedTime(nowYear);
     }
+  }
 
+  ChangeFileJson(obj) {
+    console.log('获取值1111')
+    this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
   }
 }

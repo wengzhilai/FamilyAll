@@ -151,6 +151,7 @@ export class FileUpService {
                 console.log(filePath)
                 if (filePath.length > 10) {
                   this.upLoad(filePath).then((fileJson: any) => {
+                    
                     if (fileJson != null) {
                       fileJson.key = this.inFile.key;
                       fileJson.indexNo = this.inFile.indexNo;
@@ -307,7 +308,7 @@ export class FileUpService {
 
   upLoad(fileUrl: string) {
     if (fileUrl == null || fileUrl == '') return;
-    var fileUpApiUrl = Config.api + "Common/PostFile";
+    var fileUpApiUrl = Config.Api_Upfile;
     let PropertyId = AppGlobal.GetPropertyId();
     if (PropertyId != null) {
       fileUpApiUrl = fileUpApiUrl + "?PropertyId=" + PropertyId;
@@ -342,9 +343,10 @@ export class FileUpService {
         let appReturnDTO = <AppReturnDTO>JSON.parse(data.response);
         let fileJson = <FileModel>appReturnDTO.Data;
         console.log("上传返回结果：");
-        this.commonService.PlatformsExists("core") ? console.log(options) : console.log(JSON.stringify(fileJson));
+        this.commonService.PlatformsExists("core") ? console.log(appReturnDTO) : console.log(JSON.stringify(appReturnDTO));
         if (<boolean>appReturnDTO.IsSuccess) {
-
+          console.log("返回数据：");
+          this.commonService.PlatformsExists("core") ? console.log(fileJson) : console.log(JSON.stringify(fileJson));
           return fileJson;
         } else {
           console.log("上传失败:" + JSON.stringify(appReturnDTO));

@@ -54,8 +54,22 @@ export class NetronGraph {
     public ClickBlack
     constructor(element: HTMLCanvasElement) {
         this._canvas = element;
-        this._canvas.width = this._canvas.clientWidth * this.devicePixelRatio;
-        this._canvas.height = this._canvas.clientHeight * this.devicePixelRatio;
+        // alert(this._canvas.clientWidth)
+        // alert(this._canvas.width)
+        // this._canvas.width = this._canvas.clientWidth / this.devicePixelRatio;
+        // this._canvas.height = this._canvas.clientHeight / this.devicePixelRatio;
+        // alert(this._canvas.width)
+        // alert(this._canvas.width)
+        // alert(this._canvas.style.width)
+        // this._canvas.width=6000
+        // this._canvas.height=6000
+        this._canvas.style.width = this._canvas.width + "px";
+        this._canvas.style.height = this._canvas.height + "px";
+        this._canvas.width = this._canvas.width * this.devicePixelRatio;
+        this._canvas.height = this._canvas.height * this.devicePixelRatio;
+        alert(this._canvas.width)
+        alert(this._canvas.style.width)
+
         this._canvas.focus();
         this._context = this._canvas.getContext("2d");
         this._context.scale(this.devicePixelRatio, this.devicePixelRatio);
@@ -79,8 +93,8 @@ export class NetronGraph {
         this._canvas.addEventListener("mousedown", this._mouseDownHandler, false);
         this._canvas.addEventListener("mouseup", this._mouseUpHandler, false);
         this._canvas.addEventListener("mousemove", this._mouseMoveHandler, false);
-        this._canvas.addEventListener("touchstart", this._touchStartHandler, false);
-        this._canvas.addEventListener("touchend", this._touchEndHandler, false);
+        // this._canvas.addEventListener("touchstart", this._touchStartHandler, false);
+        // this._canvas.addEventListener("touchend", this._touchEndHandler, false);
         this._canvas.addEventListener("touchmove", this._touchMoveHandler, false);
         this._canvas.addEventListener("click", this._doubleClickHandler, false);
         // this._canvas.addEventListener("dblclick", this._doubleClickHandler, false);

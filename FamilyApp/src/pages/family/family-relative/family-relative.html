@@ -37,8 +37,8 @@
       </button>
     </ion-fab-list>
   </ion-fab>
-  <div class="center" class="canvasDiv">
-    <canvas #canvas tabindex="0"></canvas>
+  <div scrollX="true" scrollY="true" class="canvasDiv">
+    <canvas #canvas tabindex="0" width="1000" height="1000"></canvas>
   </div>
   <div style="position:absolute;width:100%">
     <ion-searchbar placeholder="输入关键字" [(ngModel)]="userName" debounce="1000" cancelButtonText="取消" (ionCancel)="CancelKey($event)"

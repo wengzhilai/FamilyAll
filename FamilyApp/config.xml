@@ -3,7 +3,7 @@
     <name>FamilyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.154:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -101,5 +101,6 @@
     <plugin name="cordova-plugin-filepath" spec="^1.2.0" />
     <allow-navigation href="http://192.168.0.154:8100" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
-    <engine name="android" spec="7.0.0" />
+    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="^1.0.0" />
+    <engine name="android" spec="6.4.0" />
 </widget>

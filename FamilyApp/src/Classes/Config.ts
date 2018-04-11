@@ -14,7 +14,7 @@ export class Config {
   // static imgUrl:string = 'http://127.0.0.1:5000/';
 
   static api:string = 'http://192.168.0.154:5000/Api/';
-  static imgUrl:string = 'http://192.168.0.154·:5000/';
+  static imgUrl:string = 'http://192.168.0.154:5000/';
 
 
   static _api:string = Config.api;
@@ -36,6 +36,10 @@ export class Config {
    */
   static LoadLanguageSuccPath=""
 
+  /**
+   * 上传文件接口
+   */
+  static Api_Upfile=Config.api + "Public/upload";
   /**
    * 包括多个表接口
    */

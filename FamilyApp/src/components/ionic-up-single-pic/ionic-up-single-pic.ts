@@ -30,7 +30,7 @@ export class IonicUpSinglePicComponent implements OnInit {
   ) {
     console.log('Hello IonicUpFileComponent Component');
     this.isApp = !this.plt.is('core')
-    if(this.FileDict==null)this.FileDict={}
+    if (this.FileDict == null) this.FileDict = {}
 
   }
   ngOnInit() {
@@ -50,8 +50,18 @@ export class IonicUpSinglePicComponent implements OnInit {
       this.showFile(key.ID, key.NAME)
       return
     }
-    this.fileUpService.upImg(this, key, this.CanEdit, (inFile: FileModel, url: string, fileModel: FileModel) => {
-      this.ChangeFileJson.next(inFile)
+    this.fileUpService.upImg(this, key, this.CanEdit, (outFile: FileModel, url: string, fileModel: any) => {
+      if (fileModel == null) fileModel = {}
+      console.log("控件获取到文件返回")
+
+      this.FileDict = fileModel
+      this.commonService.PlatformsExists("core") ? console.log(this.FileDict) : console.log(JSON.stringify(this.FileDict));
+
+      /**
+       * 回调方法
+       */
+      this.ChangeFileJson.next(fileModel)
+
       return true;
     });
   }
@@ -76,7 +86,7 @@ export class IonicUpSinglePicComponent implements OnInit {
    * 格式化文件名
    * @param str 
    */
-  decodeURI(str){
+  decodeURI(str) {
     return decodeURI(str)
   }
 }

@@ -1,5 +1,11 @@
 ionic cordova platform add android@6.4.0
 
+$ ionic cordova platform 
+$ ionic cordova platform add ios
+$ ionic cordova platform add android
+$ ionic cordova platform rm ios
+$ ionic cordova platform rm android
+
 ionic cordova build android --prod --release
 
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore isoft-dh-key.jks E:/work/Code/BSPLSApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk isoft-dh-alias

@@ -16,7 +16,7 @@
     <ion-list>
         <ion-item class="thumbnailMy">
             <ion-thumbnail item-left>
-                <up-single-pic></up-single-pic>
+                <up-single-pic (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
             </ion-thumbnail>
 
             <h2>头像上传
@@ -26,7 +26,6 @@
         <ion-list-header>
             {{"setting.setting"|translate}}
         </ion-list-header>
-        <button *ngIf="plt.is('android')" ion-item (click)="CheckNew()">{{"setting.CheckNew"|translate}}</button>
         <ion-item>
             <ion-label> {{"login.Change_Lang"|translate}} </ion-label>
             <ion-select placeholder="{{'login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
