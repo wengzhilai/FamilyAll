@@ -17,7 +17,7 @@
             <ion-item-divider color="light">{{i18n+'.baseInfo'|translate}}</ion-item-divider>
             <ion-item class="thumbnailMy">
                 <ion-thumbnail item-left>
-                    <up-single-pic (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
+                    <up-single-pic  [FileDict]="bean.iconFiles" (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
                 </ion-thumbnail>
                 <h2>{{i18n+'.firstName'|translate}}：
                     <input formControlName="firstName" />

@@ -13,7 +13,7 @@ from iSoft.core.Fun import Fun
 from config import PASSWORD_COMPLEXITY, VERIFY_CODE
 from sqlalchemy import or_, and_, create_engine
 from iSoft import db
-from iSoft.entity.model import FaUser, FaModule
+from iSoft.entity.model import FaUser, FaModule,FaFile
 from iSoft.dal.LoginDal import LoginDal
 from iSoft.dal.AuthDal import AuthDal
 import datetime
@@ -24,6 +24,7 @@ import json
 class UserDal(FaUser):
     roleIdList = []
     moduleList = []
+    iconFiles={}
 
     def user_findall(self, pageIndex, pageSize, criterion, where):
         relist, is_succ = Fun.model_findall(
@@ -119,6 +120,11 @@ class UserDal(FaUser):
             json.dumps(moduleIdList, cls=AlchemyEncoder))
         token = AuthDal.generate_auth_token(tmp)
         token = token.decode('utf-8')
+        if user.ICON_FILES_ID is not None:
+            file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
+            if file is not None:
+                tmp.iconFiles=file.__dict__
+        
         return AppReturnDTO(True, "登录成功", tmp, token)
     
     def user_checkLoginExist(self, loginName):

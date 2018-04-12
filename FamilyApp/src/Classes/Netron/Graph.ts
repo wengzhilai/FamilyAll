@@ -67,8 +67,8 @@ export class NetronGraph {
         this._canvas.style.height = this._canvas.height + "px";
         this._canvas.width = this._canvas.width * this.devicePixelRatio;
         this._canvas.height = this._canvas.height * this.devicePixelRatio;
-        alert(this._canvas.width)
-        alert(this._canvas.style.width)
+        // alert(this._canvas.width)
+        // alert(this._canvas.style.width)
 
         this._canvas.focus();
         this._context = this._canvas.getContext("2d");

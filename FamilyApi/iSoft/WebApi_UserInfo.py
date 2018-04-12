@@ -71,6 +71,7 @@ def ApiUserInfoSave():
     re_ent, message = _modele.userInfo_Save(
         in_dict=in_ent.Data, saveKeys=in_ent.SaveKeys)
     if message.IsSuccess:
-        message.set_data(re_ent)
+        message.Data=json.loads(json.dumps(re_ent, cls=AlchemyEncoder))
+        # message.set_data(re_ent)
     return Fun.class_to_JsonStr(message)
 

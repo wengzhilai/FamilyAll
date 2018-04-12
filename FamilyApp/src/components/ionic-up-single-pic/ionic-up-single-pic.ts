@@ -36,6 +36,8 @@ export class IonicUpSinglePicComponent implements OnInit {
   ngOnInit() {
     console.log("获取:")
     console.log("CanEdit:" + this.CanEdit)
+    console.log("FileDict:" + this.FileDict)
+    if (this.FileDict == null) this.FileDict = {}
   }
 
   /**

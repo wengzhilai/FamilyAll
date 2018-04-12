@@ -12,7 +12,7 @@ from iSoft.core.Fun import Fun
 from config import PASSWORD_COMPLEXITY, VERIFY_CODE
 from sqlalchemy import or_, and_, create_engine
 from iSoft import db
-from iSoft.entity.model import FaUser, FaModule, FaUserInfo, FaLogin
+from iSoft.entity.model import FaUser, FaModule, FaUserInfo, FaLogin, FaFile
 import datetime
 from iSoft.core.AlchemyEncoder import AlchemyEncoder
 import json
@@ -40,8 +40,12 @@ class UserInfoDal(FaUserInfo):
 
     def userInfo_single(self, key):
         '''查询一用户'''
-        is_succ = Fun.model_single(FaUserInfo, key)
-        return is_succ
+        user,is_succ = Fun.model_single(FaUserInfo, key)
+        if user.ICON_FILES_ID is not None:
+            file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
+            if file is not None:
+                user.iconFiles=json.loads(json.dumps(file, cls=AlchemyEncoder))
+        return user,is_succ
 
     def userInfo_SingleByName(self, name):
         relist = FaUserInfo.query.filter(

@@ -38,8 +38,7 @@ export class FamilyRelativePage implements OnInit {
     
   }
   ngOnInit() {
-    console.log(111)
-    console.log(this.mapElement)
+
     this.graph = new NetronGraph(this.mapElement.nativeElement);
     this.graph.ClickBlack=(x)=>{
       this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
@@ -157,11 +156,11 @@ export class FamilyRelativePage implements OnInit {
       }
     ],
     paint: (element, context) => {
-      console.log(element.content)
+      // console.log(element.content)
       var rectangle = element.rectangle;
       rectangle.x += context.canvas.offsetLeft;
       rectangle.y += context.canvas.offsetTop;
-      console.log(JSON.stringify(rectangle))
+      // console.log(JSON.stringify(rectangle))
       // var ctx=context;
       // ctx.fillStyle="#FF0000";
       // ctx.fillRect(0,0,20,70);

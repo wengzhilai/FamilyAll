@@ -42,6 +42,4 @@ search.db
 flask
 *venv
 iSoft/download
-.vscode/
-.vscode/
 package-lock.json

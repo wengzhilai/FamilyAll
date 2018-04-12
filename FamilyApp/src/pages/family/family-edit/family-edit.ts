@@ -49,7 +49,8 @@ export class FamilyEditPage {
     IS_LIVE: 1,
     LEVEL_ID: 1,
     DIED_TIME: '',
-    BIRTHDAY_TIME: ''
+    BIRTHDAY_TIME: '',
+    ICON_FILES_ID: ""
   };
   title: string = "添加用户"
 
@@ -126,8 +127,8 @@ export class FamilyEditPage {
       this.bean[key] = this.userForm.value[key];
     }
     this.bean.NAME = this.bean.firstName + this.bean.lastName;
-    this.bean.BIRTHDAY_TIME=this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z','')
-    this.bean.DIED_TIME=this.bean.DIED_TIME.replace('T', ' ').replace('Z','')
+    this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z', '')
+    this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
     console.log(this.bean)
 
     this.toPostService.Post("UserInfo/save", { Data: this.bean, "SaveKeys": this.commonService.GetBeanNameStr(this.bean) }).then((currMsg) => {
@@ -238,7 +239,10 @@ export class FamilyEditPage {
   }
 
   ChangeFileJson(obj) {
-    console.log('获取值1111')
+    console.log('编辑界面获取到值')
     this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
+    if (obj != null) {
+      this.bean.ICON_FILES_ID = obj.ID;
+    }
   }
 }
