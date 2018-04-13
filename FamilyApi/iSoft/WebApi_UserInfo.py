@@ -13,6 +13,7 @@ import json
 import random  # 生成随机数
 from iSoft.model.framework.RequestSaveModel import RequestSaveModel
 from iSoft.model.framework.PostBaseModel import PostBaseModel
+from iSoft.UserController import user_list
 
 @app.route('/Api/UserInfo/Delete', methods=['GET', 'POST'])
 @auth.login_required
@@ -74,4 +75,9 @@ def ApiUserInfoSave():
         message.Data=json.loads(json.dumps(re_ent, cls=AlchemyEncoder))
         # message.set_data(re_ent)
     return Fun.class_to_JsonStr(message)
+
+@app.route('/Api/UserInfo/list', methods=['GET', 'POST'])
+@auth.login_required
+def ApiUserInfolist():
+    return user_list()
 

@@ -95,12 +95,12 @@ export class NetronGraph {
         this._canvas.addEventListener("mousemove", this._mouseMoveHandler, false);
         // this._canvas.addEventListener("touchstart", this._touchStartHandler, false);
         // this._canvas.addEventListener("touchend", this._touchEndHandler, false);
-        this._canvas.addEventListener("touchmove", this._touchMoveHandler, false);
+        // this._canvas.addEventListener("touchmove", this._touchMoveHandler, false);
         this._canvas.addEventListener("click", this._doubleClickHandler, false);
         // this._canvas.addEventListener("dblclick", this._doubleClickHandler, false);
-        this._canvas.addEventListener("keydown", this._keyDownHandler, false);
-        this._canvas.addEventListener("keypress", this._keyPressHandler, false);
-        this._canvas.addEventListener("keyup", this._keyUpHandler, false);
+        // this._canvas.addEventListener("keydown", this._keyDownHandler, false);
+        // this._canvas.addEventListener("keypress", this._keyPressHandler, false);
+        // this._canvas.addEventListener("keyup", this._keyUpHandler, false);
     }
 
     public dispose() {
@@ -207,7 +207,7 @@ export class NetronGraph {
     private mouseDown(e: MouseEvent) {
         e.preventDefault();
         this._canvas.focus();
-        this.updateMousePosition(e);
+        // this.updateMousePosition(e);
 
         if (e.button === 0) // left-click
         {
@@ -231,8 +231,8 @@ export class NetronGraph {
 
     private mouseMove(e: MouseEvent) {
         e.preventDefault();
-        this.updateMousePosition(e);
-        this.pointerMove();
+        // this.updateMousePosition(e);
+        this.pointerMove(e);
     }
 
     private doubleClick(e: MouseEvent) {
@@ -271,7 +271,7 @@ export class NetronGraph {
         if (e.touches.length == 1) {
             e.preventDefault();
             this.updateTouchPosition(e);
-            this.pointerMove();
+            this.pointerMove(e);
         }
     }
 
@@ -414,13 +414,14 @@ export class NetronGraph {
         this.updateMouseCursor();
     }
 
-    private pointerMove() {
+    private pointerMove(e) {
         let point: NetronPoint = this._pointerPosition;
-
+        // console.log(point)
         if (this._newElement !== null) {
             // placing new element
             this._newElement.invalidate();
-            this._newElement.rectangle = new NetronRectangle(point.x, point.y, this._newElement.rectangle.width, this._newElement.rectangle.height);
+            // this._newElement.rectangle = new NetronRectangle(point.x, point.y, this._newElement.rectangle.width, this._newElement.rectangle.height);
+            this._newElement.rectangle = new NetronRectangle(e.offsetX, e.offsetY+50, this._newElement.rectangle.width, this._newElement.rectangle.height);
             this._newElement.invalidate();
         }
 
@@ -650,8 +651,10 @@ export class NetronGraph {
     }
 
     private updateMousePosition(e: MouseEvent) {
+        // console.log(e)
         this._shiftKey = e.shiftKey;
-        this._pointerPosition = new NetronPoint(e.pageX, e.pageY);
+        // this._pointerPosition = new NetronPoint(e.pageX, e.pageY);
+        this._pointerPosition = new NetronPoint(e.offsetX, e.offsetY+50);
         let node: HTMLElement = this._canvas;
         while (node !== null) {
             this._pointerPosition.x -= node.offsetLeft;
@@ -682,7 +685,8 @@ export class NetronGraph {
     public update() {
         this._canvas.style.background = this.theme.background;
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-
+        
+        // 绘制连接线
         let connections: NetronConnection[] = [];
         for (let i = 0; i < this._elements.length; i++) {
             let element: NetronElement = this._elements[i];
@@ -698,14 +702,18 @@ export class NetronGraph {
             }
         }
 
+        // 绘制每一个节点和内容以及边框
         for (let i: number = 0; i < this._elements.length; i++) {
             this._context.save();
             this._elements[i].paint(this._context);
             this._context.restore();
         }
 
+        // 绘制热点区
         for (let i: number = 0; i < this._elements.length; i++) {
             let element: NetronElement = this._elements[i];
+
+            // 连接点
             for (let j: number = 0; j < element.connectors.length; j++) {
                 let connector: NetronConnector = element.connectors[j];
 
@@ -719,9 +727,9 @@ export class NetronGraph {
                 if ((element.hover) || (connector.hover) || hover) {
                     connector.paint(this._context, (this._newConnection !== null) ? this._newConnection.from : null);
                 }
-                else if ((this._newConnection !== null) && (connector.isAssignable(this._newConnection.from))) {
-                    connector.paint(this._context, this._newConnection.from);
-                }
+                // else if ((this._newConnection !== null) && (connector.isAssignable(this._newConnection.from))) {
+                //     connector.paint(this._context, this._newConnection.from);
+                // }
             }
         }
 

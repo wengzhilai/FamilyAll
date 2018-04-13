@@ -6,7 +6,7 @@
 
 
 <ion-content>
-  <ion-fab #fab bottom right style="display: none;">
+  <ion-fab #fab bottom right>
     <button ion-fab>操作</button>
     <ion-fab-list side="top" style="margin-left: -90px;">
       <button ion-button icon-end color="primary" (click)="AddSon()">
@@ -37,13 +37,17 @@
       </button>
     </ion-fab-list>
   </ion-fab>
-  <div scrollX="true" scrollY="true" class="canvasDiv">
+  <ion-scroll scrollX="true" scrollY="true" style="height: 100%;width: 100%" class="canvasDiv">
+    <!-- <div style="width: 1000px;height: 1000px;background-color: rebeccapurple"></div> -->
     <canvas #canvas tabindex="0" width="1000" height="1000"></canvas>
-  </div>
-  <div style="position:absolute;width:100%">
+  </ion-scroll>
+  <!-- <div scrollX="true" scrollY="true" class="canvasDiv">
+    <canvas #canvas tabindex="0" width="1000" height="1000"></canvas>
+  </div> -->
+  <div style="position:absolute;width:100%;z-index: 1;">
     <ion-searchbar placeholder="输入关键字" [(ngModel)]="userName" debounce="1000" cancelButtonText="取消" (ionCancel)="CancelKey($event)"
       (ionClear)="CancelKey($event)" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
-    <ion-list>
+    <ion-list *ngIf="userInfoList!=null && userInfoList.length>0">
       <ion-item *ngFor="let item of userInfoList" (click)="SelectUser(item)">
         {{ item.NAME }}
       </ion-item>

@@ -99,6 +99,11 @@ import { NetronConnection } from "./Connection";
             return true;
         }
 
+        /**
+         * 
+         * @param context 绘制热点区域
+         * @param other 
+         */
         public paint(context: CanvasRenderingContext2D, other)
         {
             var rectangle: NetronRectangle = this.getRectangle();

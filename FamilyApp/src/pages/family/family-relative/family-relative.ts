@@ -35,12 +35,12 @@ export class FamilyRelativePage implements OnInit {
     private alertCtrl: AlertController,
     public toPostService: ToPostService
   ) {
-    
+
   }
   ngOnInit() {
 
     this.graph = new NetronGraph(this.mapElement.nativeElement);
-    this.graph.ClickBlack=(x)=>{
+    this.graph.ClickBlack = (x) => {
       this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
     }
     this.onSucc();
@@ -57,9 +57,9 @@ export class FamilyRelativePage implements OnInit {
     let val = ev.target.value;
     if (val && val.trim() !== '') {
       var postBean = {
-        para: [{ K: "keyWord", V: val.trim() }]
+        SearchKey: [{ "Key": "NAME","Type":"like", "Value": val.trim() }]
       }
-      this.toPostService.Post("UserInfo/UserInfoList", postBean, (currMsg) => {
+      this.toPostService.Post("UserInfo/list", postBean, (currMsg) => {
         if (currMsg.IsError) {
           this.commonService.hint(currMsg.Message);
         }
@@ -82,16 +82,25 @@ export class FamilyRelativePage implements OnInit {
       this.userInfoList = [];
     }
   }
-  onSucc(postUserId=null) {
+  
+  
+  onSucc(postUserId = null) {
+
 
     this.userId = postUserId;
+    this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
     
-    this.toPostService.Post("Family/UserInfoRelative", {Key:postUserId}, (currMsg) => {
+    // if(this.fab!=null){
+    //   this.fab.toggleList();
+    // }
+    this.commonService.showLoading();
+    this.toPostService.Post("Family/UserInfoRelative", { Key: postUserId }, (currMsg) => {
+      this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
       } else {
         this.userRelative = currMsg.Data;
-
+        this.commonService.showLongToast("总" + this.userRelative.ItemList.length + "人")
         for (var i = 0; i < this.userRelative.ItemList.length; i++) {
           var item = this.userRelative.ItemList[i];
           var e1 = this.graph.addElement(this.personTemplate, { x: item.x * 15 + 20, y: item.y * 90 + 50 }, item.Name, item);
@@ -104,20 +113,19 @@ export class FamilyRelativePage implements OnInit {
           }
         });
         this.graph.update();
-        
       }
     })
   }
 
 
-  test(){
+  test() {
 
     console.log(this.graph)
-    var e1 = this.graph.addElement(this.personTemplate, { x: 250, y: 50 }, "Michael Scott",{});
-    var e2 = this.graph.addElement(this.personTemplate, { x: 150, y: 150 }, "Angela Martin",{});
-    var e3 = this.graph.addElement(this.personTemplate, { x: 350, y: 150 }, "Dwight Schrute",{});
-    var e4 = this.graph.addElement(this.personTemplate, { x: 50, y: 250 }, "Kevin Malone",{});
-    var e5 = this.graph.addElement(this.personTemplate, { x: 250, y: 250 }, "Oscar Martinez",{});
+    var e1 = this.graph.addElement(this.personTemplate, { x: 250, y: 50 }, "Michael Scott", {});
+    var e2 = this.graph.addElement(this.personTemplate, { x: 150, y: 150 }, "Angela Martin", {});
+    var e3 = this.graph.addElement(this.personTemplate, { x: 350, y: 150 }, "Dwight Schrute", {});
+    var e4 = this.graph.addElement(this.personTemplate, { x: 50, y: 250 }, "Kevin Malone", {});
+    var e5 = this.graph.addElement(this.personTemplate, { x: 250, y: 250 }, "Oscar Martinez", {});
     this.graph.addConnection(e1.getConnector("reports"), e2.getConnector("manager"));
     this.graph.addConnection(e1.getConnector("reports"), e3.getConnector("manager"));
     this.graph.addConnection(e2.getConnector("reports"), e4.getConnector("manager"));
@@ -135,7 +143,7 @@ export class FamilyRelativePage implements OnInit {
       {
         name: "manager",
         type: "Person [in]",
-        description: "Manager",
+        description: "",
         getConnectorPosition: (element) => {
           return {
             x: Math.floor(element.rectangle.width / 2),
@@ -146,7 +154,7 @@ export class FamilyRelativePage implements OnInit {
       {
         name: "reports",
         type: "Person [out] [array]",
-        description: "Reports",
+        description: "",
         getConnectorPosition: (element) => {
           return {
             x: Math.floor(element.rectangle.width / 2),
@@ -295,8 +303,8 @@ export class FamilyRelativePage implements OnInit {
             this.toPostService.Post("UserInfo/Delete", postBean, (currMsg) => {
               if (currMsg.IsSuccess) {
                 this.commonService.hint('删除成功');
-                this.tempCheckUser.Name=""
-                this.tempCheckUser.Id=""
+                this.tempCheckUser.Name = ""
+                this.tempCheckUser.Id = ""
                 this.LookRelative()
               } else {
                 this.commonService.hint(currMsg.Msg);
