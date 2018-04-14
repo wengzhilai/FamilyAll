@@ -50,7 +50,8 @@ export class FamilyEditPage {
     LEVEL_ID: 1,
     DIED_TIME: '',
     BIRTHDAY_TIME: '',
-    ICON_FILES_ID: ""
+    ICON_FILES_ID: "",
+
   };
   title: string = "添加用户"
 
@@ -86,6 +87,46 @@ export class FamilyEditPage {
     });
   }
 
+
+
+  ionViewDidLoad() {
+    console.log(this.params);
+
+    switch (this.params.data.optype) {
+      case "edit":
+        this.GetSingleEnt()
+        break
+      case "addSon":
+        this.bean.FATHER_ID=this.params.data.userId
+        break
+    }
+
+
+  }
+
+  /**
+   * 获取实体
+   */
+  GetSingleEnt() {
+    this.toPostService.Post("UserInfo/Single", { "Key": this.params.get("userId") }).then((currMsg) => {
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg)
+        this.navCtrl.pop();
+      }
+      else {
+        this.bean = currMsg.Data;
+        if (this.bean.BIRTHDAY_TIME != null) {
+          this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace(' ', 'T')
+        }
+        if (this.bean.DIED_TIME != null) {
+          this.bean.DIED_TIME = this.bean.DIED_TIME.replace(' ', 'T')
+        }
+        this.SetForm(this.bean);
+      }
+    })
+    this.title = "修改[" + this.params.get("userName") + "]的资料";
+  }
+
   SetForm(inEnt) {
     this.userForm.get('firstName').setValue((inEnt.NAME == null || inEnt.NAME.length < 1) ? "" : inEnt.NAME.substr(0, 1));
     this.userForm.get('lastName').setValue((inEnt.NAME == null || inEnt.NAME.length < 2) ? "" : inEnt.NAME.substr(1))
@@ -96,22 +137,6 @@ export class FamilyEditPage {
     this.userForm.get('REMARK').setValue(inEnt.REMARK)
   }
 
-  ionViewDidLoad() {
-    console.log(this.params);
-    this.toPostService.Post("UserInfo/Single", { "Key": this.params.get("userId") }).then((currMsg) => {
-      if (!currMsg.IsSuccess) {
-        this.commonService.hint(currMsg.Msg)
-        this.navCtrl.pop();
-      }
-      else {
-        this.bean = currMsg.Data;
-        this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace(' ', 'T')
-        this.bean.DIED_TIME = this.bean.DIED_TIME.replace(' ', 'T')
-        this.SetForm(this.bean);
-      }
-    })
-    this.title = "修改[" + this.params.get("userName") + "]的资料";
-  }
   upImg(key) {
 
   }

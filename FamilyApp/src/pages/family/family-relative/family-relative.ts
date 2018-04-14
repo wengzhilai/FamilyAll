@@ -60,17 +60,17 @@ export class FamilyRelativePage implements OnInit {
         SearchKey: [{ "Key": "NAME","Type":"like", "Value": val.trim() }]
       }
       this.toPostService.Post("UserInfo/list", postBean, (currMsg) => {
-        if (currMsg.IsError) {
+        if (!currMsg.IsSuccess) {
           this.commonService.hint(currMsg.Message);
         }
         else {
-          if (currMsg.totalCount > 1) {
-            this.userInfoList = currMsg.data;
+          if (currMsg.Msg > 1) {
+            this.userInfoList = currMsg.Data;
           }
-          else if (currMsg.totalCount == 1) {
+          else if (currMsg.Msg == 1) {
             this.userInfoList = [];
-            this.userName = currMsg.data[0].NAME;
-            this.SelectUser(currMsg.data[0])
+            this.userName = currMsg.Data[0].NAME;
+            this.SelectUser(currMsg.Data[0])
           }
           else {
             this.userInfoList = [];
@@ -205,28 +205,19 @@ export class FamilyRelativePage implements OnInit {
     }
   }
 
-  EditFather() {
-    this.userName = this.tempCheckUser.Name;
-    this.userId = this.tempCheckUser.Id;
-    this.fab.toggleList();
-    this.navCtrl.push("FamilyEditFatherPage",
-      {
-        optype: "EditFather",
-        userId: this.userId,
-        userName: this.userName
-      });
-  }
+
   AddSon() {
     this.userName = this.tempCheckUser.Name;
     this.userId = this.tempCheckUser.Id;
     this.fab.toggleList();
-    this.navCtrl.push("FamilyEditFatherPage",
+    this.navCtrl.push("FamilyEditPage",
       {
         optype: "addSon",
         userId: this.userId,
         userName: this.userName
       });
   }
+
   AddAllSon() {
     this.userName = this.tempCheckUser.Name;
     this.userId = this.tempCheckUser.Id;

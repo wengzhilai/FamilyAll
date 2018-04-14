@@ -30,7 +30,12 @@ class UserInfoDal(FaUserInfo):
         return relist, is_succ
 
     def userInfo_Save(self, in_dict, saveKeys):
-        relist, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys)
+        
+        if "FATHER_ID" in in_dict:
+            fatherUser=FaUser.query.filter_by(ID=in_dict["FATHER_ID"]).first()
+            in_dict["DISTRICT_ID"]=fatherUser.DISTRICT_ID
+
+        relist, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys,FaUser)
 
         return relist, is_succ
 

@@ -92,17 +92,19 @@ class Fun(object):
         return db.session.execute('select nextval("{}_seq") seq'.format(model.__tablename__)).fetchall()[0][0]
 
     @staticmethod
-    def model_save(model, self, in_dict, saveKeys):
-
+    def model_save(model, self, in_dict, saveKeys, seqModel=None):
+        if seqModel is None:
+            seqModel=model
         if 'ID' not in in_dict:
             in_dict["ID"] = 0
         db_ent = model.query.filter(model.ID == in_dict["ID"]).first()
         if db_ent is None:
             db_ent = self
-            for item in in_dict:
-                setattr(db_ent, item, in_dict[item])
+            for item in in_dict :
+                if not Fun.IsNullOrEmpty(in_dict[item]):
+                    setattr(db_ent, item, in_dict[item])
             if db_ent.ID is None or db_ent.ID == "" or db_ent.ID == 0 or db_ent.ID == '0':
-                db_ent.ID = Fun.GetSeqId(model)
+                db_ent.ID = Fun.GetSeqId(seqModel)
             db.session.add(db_ent)
         else:
             for item in saveKeys:
