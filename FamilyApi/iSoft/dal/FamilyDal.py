@@ -6,8 +6,14 @@ from iSoft.model.FamilyRelative.RelativeItem import RelativeItem, HorizonVal, Ax
 
 
 class FamilyDal(object):
+    cacheData=[]
+
     def UserInfoRelative(self, userId):
+
+        # self.cacheData=FaUserInfo.query.all()
+
         userInfoEnt = FaUserInfo.query.filter(FaUserInfo.ID == userId).first()
+        # userInfoEnt = [ item for item in self.cacheData if item.ID==userId][0]
         if userInfoEnt is None:
             return None, AppReturnDTO(False, "用户不存在")
         reEnt = Relative()
@@ -45,7 +51,10 @@ class FamilyDal(object):
         if inSon.FATHER_ID is None:
             return True;
         # 获取父级的所有子，也包括本人，并排序
+
         father=FaUserInfo.query.filter(FaUserInfo.ID == inSon.FATHER_ID).first()
+        # father = [ item for item in self.cacheData if item.ID==inSon.FATHER_ID][0]
+        
         sonList=sorted(father.fa_user_infos, key=lambda x: x.LEVEL_ID)
         
         #获取当前传入值的位置
