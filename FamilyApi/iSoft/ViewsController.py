@@ -72,11 +72,8 @@ def downloader(filename):
 
 
 @app.route('/', methods=['GET', 'POST'])
-@auth.login_required
 def index():
-    if g == None:
-        return "Hellow"
-    return "Hello, %s!" % g.current_user.ID
+    return "Hello,wendell"
 
 
 
