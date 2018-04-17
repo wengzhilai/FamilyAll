@@ -187,7 +187,7 @@ export class UserRegPage {
       this.bean[key] = this.userForm.value[key];
     }
     console.log(this.bean)
-    let postBean={Data:this.bean}
+    let postBean = { Data: this.bean }
 
     this.toPostService.Post("UserInfo/Register", postBean, (currMsg) => {
       if (currMsg.IsSuccess) {
@@ -206,6 +206,9 @@ export class UserRegPage {
   }
 
   DoneBirthdayTime(inDate: any) {
+    console.log(inDate)
+    let t = new Date(inDate)
+
     let dataStr = inDate.substr(0, inDate.indexOf('T'))
     let alert = this.alertCtrl.create({
       title: '日期类型',
@@ -219,7 +222,8 @@ export class UserRegPage {
             this.solarDate = ""
             this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
               if (currMsg.IsSuccess) {
-                this.solarDate = currMsg.Msg
+                let nowDate = new Date(currMsg.Msg)
+                this.solarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
               }
             });
           }
@@ -232,7 +236,8 @@ export class UserRegPage {
             this.lunlarDate = ""
             this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
               if (currMsg.IsSuccess) {
-                this.lunlarDate = currMsg.Msg
+                let nowDate = new Date(currMsg.Msg)
+                this.lunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
               }
             });
           }

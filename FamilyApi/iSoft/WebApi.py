@@ -11,6 +11,7 @@ from iSoft.core.AlchemyEncoder import AlchemyEncoder
 import json
 import random  # 生成随机数
 from iSoft.model.framework.RequestSaveModel import RequestSaveModel
+from iSoft.core.LunarSolarConverter import LunarSolarConverter,Solar,Lunar
 import iSoft.core.LunarDate
 import datetime
 import time
@@ -43,6 +44,7 @@ def ApiPublicSendCode():
 
 @app.route('/Api/Public/GetLunarDate', methods=['GET', 'POST'])
 def ApiPublicGetLunarDate():
+    '获取阴历'
     j_data, msg = Fun.post_to_dict(request)
     if j_data is None:
         return Fun.class_to_JsonStr(msg)
@@ -50,15 +52,19 @@ def ApiPublicGetLunarDate():
     if postEnt is None or postEnt.Data is None:
         return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有问题"))
 
+
     t = time.strptime(postEnt.Data["Data"], "%Y-%m-%d")
     y, m, d = t[0:3]
-    reStr = iSoft.core.LunarDate.LunarDate.fromSolarDate(y, m, d)
-    reStr = "{0}-{1}-{2}".format(reStr.year, reStr.month, reStr.day)
+    converter = LunarSolarConverter()
+    solar = Solar(y, m, d)
+    lunar = converter.SolarToLunar(solar)
+    reStr = "{0}-{1}-{2}".format(lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay)
     return Fun.class_to_JsonStr(AppReturnDTO(True, reStr))
 
 
 @app.route('/Api/Public/GetSolarDate', methods=['GET', 'POST'])
 def ApiPublicGetSolarDate():
+    '''获取阳历'''
     j_data, msg = Fun.post_to_dict(request)
     if j_data is None:
         return Fun.class_to_JsonStr(msg)
@@ -68,9 +74,14 @@ def ApiPublicGetSolarDate():
 
     t = time.strptime(postEnt.Data["Data"], "%Y-%m-%d")
     y, m, d = t[0:3]
-    reStr = iSoft.core.LunarDate.LunarDate.fromSolarDate(y, m, d)
-    reStr = "{0}-{1}-{2}".format(reStr.year, reStr.month, reStr.day)
+
+    converter = LunarSolarConverter()
+    lunar = Lunar(y, m, d, isleap=False)
+    solar = converter.LunarToSolar(lunar)
+    reStr = "{0}-{1}-{2}".format(solar.solarYear, solar.solarMonth, solar.solarDay)
     return Fun.class_to_JsonStr(AppReturnDTO(True, reStr))
+
+    
 
 
 @app.route('/Api/Public/upload', methods=['POST', 'GET'])

@@ -11,6 +11,7 @@ import { FileUpService } from "../../../Service/FileUp.Service";
 
 import { AppGlobal } from "../../../Classes/AppGlobal";
 import { Dictionary } from "../../../Classes/Dictionary";
+import { max } from 'rxjs/operator/max';
 
 
 @IonicPage()
@@ -39,10 +40,7 @@ export class FamilyRelativePage implements OnInit {
   }
   ngOnInit() {
 
-    this.graph = new NetronGraph(this.mapElement.nativeElement);
-    this.graph.ClickBlack = (x) => {
-      this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
-    }
+
     this.onSucc();
     // this.test()
     // var ctx=this.mapElement.nativeElement.getContext("2d");
@@ -57,7 +55,7 @@ export class FamilyRelativePage implements OnInit {
     let val = ev.target.value;
     if (val && val.trim() !== '') {
       var postBean = {
-        SearchKey: [{ "Key": "NAME","Type":"like", "Value": val.trim() }]
+        SearchKey: [{ "Key": "NAME", "Type": "like", "Value": val.trim() }]
       }
       this.toPostService.Post("UserInfo/list", postBean, (currMsg) => {
         if (!currMsg.IsSuccess) {
@@ -82,14 +80,14 @@ export class FamilyRelativePage implements OnInit {
       this.userInfoList = [];
     }
   }
-  
-  
+
+
   onSucc(postUserId = null) {
 
 
     this.userId = postUserId;
     this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
-    
+
     // if(this.fab!=null){
     //   this.fab.toggleList();
     // }
@@ -101,6 +99,24 @@ export class FamilyRelativePage implements OnInit {
       } else {
         this.userRelative = currMsg.Data;
         this.commonService.showLongToast("总" + this.userRelative.ItemList.length + "人")
+        // 计算宽高
+        let maxX = 0;
+        let maxY = 0
+        for (var i = 0; i < this.userRelative.ItemList.length; i++) {
+          var item = this.userRelative.ItemList[i];
+          if (maxX < item.x) maxX = item.x
+          if (maxY < item.y) maxY = item.y
+        }
+        let canvas = this.mapElement.nativeElement
+        canvas.width = maxX * 15 + 100
+        canvas.height = maxY * 90 + 200
+        canvas.style.width = canvas.width + "px";
+        canvas.style.height = canvas.height + "px";
+        // 计算高宽
+        this.graph = new NetronGraph(this.mapElement.nativeElement);
+        this.graph.ClickBlack = (x) => {
+          this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
+        }
         for (var i = 0; i < this.userRelative.ItemList.length; i++) {
           var item = this.userRelative.ItemList[i];
           var e1 = this.graph.addElement(this.personTemplate, { x: item.x * 15 + 20, y: item.y * 90 + 50 }, item.Name, item);
@@ -112,6 +128,11 @@ export class FamilyRelativePage implements OnInit {
             this.graph.addConnection(allR[element.V].getConnector("reports"), allR[element.K].getConnector("manager"));
           }
         });
+
+
+
+
+
         this.graph.update();
       }
     })
@@ -293,7 +314,6 @@ export class FamilyRelativePage implements OnInit {
             };
             this.toPostService.Post("UserInfo/Delete", postBean, (currMsg) => {
               if (currMsg.IsSuccess) {
-                this.commonService.hint('删除成功');
                 this.tempCheckUser.Name = ""
                 this.tempCheckUser.Id = ""
                 this.LookRelative()
