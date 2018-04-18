@@ -108,8 +108,12 @@ export class FamilyRelativePage implements OnInit {
           if (maxY < item.y) maxY = item.y
         }
         let canvas = this.mapElement.nativeElement
-        canvas.width = maxX * 15 + 100
-        canvas.height = maxY * 90 + 200
+        maxX = maxX * 15 + 100
+        maxY = maxY * 90 + 200
+        if(maxX<screen.width)maxX=screen.width
+        if(maxY<screen.height)maxY=screen.height
+        canvas.width = maxX
+        canvas.height = maxY
         canvas.style.width = canvas.width + "px";
         canvas.style.height = canvas.height + "px";
         // 计算高宽

@@ -92,12 +92,11 @@
   "family-edit": {
     "baseInfo":"基础资料",
 
-    "firstName": "姓",
-    "lastName": "名",
+    "NAME": "姓名",
     "SEX": "性别",
     "LEVEL_ID": "排行",
     "BIRTHDAY_PLACE": "出生地点",
-    "REMARK": "备注",
+    "REMARK": "个人概述",
     "BirthdayInfo":"出生信息",
     "DiedInfo":"逝世信息",
     "DIED_PLACE":"逝世地点"

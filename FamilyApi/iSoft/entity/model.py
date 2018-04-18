@@ -691,7 +691,7 @@ class FaUserInfo(FaUser):
     ELDER_ID = db.Column(db.ForeignKey(u'fa_elder.ID'))
     LEVEL_NAME = db.Column(db.String(2))
     FATHER_ID = db.Column(db.ForeignKey(u'fa_user_info.ID'))
-    MOTHER_ID = db.Column(db.Integer)
+    COUPLE_ID = db.Column(db.Integer)
     BIRTHDAY_TIME = db.Column(db.DateTime)
     BIRTHDAY_PLACE = db.Column(db.String(500))
     IS_LIVE = db.Column(db.Numeric(1, 0))

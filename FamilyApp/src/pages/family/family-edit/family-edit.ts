@@ -31,6 +31,8 @@ export class FamilyEditPage {
   /** 设置时间选择对象 */
   yearPicker: any = YearPicker;
 
+  /** 当前操作的用户类型 */
+  userType="husband"
 
   BirthdaylunlarDate
   BirthdaysolarDate
@@ -51,7 +53,7 @@ export class FamilyEditPage {
     DIED_TIME: '',
     BIRTHDAY_TIME: '',
     ICON_FILES_ID: "",
-
+    COUPLE_ID:null
   };
   title: string = "添加用户"
 
@@ -77,8 +79,7 @@ export class FamilyEditPage {
     // console.log(typeof (this))
 
     this.userForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
-      lastName: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
+      NAME: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
       SEX: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       LEVEL_ID: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       BIRTHDAY_PLACE: ['', [Validators.minLength(0), Validators.maxLength(200)]],
@@ -94,7 +95,7 @@ export class FamilyEditPage {
 
     switch (this.params.data.optype) {
       case "edit":
-        this.GetSingleEnt()
+        this.GetSingleEnt(this.params.get("userId"))
         break
       case "addSon":
         this.bean.FATHER_ID=this.params.data.userId
@@ -107,8 +108,8 @@ export class FamilyEditPage {
   /**
    * 获取实体
    */
-  GetSingleEnt() {
-    this.toPostService.Post("UserInfo/Single", { "Key": this.params.get("userId") }).then((currMsg) => {
+  GetSingleEnt(userId) {
+    this.toPostService.Post("UserInfo/Single", { "Key": userId }).then((currMsg) => {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
         this.navCtrl.pop();
@@ -124,12 +125,11 @@ export class FamilyEditPage {
         this.SetForm(this.bean);
       }
     })
-    this.title = "修改[" + this.params.get("userName") + "]的资料";
+    // this.title = "修改[" + this.params.get("userName") + "]的资料";
   }
 
   SetForm(inEnt) {
-    this.userForm.get('firstName').setValue((inEnt.NAME == null || inEnt.NAME.length < 1) ? "" : inEnt.NAME.substr(0, 1));
-    this.userForm.get('lastName').setValue((inEnt.NAME == null || inEnt.NAME.length < 2) ? "" : inEnt.NAME.substr(1))
+    this.userForm.get('NAME').setValue(inEnt.NAME)
     this.userForm.get('SEX').setValue(inEnt.SEX)
     this.userForm.get('LEVEL_ID').setValue(inEnt.LEVEL_ID)
     this.userForm.get('BIRTHDAY_PLACE').setValue(inEnt.BIRTHDAY_PLACE)
@@ -151,7 +151,6 @@ export class FamilyEditPage {
     for (var key in this.userForm.value) {
       this.bean[key] = this.userForm.value[key];
     }
-    this.bean.NAME = this.bean.firstName + this.bean.lastName;
     this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z', '')
     this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
     console.log(this.bean)
@@ -269,5 +268,32 @@ export class FamilyEditPage {
     if (obj != null) {
       this.bean.ICON_FILES_ID = obj.ID;
     }
+  }
+
+  UserTypeChanged(obj){
+    console.log(obj.value)
+    switch (obj.value) {
+      case "husband":
+        this.GetSingleEnt(this.params.get("userId"))
+        break;
+      case "wife":
+        if(this.bean.COUPLE_ID!=null){
+          this.GetSingleEnt(this.bean.COUPLE_ID)
+        }
+        else{
+          this.bean={
+            YEARS_TYPE: "阳历",
+            SEX: "女",
+            IS_LIVE: 1,
+            LEVEL_ID: 1,
+            DIED_TIME: '',
+            BIRTHDAY_TIME: '',
+            ICON_FILES_ID: "",
+            COUPLE_ID:this.params.get("userId")
+          }
+        }
+        break;
+    }
+
   }
 }

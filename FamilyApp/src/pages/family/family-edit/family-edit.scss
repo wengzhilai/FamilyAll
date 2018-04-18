@@ -5,8 +5,12 @@ page-family-edit {
             width: 100px;
             height: 100px;
         }
-        input{
-           width: 60px;
+        ion-item{
+            padding-left: 0px;
+        }
+        .item-inner{
+            .input-wrapper{
+            }
         }
     }
 }
