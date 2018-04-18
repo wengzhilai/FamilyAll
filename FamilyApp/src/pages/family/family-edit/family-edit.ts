@@ -26,19 +26,20 @@ export class FamilyEditPage {
   /** 表单 */
   userForm: FormGroup;
 
+  hasbandName=""
   /** 年份开始时间 用于计算非公元年的 */
   public yeasStart
   /** 设置时间选择对象 */
   yearPicker: any = YearPicker;
 
   /** 当前操作的用户类型 */
-  userType="husband"
+  userType = "husband"
 
-  BirthdaylunlarDate
-  BirthdaysolarDate
+  BirthdaylunlarDate = ""
+  BirthdaysolarDate = ""
 
-  DiedsolarDate
-  DiedlunlarDate
+  DiedsolarDate = ""
+  DiedlunlarDate = ""
 
   // 过世的干支
   diedTianDi
@@ -53,7 +54,8 @@ export class FamilyEditPage {
     DIED_TIME: '',
     BIRTHDAY_TIME: '',
     ICON_FILES_ID: "",
-    COUPLE_ID:null
+    COUPLE_ID: null,
+    iconFiles: {}
   };
   title: string = "添加用户"
 
@@ -98,7 +100,7 @@ export class FamilyEditPage {
         this.GetSingleEnt(this.params.get("userId"))
         break
       case "addSon":
-        this.bean.FATHER_ID=this.params.data.userId
+        this.bean.FATHER_ID = this.params.data.userId
         break
     }
 
@@ -109,7 +111,9 @@ export class FamilyEditPage {
    * 获取实体
    */
   GetSingleEnt(userId) {
+    this.commonService.showLoading()
     this.toPostService.Post("UserInfo/Single", { "Key": userId }).then((currMsg) => {
+      this.commonService.hideLoading()
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
         this.navCtrl.pop();
@@ -122,6 +126,9 @@ export class FamilyEditPage {
         if (this.bean.DIED_TIME != null) {
           this.bean.DIED_TIME = this.bean.DIED_TIME.replace(' ', 'T')
         }
+        if (this.bean.iconFiles == null) this.bean.iconFiles = {}
+
+        if(this.userType=="husband")this.hasbandName=this.bean.NAME
         this.SetForm(this.bean);
       }
     })
@@ -270,18 +277,25 @@ export class FamilyEditPage {
     }
   }
 
-  UserTypeChanged(obj){
+  UserTypeChanged(obj) {
     console.log(obj.value)
+
+    this.BirthdaylunlarDate = ""
+    this.BirthdaysolarDate = ""
+
+    this.DiedsolarDate = ""
+    this.DiedlunlarDate = ""
     switch (obj.value) {
       case "husband":
         this.GetSingleEnt(this.params.get("userId"))
         break;
       case "wife":
-        if(this.bean.COUPLE_ID!=null){
+        if (this.bean.COUPLE_ID != null) {
           this.GetSingleEnt(this.bean.COUPLE_ID)
         }
-        else{
-          this.bean={
+        else {
+          this.userForm.reset()
+          this.bean = {
             YEARS_TYPE: "阳历",
             SEX: "女",
             IS_LIVE: 1,
@@ -289,7 +303,9 @@ export class FamilyEditPage {
             DIED_TIME: '',
             BIRTHDAY_TIME: '',
             ICON_FILES_ID: "",
-            COUPLE_ID:this.params.get("userId")
+            COUPLE_ID: this.params.get("userId"),
+            iconFiles: {}
+
           }
         }
         break;

@@ -34,9 +34,16 @@ class UserInfoDal(FaUserInfo):
         if "FATHER_ID" in in_dict:
             fatherUser=FaUser.query.filter_by(ID=in_dict["FATHER_ID"]).first()
             in_dict["DISTRICT_ID"]=fatherUser.DISTRICT_ID
+        elif 'COUPLE_ID'in in_dict:
+            fatherUser=FaUser.query.filter_by(ID=in_dict["COUPLE_ID"]).first()
+            in_dict["DISTRICT_ID"]=fatherUser.DISTRICT_ID
+        else:
+            pass
 
         relist, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys,FaUser)
-
+        # 更新配
+        FaUserInfo.query.filter(FaUserInfo.ID == in_dict["COUPLE_ID"]).update({FaUserInfo.COUPLE_ID:relist.ID})
+        db.session.commit()
         return relist, is_succ
 
     def userInfo_delete(self, key):

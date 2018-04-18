@@ -121,12 +121,12 @@ export class FamilyRelativePage implements OnInit {
         this.graph.ClickBlack = (x) => {
           this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
         }
-        for (var i = 0; i < this.userRelative.ItemList.length; i++) {
-          var item = this.userRelative.ItemList[i];
-          var e1 = this.graph.addElement(this.personTemplate, { x: item.x * 15 + 20, y: item.y * 90 + 50 }, item.Name, item);
+        for (let i = 0; i < this.userRelative.ItemList.length; i++) {
+          let item = this.userRelative.ItemList[i];
+          let e1 = this.graph.addElement(this.personTemplate, { x: item.x * 15 + 20, y: item.y * 90 + 50 }, item.Name, item);
           this.allRelative.add(item.Id, e1);
         }
-        var allR = this.allRelative.toLookup();
+        let allR = this.allRelative.toLookup();
         this.userRelative.RelativeList.forEach(element => {
           if (allR[element.V] != null && allR[element.K] != null) {
             this.graph.addConnection(allR[element.V].getConnector("reports"), allR[element.K].getConnector("manager"));

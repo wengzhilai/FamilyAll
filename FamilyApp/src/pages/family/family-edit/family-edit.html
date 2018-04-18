@@ -13,10 +13,10 @@
     <ion-toolbar no-border-top>
             <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
               <ion-segment-button value="husband">
-                {{bean.NAME}}
+                {{hasbandName}}
               </ion-segment-button>
               <ion-segment-button value="wife">
-                {{bean.NAME}}的配偶
+                {{hasbandName}}的配偶
               </ion-segment-button>
             </ion-segment>
           </ion-toolbar>
@@ -30,7 +30,7 @@
                 <ion-thumbnail item-left>
                     <up-single-pic [FileDict]="bean.iconFiles" (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
                 </ion-thumbnail>
-                <div item-right>
+                <div item-right style="width: 100%;">
                     <ion-item>
                         <ion-label class="MyTitle">{{i18n+'.NAME'|translate}}</ion-label>
                         <ion-input formControlName="NAME"></ion-input>
