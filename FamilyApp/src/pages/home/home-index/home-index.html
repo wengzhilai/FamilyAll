@@ -1,27 +1,85 @@
 <ion-header>
-  <ion-navbar color="twitter">
-      <ion-title>
-          {{title}}
-      </ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>
+            {{title}}
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <ion-slides pager style="height: 200px;">
+        <ion-slide *ngFor="let image of [1,2,3,4]" style="background-image: url(./assets/images/slide01.png);background-size:100% 100%;">
 
-  <ion-list class="moduleIco">
-      <ion-row row-wrap>
-          <ion-col *ngFor="let item of config.AllMoudle[0].children;index as i">
-              <button>
-                  <!-- <ion-badge *ngIf="item.badge=='witeNum' && witeNum>0">{{witeNum}}</ion-badge>
-                  <ion-badge *ngIf="item.badge=='ContractExtHandleNum' && pageData.ContractExtHandleNum>0">{{pageData.ContractExtHandleNum}}</ion-badge>
-                  <ion-badge *ngIf="item.badge=='ContractParkHandleNum' && pageData.ContractParkHandleNum>0">{{pageData.ContractParkHandleNum}}</ion-badge> -->
-                  <div class="backG{{i}}">
-                    <ion-icon name="{{item.Icon}}"></ion-icon>
-                </div>
-                  <div>{{item.text|translate}}</div>
-              </button>
-          </ion-col>
-      </ion-row>
-
-  </ion-list>
+        </ion-slide>
+    </ion-slides>
+    <ion-list class="moduleIco">
+        <ion-row row-wrap>
+            <ion-col (click)="GoPage(item.root,item.text)" *ngFor="let item of config.AllMoudle[0].children;index as i">
+                <button>
+                    <div class="backG{{i}}">
+                        <ion-icon name="{{item.Icon}}"></ion-icon>
+                    </div>
+                    <div>{{item.text|translate}}</div>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+    <div class="companyList">
+        <div style="height: 10px;background-color: #EFEFEF;width: 100%">&nbsp;</div>
+        <ion-row>
+            <div class="columnTitle">
+                <div class="ico">&nbsp;</div>
+                <div style="width: 90%;">美食广场</div>
+                <div class="split"></div>
+            </div>
+            <ion-row>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+            </ion-row>
+        </ion-row>
+        <div style="height: 10px;background-color: #EFEFEF;width: 100%">&nbsp;</div>
+        <ion-row>
+            <div class="columnTitle">
+                <div class="ico">&nbsp;</div>
+                <div style="width: 90%;">美食广场</div>
+                <div class="split"></div>
+            </div>
+            <ion-row>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+                <ion-col>
+                    <img src="./assets/images/store01.png" />
+                    <span>星巴克</span>
+                </ion-col>
+            </ion-row>
+        </ion-row>
+    </div>
 </ion-content>
