@@ -97,7 +97,11 @@ export class ToPostService {
         return response;
       }, (error) => {
         console.error('请求失败:');
+
         this.commonService.PlatformsExists("core") ? console.error(error) : console.error(JSON.stringify(error)); // for demo purposes only
+        console.error("接中地址："+Config.api + apiName)
+        console.error("参数")
+        this.commonService.PlatformsExists("core") ? console.error(postBean) : console.error(JSON.stringify(postBean)); // for demo purposes only
         console.timeEnd("Post时间");
 
         console.groupEnd();

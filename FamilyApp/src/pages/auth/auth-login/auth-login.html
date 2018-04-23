@@ -17,7 +17,7 @@
           </ion-item>
           <ion-item>
               <ion-label> {{'login.Remember_Pwd'|translate}}</ion-label>
-              <ion-toggle color="car" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberPwd"></ion-toggle>
+              <ion-toggle color="primary" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberPwd"></ion-toggle>
           </ion-item>
           <ion-item>
               <ion-label> {{'login.Change_Lang'|translate}} </ion-label>
@@ -27,12 +27,12 @@
               </ion-select>
           </ion-item>
           <ion-item>
-            <ion-label left><button ion-button small color="car" (click)="GoFindPwd()">{{'login.FindPwd'|translate}}</button></ion-label>
-            <ion-label right style="text-align: right;"><button ion-button small color="car" (click)="GoRegister()">{{'login.Region'|translate}}</button></ion-label>
+            <ion-label left><button ion-button small color="primary" (click)="GoFindPwd()">{{'login.FindPwd'|translate}}</button></ion-label>
+            <ion-label right style="text-align: right;"><button ion-button small color="primary" (click)="GoRegister()">{{'login.Region'|translate}}</button></ion-label>
           </ion-item>
       </ion-list>
       <div padding>
-          <button ion-button color="car" block (click)="submit()">{{'login.Login_Btn'|translate}}</button>
+          <button ion-button color="primary" block (click)="submit()">{{'login.Login_Btn'|translate}}</button>
       </div>
   </div>
 </ion-content>

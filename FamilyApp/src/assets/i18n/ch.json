@@ -39,7 +39,7 @@
     "NoVersion": "获取文件路径失败，可能是本手机系统版本太底或者没有权限获取文件路径"
   },
   "tabs": {
-    "Index1": "免费WIFI",
+    "Index1": "商户",
     "Index2": "商场活动",
     "Index3": "会员卡",
     "Index4": "影院",
@@ -81,5 +81,23 @@
     "DiedInfo":"逝世信息",
     "DIED_PLACE":"逝世地点"
     
+  },
+  "setting": {
+    "Title": "设置",
+    "setting": "功能设置",
+    "CheckNew": "检测新版本",
+    "BaseUserInfo": "用户基本信息",
+    "UserName": "姓名",
+    "Email": "邮件",
+    "FamilyPhone": "联系电话",
+    "api": "接口地址",
+    "BaseProgramm": "程序基本信息",
+    "AppName": "应用名称",
+    "PackageName": "包名称",
+    "VersionCode": "版本号",
+    "VersionNumber": "版本代码",
+    "ExitLogin": "退出登录",
+    "ExitConfirmIng": "退出确认",
+    "ExitConfirm": "确定要退出吗？"
   }
 }

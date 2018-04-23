@@ -210,7 +210,7 @@ class FaFile(db.Model):
     __tablename__ = 'fa_files'
 
     ID = db.Column(db.Integer, primary_key=True)
-    NAME = db.Column(db.String(50), nullable=False)
+    NAME = db.Column(db.String(255), nullable=False)
     PATH = db.Column(db.String(200), nullable=False)
     USER_ID = db.Column(db.Integer)
     LENGTH = db.Column(db.Integer, nullable=False)

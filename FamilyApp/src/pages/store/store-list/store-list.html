@@ -1,0 +1,67 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>商户列表</ion-title>
+  </ion-navbar>
+  <ion-searchbar debounce=3000 placeholder='{{"public.Search"|translate}}'>
+  </ion-searchbar>
+  <ion-row>
+    <ion-col>
+      <ion-select [style.max-width]="maxWidth" placeholder='全部楼层' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllBuilding" value="{{item.ID}}">{{item.NAME}}</ion-option>
+      </ion-select>
+    </ion-col>
+    <ion-col>
+      <ion-select [style.max-width]="maxWidth" placeholder='全部商户' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllFloor" value="{{item.ID}}">{{item.NAME}}</ion-option>
+      </ion-select>
+    </ion-col>
+    <ion-col>
+      <ion-select [style.max-width]="maxWidth" placeholder='默认排序' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllStatus" value="{{item.ID}}">{{item.NAME}}</ion-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText='{{"public.pullingText"|translate}}' refreshingSpinner="circles"
+      refreshingText='{{"public.refreshingText"|translate}}'>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item class="thumbnailMy">
+      <ion-thumbnail item-left>
+        <img src="./assets/images/store01.png" />
+      </ion-thumbnail>
+      <div item-right style="width: 100%;">
+          <ion-label class="MyTitle">星巴克（F1-1123）</ion-label>
+          <ion-label class="MyTitle">家居生活</ion-label>
+      </div>
+    </ion-item>
+    <ion-item class="thumbnailMy">
+      <ion-thumbnail item-left>
+        <img src="./assets/images/store01.png" />
+      </ion-thumbnail>
+      <div item-right style="width: 100%;">
+          <ion-label class="MyTitle">星巴克（F1-1123）</ion-label>
+          <ion-label class="MyTitle">家居生活</ion-label>
+      </div>
+    </ion-item>
+    <ion-item class="thumbnailMy">
+      <ion-thumbnail item-left>
+        <img src="./assets/images/store01.png" />
+      </ion-thumbnail>
+      <div item-right style="width: 100%;">
+          <ion-label class="MyTitle">星巴克（F1-1123）</ion-label>
+          <ion-label class="MyTitle">家居生活</ion-label>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

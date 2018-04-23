@@ -16,7 +16,7 @@ import iSoft.core.LunarDate
 import datetime
 import time
 import os
-
+import inspect
 
 @app.route('/Api/Public/SendCode', methods=['GET', 'POST'])
 def ApiPublicSendCode():
@@ -105,6 +105,12 @@ def ApiPublicUpload():
         dal=FileDal()
         re_ent,message=dal.file_Save(addFile,[])
         if message.IsSuccess:
-            message.set_data(re_ent)
-        return Fun.class_to_JsonStr(message)
+            tmp=json.dumps(re_ent, cls=AlchemyEncoder)
+            msg = json.loads(tmp)
+            # print(tmp)
+            # print(re_ent)
+            # print(msg)
+            message.Data=msg
+        reStr=Fun.class_to_JsonStr(message)
+        return reStr
     return Fun.class_to_JsonStr(AppReturnDTO(False))

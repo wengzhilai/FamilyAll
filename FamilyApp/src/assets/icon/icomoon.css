@@ -59,3 +59,12 @@
 .ion-ios-icomoon-order-ed:before {
     content: "\e908";
 }
+.ion-ios-icomoon-store:before {
+    content: "\e909";
+}a
+.ion-ios-icomoon-vip:before {
+    content: "\e90a";
+}
+.ion-ios-icomoon-giftcard {
+    content: "\e90b";
+}

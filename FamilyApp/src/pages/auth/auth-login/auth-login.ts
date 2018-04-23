@@ -8,7 +8,7 @@ import { AppGlobal } from "../../../Classes/AppGlobal";
 import { Config as Cif } from "../../../Classes/Config";
 import { TabsPage } from "../../tabs/tabs";
 import { AlertController } from 'ionic-angular';
-import {AppReturnDTO  } from "../../../Model/Transport/AppReturnDTO";
+import { AppReturnDTO } from "../../../Model/Transport/AppReturnDTO";
 import { TranslateService } from '@ngx-translate/core'
 @IonicPage()
 @Component({
@@ -34,7 +34,6 @@ export class AuthLoginPage {
    * 当前cook里的所有用户密码信息
    */
   userAndPwdList = []
-
   constructor(
     public ionicApp: IonicApp,
     public appCtrl: App,
@@ -145,12 +144,20 @@ export class AuthLoginPage {
     AppGlobal.CooksSet("rememberPwd", this.rememberPwd);
     // ------------记录登录用户------>>
 
-    this.commonService.showLoading();
+    // this.navCtrl.push(TabsPage);
+
     //认证登录
+    this.commonService.showLoading();
     this.PostGetToken(this.bean.loginName, this.bean.password).then((isSuccess: any) => {
       this.commonService.hideLoading()
       if (isSuccess) { //认证成功
-        this.navCtrl.push(TabsPage);
+        let callBack=this.navParams.get("callBack")
+        if(callBack==null){
+          this.navCtrl.push(TabsPage,this.navCtrl);
+        }
+        else{
+          callBack(isSuccess)
+        }
       }
 
     })
@@ -164,30 +171,27 @@ export class AuthLoginPage {
    * @param password 
    */
   PostGetToken(loginName, password) {
-    return this.toPostService.Post('auth/UserLogin',{loginName:this.userForm.value.loginName,passWord:this.userForm.value.password})
-    .then((res: AppReturnDTO) => {
-      this.commonService.hideLoading();
-      if(res==null){
-        this.commonService.hint('登录错误，请联系管理员')
-        return;
-      }
-      if (res.IsSuccess) {
-        AppGlobal.SetToken(res.Code);
-        this.navCtrl.push(TabsPage);
-      }
-      else {
-        this.commonService.hint(res.Msg);
-      };
-    },(err)=>{
-      this.commonService.hint(err,'错误');
-    })
+    return this.toPostService.Post('auth/UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
+      .then((res: AppReturnDTO) => {
+        this.commonService.hideLoading();
+        if (res == null) {
+          this.commonService.hint('登录错误，请联系管理员')
+          return false;
+        }
+        if (res.IsSuccess) {
+          AppGlobal.SetToken(res.Code);
+          AppGlobal.SetProperty(res.Data);
+          return true;
+        }
+        else {
+          this.commonService.hint(res.Msg);
+          return false;
+        };
+      }, (err) => {
+        this.commonService.hint(err, '错误');
+        return false;
+      })
   }
-
-
-
-
-
-
 
 
   reset() {
@@ -281,6 +285,6 @@ export class AuthLoginPage {
   GoRegister() {
     // this.navCtrl.push('UserRegPage');
     this.navCtrl.push('AuthRegPage');
-    
+
   }
 }

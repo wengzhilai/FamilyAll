@@ -13,11 +13,11 @@ export class Config {
   // static api:string = 'http://127.0.0.1:5000/Api/';
   // static imgUrl:string = 'http://127.0.0.1:5000/';
 
-  // static api:string = 'http://192.168.0.154:5000/Api/';
-  // static imgUrl:string = 'http://192.168.0.154:5000/';
+  static api:string = 'http://192.168.0.154:5000/Api/';
+  static imgUrl:string = 'http://192.168.0.154:5000/';
 
-  static api:string = 'http://47.254.16.126:8080/Api/';
-  static imgUrl:string = 'http://47.254.16.126:8080/';
+  // static api:string = 'http://47.254.16.126:8080/Api/';
+  // static imgUrl:string = 'http://47.254.16.126:8080/';
 
   static _api:string = Config.api;
   static _imgUrl:string = Config.imgUrl;
@@ -41,7 +41,9 @@ export class Config {
   /**
    * 上传文件接口
    */
-  static Api_Upfile=Config.api + "Public/upload";
+  static get Api_Upfile(){
+    return Config.api + "Public/upload";
+  }
   /**
    * 包括多个表接口
    */
@@ -142,8 +144,9 @@ export class Config {
   static AllMoudle:any=[
     {
       text:"tabs.Index1",
-      Icon:"home",
-      root:"HomeIndexPage",
+      Icon:"appstore",
+      // root:"StoreListPage",
+      root:"FamilyRelativePage",
       children:[
         {
           text:"tabs.Index2",
@@ -161,32 +164,9 @@ export class Config {
           root:"VipCardPage"
         },
         {
-          text:"home.Todo",
-          Icon:"alarm",
-          root:"TodoPropertyListPage",
-          badge:"witeNum"
-        },
-        {
-          text:"home.ContractExtHandleNum",
-          Icon:"bookmarks",
-          root:"ContractExtVerificationPage",
-          badge:"ContractExtHandleNum"
-        },
-        {
-          text:"home.ContractParkHandleNum",
-          Icon:"car",
-          root:"ContractExtParkPage",
-          badge:"ContractParkHandleNum"
-        },
-        {
-          text:"home.contract",
-          Icon:"icomoon-contract",
-          root:"ContractListPage"
-        },
-        {
           text:"home.Utilities",
           Icon:"umbrella",
-          root:"UtilitiesListPage"
+          root:"SuggestListPage"
         }
         
     ]
@@ -194,43 +174,7 @@ export class Config {
     {
       text:"tabs.Index2",
       Icon:"keypad",
-      root:"FamilyRelativePage"
-    },
-    {
-      text:"tabs.Index3",
-      Icon:"icomoon-unit",
       root:"HomeIndexPage"
-    },
-    {
-      text:"tabs.Index4",
-      Icon:"icomoon-pie",
-      root:"HomeIndexPage",
-      children:[
-        {
-          text:"echarts.Report1",
-          root:"EchartsTenantPage"
-        },
-        {
-          text:"echarts.Report2",
-          root:"RptMerchantSchedulePage"
-        },
-        {
-          text:"echarts.Report3",
-          root:"RptBrandNegotiateCountPage"
-        },
-        {
-          text:"contract-expiring-list.title",
-          root:"ContractExpiringListPage"
-        },
-        {
-          text:"rpt-sales-analysis.title",
-          root:"RptSalesAnalysisPage"
-        },
-        {
-          text:"rpt-recent-check-in.title",
-          root:"RptRecentCheckInPage"
-        }
-      ]
     },
     {
       text:"tabs.Index5",
