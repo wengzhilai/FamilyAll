@@ -146,14 +146,17 @@ export class AuthLoginPage {
     // ------------记录登录用户------>>
 
     this.commonService.showLoading();
+    this.navCtrl.push(TabsPage);
+    this.commonService.hideLoading()
+    
     //认证登录
-    this.PostGetToken(this.bean.loginName, this.bean.password).then((isSuccess: any) => {
-      this.commonService.hideLoading()
-      if (isSuccess) { //认证成功
-        this.navCtrl.push(TabsPage);
-      }
+    // this.PostGetToken(this.bean.loginName, this.bean.password).then((isSuccess: any) => {
+    //   this.commonService.hideLoading()
+    //   if (isSuccess) { //认证成功
+    //     this.navCtrl.push(TabsPage);
+    //   }
 
-    })
+    // })
   }
 
 
@@ -182,12 +185,6 @@ export class AuthLoginPage {
       this.commonService.hint(err,'错误');
     })
   }
-
-
-
-
-
-
 
 
   reset() {

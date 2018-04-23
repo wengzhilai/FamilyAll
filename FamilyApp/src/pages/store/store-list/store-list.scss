@@ -1,0 +1,25 @@
+page-store-list {
+    .item-cover {
+        left: auto;
+        top: auto;
+    }
+    ion-select {
+        max-width: 100%;
+    }
+    .ion-icon {
+        display: inline-block;
+        font-size: 1.2em;
+        position: absolute;
+        top: 15px;
+    }
+    .FontColorRed {
+        color: red;
+        font-weight: bold;
+    }
+    .FontColorBlue {
+        color: blue;
+    }
+    .FontColorBold {
+        font-weight: bold;
+    }
+}

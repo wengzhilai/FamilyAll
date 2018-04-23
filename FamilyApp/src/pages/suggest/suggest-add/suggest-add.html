@@ -1,0 +1,23 @@
+<!--
+  Generated template for the SuggestAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>意见反馈</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding style="background-color: #EFEFEF">
+    <div style="position: relative;">
+        <ion-textarea placeholder="我们会尽快处理您的反馈" [(ngModel)]="suggest" clearInput="true" rows="6" style="background-color: white"></ion-textarea>
+        <span style="position: absolute;bottom: 0px;right: 0px;">{{suggest.length}}/100(不少于10个字)</span>
+    </div>
+    <div padding>
+        <button ion-button block [disabled]="suggest.length<=10">提交</button>
+    </div>
+</ion-content>

@@ -33,7 +33,10 @@ export class TabsPage {
   }
 
   ionViewDidEnter() {
-
+    setTimeout(() => {
+    this.tabs.select(1)
+      
+    }, 100);
   }
 
   JPushNotification() {
@@ -130,7 +133,7 @@ export class TabsPage {
     /**
      * 所有选项卡
      */
-    let allItem = this.tabs.getElementRef().nativeElement.childNodes[0].querySelectorAll("a")[2]
+    let allItem = this.tabs.getElementRef().nativeElement.childNodes[0].querySelectorAll("a")[1]
 
     //中间的log
     let ico = allItem.querySelectorAll("ion-icon")[0]
@@ -157,7 +160,7 @@ export class TabsPage {
     }
 
     //设置样式
-    if (indx == 2) {
+    if (indx == 1) {
       this.renderer.setElementStyle(ico, 'color', 'white');
       this.renderer.setElementClass(icoParent, 'overDiv-parent-icon', true);
     }

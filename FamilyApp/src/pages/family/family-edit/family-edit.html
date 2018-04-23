@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar >
+    <ion-navbar>
         <ion-title>
             {{title}}
         </ion-title>
@@ -11,15 +11,15 @@
 
     </ion-navbar>
     <ion-toolbar no-border-top>
-            <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
-              <ion-segment-button value="husband">
+        <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
+            <ion-segment-button value="husband">
                 {{hasbandName}}
-              </ion-segment-button>
-              <ion-segment-button value="wife">
+            </ion-segment-button>
+            <ion-segment-button value="wife">
                 {{hasbandName}}的配偶
-              </ion-segment-button>
-            </ion-segment>
-          </ion-toolbar>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -130,6 +130,6 @@
         </ion-item-group>
     </ion-list>
     <div padding>
-        <button ion-button color="car" block (click)="save()">保存</button>
+        <button ion-button block (click)="save()">保存</button>
     </div>
 </ion-content>
