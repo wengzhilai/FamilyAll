@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar >
+    <ion-navbar>
         <ion-title>
             {{title}}
         </ion-title>
@@ -11,15 +11,15 @@
 
     </ion-navbar>
     <ion-toolbar no-border-top>
-            <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
-              <ion-segment-button value="husband">
+        <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
+            <ion-segment-button value="husband">
                 {{hasbandName}}
-              </ion-segment-button>
-              <ion-segment-button value="wife">
+            </ion-segment-button>
+            <ion-segment-button value="wife">
                 {{hasbandName}}的配偶
-              </ion-segment-button>
-            </ion-segment>
-          </ion-toolbar>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -63,6 +63,7 @@
                 <ion-label stacked class="MyTitle">是否健在</ion-label>
                 <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.IS_LIVE"></ion-toggle>
             </ion-item>
+                <ionic-up-file [inAllFiles]="bean.AllFiles" (ChangeFileJson)="ChangeAllFileJson($event)"></ionic-up-file>
         </ion-item-group>
         <ion-item-divider color="light">{{i18n+'.BirthdayInfo'|translate}}</ion-item-divider>
         <ion-item-group>
@@ -125,7 +126,7 @@
         <ion-item-group>
             <ion-item-divider color="light">{{i18n+'.REMARK'|translate}}</ion-item-divider>
             <ion-item>
-                <ion-textarea formControlName="REMARK"></ion-textarea>
+                <ion-textarea formControlName="REMARK" rows="5" placeholder="{{i18n+'.REMARK'|translate}}"></ion-textarea>
             </ion-item>
         </ion-item-group>
     </ion-list>

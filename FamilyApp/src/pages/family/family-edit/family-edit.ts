@@ -208,6 +208,7 @@ export class FamilyEditPage {
    */
   DoneBirthdayTime(inDate: any) {
     console.log(inDate)
+    let t = new Date(inDate)
     if (inDate == null || inDate == "") return;
     let dataStr = inDate.substr(0, 10)
     if (this.bean.YEARS_TYPE == "阳历") {
@@ -215,7 +216,9 @@ export class FamilyEditPage {
       this.BirthdaylunlarDate = ""
       this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          this.BirthdaylunlarDate = currMsg.Msg
+          let nowDate = new Date(currMsg.Msg)
+          this.BirthdaylunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+ 
         }
       });
     } else {
@@ -224,7 +227,8 @@ export class FamilyEditPage {
       this.BirthdaysolarDate = ""
       this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          this.BirthdaysolarDate = currMsg.Msg
+          let nowDate = new Date(currMsg.Msg)
+          this.BirthdaysolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     }
@@ -232,6 +236,9 @@ export class FamilyEditPage {
   }
   /** 选择去世时间事件 */
   DoneDiedTime(inDate: any) {
+    console.log(inDate)
+    let t = new Date(inDate)
+
     if (inDate == null || inDate == "") return;
     let dataStr = inDate.substr(0, 10)
     if (this.bean.YEARS_TYPE == "阳历") {
@@ -239,7 +246,8 @@ export class FamilyEditPage {
       this.DiedlunlarDate = ""
       this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          this.DiedlunlarDate = currMsg.Msg
+          let nowDate = new Date(currMsg.Msg)
+          this.DiedlunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     } else {
@@ -247,7 +255,8 @@ export class FamilyEditPage {
       this.DiedsolarDate = ""
       this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          this.DiedsolarDate = currMsg.Msg
+          let nowDate = new Date(currMsg.Msg)
+          this.DiedsolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     }
@@ -274,6 +283,15 @@ export class FamilyEditPage {
     this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
     if (obj != null) {
       this.bean.ICON_FILES_ID = obj.ID;
+    }
+  }
+
+  allFiles=[]
+  ChangeAllFileJson(obj){
+    console.log('编辑界面获取到值')
+    this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
+    if (obj != null) {
+      this.allFiles= obj;
     }
   }
 
