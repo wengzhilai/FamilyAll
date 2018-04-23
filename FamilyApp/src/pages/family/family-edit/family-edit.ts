@@ -158,8 +158,13 @@ export class FamilyEditPage {
     for (var key in this.userForm.value) {
       this.bean[key] = this.userForm.value[key];
     }
-    this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z', '')
-    this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
+    if(this.bean.BIRTHDAY_TIME!=null){
+      this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z', '')
+    }
+    if(this.bean.DIED_TIME!=null)
+    {
+      this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
+    }
     console.log(this.bean)
 
     this.toPostService.Post("UserInfo/save", { Data: this.bean, "SaveKeys": this.commonService.GetBeanNameStr(this.bean) }).then((currMsg) => {
