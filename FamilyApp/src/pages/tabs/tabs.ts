@@ -128,7 +128,8 @@ export class TabsPage {
 
     let activeNav = this.tabs.getSelected();
     let indx = activeNav.index;
-    this.tabs.select(indx)
+    //设置是否刷新本页
+    // this.tabs.select(indx)
 
     /**
      * 所有选项卡
@@ -171,8 +172,8 @@ export class TabsPage {
 
 
 
-    setTimeout(() => {
-      this.AutoOpenTodo()
-    }, 5000);
+    // setTimeout(() => {
+    //   this.AutoOpenTodo()
+    // }, 5000);
   }
 }

@@ -41,7 +41,9 @@ export class Config {
   /**
    * 上传文件接口
    */
-  static Api_Upfile=Config.api + "Public/upload";
+  static get Api_Upfile(){
+    return Config.api + "Public/upload";
+  }
   /**
    * 包括多个表接口
    */

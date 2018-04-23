@@ -8,6 +8,7 @@ import { AppReturnDTO } from "../../../Model/Transport/AppReturnDTO";
 import { MyApp } from "../../../app/app.component";
 import { TranslateService } from '@ngx-translate/core'
 import { Config as fig } from "../../../Classes/Config";
+import { AppGlobal } from '../../../Classes/AppGlobal';
 
 
 /**
@@ -44,6 +45,18 @@ export class SettingPage {
     private myApp: MyApp,
     private translate: TranslateService,
   ) {
+
+    if (!AppGlobal.IsLogin()) {
+      this.navCtrl.push("AuthLoginPage", {
+        callBack: (isScuss, loginPageNav) => {
+          this.navCtrl.pop();
+        }
+      })
+      return;
+    }else{
+      this.model = AppGlobal.GetProperty()
+    }
+
     try {
 
       if (this.plt.is('android') || this.plt.is('ios')) {
@@ -108,7 +121,14 @@ export class SettingPage {
         {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
-            this.app.getRootNav().setRoot("AuthLoginPage",{reload:true});
+            AppGlobal.LoginOut()
+            this.navCtrl.push("AuthLoginPage", {
+              callBack: (isScuss, loginPageNav) => {
+                this.navCtrl.pop()
+                this.model = AppGlobal.GetProperty()
+              }
+            })
+            // this.app.getRootNav().setRoot("AuthLoginPage",{reload:true});
           }
         }
       ]

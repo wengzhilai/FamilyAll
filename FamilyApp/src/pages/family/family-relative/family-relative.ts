@@ -83,7 +83,9 @@ export class FamilyRelativePage implements OnInit {
 
 
   onSucc(postUserId = null) {
-
+    if(postUserId==null){
+      postUserId=AppGlobal.GetPropertyId()
+    }
 
     this.userId = postUserId;
     this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
@@ -92,7 +94,7 @@ export class FamilyRelativePage implements OnInit {
     //   this.fab.toggleList();
     // }
     this.commonService.showLoading();
-    this.toPostService.Post("Family/UserInfoRelative", { Key: postUserId }, (currMsg) => {
+    this.toPostService.Post("Family/Relative", { Key: postUserId }, (currMsg) => {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);

@@ -22,11 +22,35 @@ export class AppGlobal {
   }
   public static SetToken(token: any) {
     console.log("保存Token：" + token)
-    NgXCookies.setCookie("token", token);
+    if (token == null || token == "") {
+      NgXCookies.deleteCookie("token");
+    }
+    else {
+      NgXCookies.setCookie("token", token);
+    }
   }
 
   public static GetToken() {
     return NgXCookies.getCookie('token');
+  }
+  /**
+   * 是否登录
+   */
+  public static IsLogin(): boolean {
+    let toke = AppGlobal.GetToken()
+    if (toke == null || toke == "")
+      return false
+    else
+      return true
+  }
+  /**
+   * 退出登录，并清除所有登录信息
+   */
+  public static LoginOut():void {
+    NgXCookies.deleteCookie("token");
+    NgXCookies.deleteCookie("Property");
+    NgXCookies.deleteCookie("PropertyId");
+    
   }
 
 
@@ -44,8 +68,8 @@ export class AppGlobal {
       this.SetPropertyId(null)
       return NgXCookies.setCookie('Property', null)
     } else {
-      this.SetPropertyId(property.PropertyId)
-      console.log("保存物业：")
+      this.SetPropertyId(property.ID)
+      console.log("保存特征：")
       console.log(property)
       return NgXCookies.setCookie('Property', JSON.stringify(property));
     }
@@ -55,11 +79,11 @@ export class AppGlobal {
   public static GetProperty(): any {
     let str = NgXCookies.getCookie('Property');
     if (str == null || str == '') {
-      return null
+      return {}
     }
     let tmp = JSON.parse(str);
     if (tmp == null) {
-      tmp = null;
+      tmp = {};
     }
     return tmp;
   }
@@ -69,9 +93,11 @@ export class AppGlobal {
   }
   public static GetPropertyId(): any {
     let tmp = NgXCookies.getCookie('PropertyId');
+    console.log(tmp == null)
     if (tmp == null || tmp == "") {
       tmp = null;
     }
+    console.log(tmp)
     return tmp;
   }
   public static CooksSet(_k: string, _v: string, validity?: number, validityType?: string) {
