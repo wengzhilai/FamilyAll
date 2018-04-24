@@ -20,7 +20,6 @@ import { AppVersionModel } from "../Model/Transport/AppVersionModel";
 import { JPush } from 'ionic3-jpush';
 import { WebIntent } from '@ionic-native/web-intent';
 import { FilePath } from '@ionic-native/file-path';
-import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html',
@@ -29,7 +28,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 export class MyApp {
   // 默认进入的首页
   // rootPage: any = "AuthLoginPage";
-  rootPage: any=TabsPage
+  rootPage: any="TabsPage"
   backButtonPressed: boolean = false;  //用于判断返回键是否触发
   @ViewChild('myNav') nav: Nav;
   constructor(

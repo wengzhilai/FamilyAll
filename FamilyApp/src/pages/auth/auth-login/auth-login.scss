@@ -5,12 +5,18 @@ page-auth-login {
     ion-icon{
         font-size: 40px
     }
-    .LoginFrom{
-        position: absolute;  
-        top: 50%;  
-        transform: translateY(-50%); 
-        width: 100%;
+    ion-app.ios [padding] {
+        padding: 16px 0px;
     }
+    .list-ios {
+        margin: -1px 0 0px;
+    }
+    // .LoginFrom{
+    //     position: absolute;  
+    //     top: 50%;  
+    //     transform: translateY(-50%); 
+    //     width: 100%;
+    // }
     ion-footer{
         color: white;
     }

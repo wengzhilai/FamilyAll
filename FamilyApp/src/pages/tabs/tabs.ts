@@ -1,12 +1,13 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
 import { Tabs } from 'ionic-angular';
-import { Platform, ModalController, NavController, } from 'ionic-angular';
+import { IonicPage, Platform, ModalController, NavController, } from 'ionic-angular';
 import { CommonService } from "../../Service/Common.Service";
 
 import { Config } from "../../Classes/Config";
 import { JPush } from 'ionic3-jpush';
 import { AppGlobal } from "../../Classes/AppGlobal";
 
+@IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html'
@@ -17,6 +18,23 @@ export class TabsPage {
   chatParams = {
     root: 'true'
   };
+  allRoot = [
+    {
+      text: "tabs.Index1",
+      Icon: "appstore",
+      root: "FamilyRelativePage",
+    },
+    {
+      text: "tabs.Index2",
+      Icon: "keypad",
+      root: "HomeIndexPage"
+    },
+    {
+      text: "tabs.Index5",
+      Icon: "person",
+      root: "HomeIndexPage"
+    }
+  ]
   constructor(
     public modalCtrl: ModalController,
     public navCtrl: NavController,
@@ -34,8 +52,8 @@ export class TabsPage {
 
   ionViewDidEnter() {
     setTimeout(() => {
-    this.tabs.select(1)
-      
+      this.tabs.select(1)
+
     }, 100);
   }
 
@@ -125,9 +143,45 @@ export class TabsPage {
   }
 
   changeTabs(i) {
-
     let activeNav = this.tabs.getSelected();
     let indx = activeNav.index;
+    console.log(indx)
+
+    if (AppGlobal.IsLogin) {
+      /**
+       * 如果已经登录则修改个人设置地址
+       */
+      if (this.tabs.getByIndex(2).root != "SettingPage") {
+        this.tabs.getByIndex(2).root = "SettingPage"
+      }
+    }
+    else {
+      if (indx == 2) {
+        // this.navCtrl.push("AuthLoginPage")
+        let profileModal = this.modalCtrl.create("AuthLoginPage", {
+          callBack: (isScuss, loginPageNav) => {
+            console.log(2222)
+            this.tabs.getByIndex(2).root = "SettingPage"
+            setTimeout(() => {
+              this.tabs.select(2)
+            }, 100);
+            profileModal.dismiss()
+          }
+        });
+        profileModal.present();
+
+        this.tabs.select(1)
+        return;
+      }
+    }
+    
+    if (indx == 2) {
+      setTimeout(() => {
+        this.tabs.select(2)
+      }, 100);
+    }
+
+
     //设置是否刷新本页
     // this.tabs.select(indx)
 
@@ -169,11 +223,5 @@ export class TabsPage {
       this.renderer.setElementStyle(ico, 'color', '#8c8c8c');
       this.renderer.setElementClass(icoParent, 'overDiv-parent-icon-nocheck', true);
     }
-
-
-
-    // setTimeout(() => {
-    //   this.AutoOpenTodo()
-    // }, 5000);
   }
 }

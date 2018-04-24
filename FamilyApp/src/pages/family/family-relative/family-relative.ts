@@ -39,15 +39,15 @@ export class FamilyRelativePage implements OnInit {
 
   }
   ngOnInit() {
-
-
     this.onSucc();
     // this.test()
     // var ctx=this.mapElement.nativeElement.getContext("2d");
     // ctx.fillStyle="#FF0000";
     // ctx.fillRect(0,0,10,10);
   }
-
+  IsLogin(){
+    return AppGlobal.IsLogin
+  }
   CancelKey(ev: any) {
     this.userInfoList = [];
   }
