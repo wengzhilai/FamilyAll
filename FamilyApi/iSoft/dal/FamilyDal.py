@@ -18,7 +18,7 @@ class FamilyDal(object):
             return None, AppReturnDTO(False, "用户不存在")
         reEnt = Relative()
 
-        nowPlace, msg = self.AddSonItem(reEnt.ItemList, userInfoEnt, 1, 7,
+        nowPlace, msg = self.AddSonItem(reEnt.ItemList, userInfoEnt, 1, 6,
                                         AxisXY(0, 0))
 
         item = self.UserInfoToRelativeItem(userInfoEnt, nowPlace.Between(), 0)

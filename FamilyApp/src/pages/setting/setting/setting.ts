@@ -46,7 +46,7 @@ export class SettingPage {
     private translate: TranslateService,
   ) {
 
-    if (!AppGlobal.IsLogin()) {
+    if (!AppGlobal.IsLogin) {
       this.navCtrl.push("AuthLoginPage", {
         callBack: (isScuss, loginPageNav) => {
           this.navCtrl.pop();
@@ -122,12 +122,15 @@ export class SettingPage {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
             AppGlobal.LoginOut()
-            this.navCtrl.push("AuthLoginPage", {
-              callBack: (isScuss, loginPageNav) => {
-                this.navCtrl.pop()
-                this.model = AppGlobal.GetProperty()
-              }
-            })
+            // this.navCtrl.setRoot("TabsPage")
+
+            console.log(this.navCtrl.parent);
+            // this.navCtrl.push("AuthLoginPage", {
+            //   callBack: (isScuss, loginPageNav) => {
+            //     this.navCtrl.pop()
+            //     this.model = AppGlobal.GetProperty()
+            //   }
+            // })
             // this.app.getRootNav().setRoot("AuthLoginPage",{reload:true});
           }
         }

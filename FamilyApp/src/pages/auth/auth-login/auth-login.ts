@@ -285,6 +285,5 @@ export class AuthLoginPage {
   GoRegister() {
     // this.navCtrl.push('UserRegPage');
     this.navCtrl.push('AuthRegPage');
-
   }
 }

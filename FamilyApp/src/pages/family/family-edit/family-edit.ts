@@ -26,7 +26,7 @@ export class FamilyEditPage {
   /** 表单 */
   userForm: FormGroup;
 
-  hasbandName=""
+  hasbandName = ""
   /** 年份开始时间 用于计算非公元年的 */
   public yeasStart
   /** 设置时间选择对象 */
@@ -128,7 +128,7 @@ export class FamilyEditPage {
         }
         if (this.bean.iconFiles == null) this.bean.iconFiles = {}
 
-        if(this.userType=="husband")this.hasbandName=this.bean.NAME
+        if (this.userType == "husband") this.hasbandName = this.bean.NAME
         this.SetForm(this.bean);
       }
     })
@@ -158,8 +158,12 @@ export class FamilyEditPage {
     for (var key in this.userForm.value) {
       this.bean[key] = this.userForm.value[key];
     }
-    this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z', '')
-    this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
+    if (this.bean.BIRTHDAY_TIME != null) {
+      this.bean.BIRTHDAY_TIME = this.bean.BIRTHDAY_TIME.replace('T', ' ').replace('Z', '')
+    }
+    if (this.bean.DIED_TIME != null) {
+      this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
+    }
     console.log(this.bean)
 
     this.toPostService.Post("UserInfo/save", { Data: this.bean, "SaveKeys": this.commonService.GetBeanNameStr(this.bean) }).then((currMsg) => {
@@ -217,8 +221,8 @@ export class FamilyEditPage {
       this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
           let nowDate = new Date(currMsg.Msg)
-          this.BirthdaylunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
- 
+          this.BirthdaylunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+
         }
       });
     } else {
@@ -228,7 +232,7 @@ export class FamilyEditPage {
       this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
           let nowDate = new Date(currMsg.Msg)
-          this.BirthdaysolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.BirthdaysolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     }
@@ -247,7 +251,7 @@ export class FamilyEditPage {
       this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
           let nowDate = new Date(currMsg.Msg)
-          this.DiedlunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.DiedlunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     } else {
@@ -256,7 +260,7 @@ export class FamilyEditPage {
       this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
           let nowDate = new Date(currMsg.Msg)
-          this.DiedsolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.DiedsolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     }
@@ -286,12 +290,12 @@ export class FamilyEditPage {
     }
   }
 
-  allFiles=[]
-  ChangeAllFileJson(obj){
+  allFiles = []
+  ChangeAllFileJson(obj) {
     console.log('编辑界面获取到值')
     this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
     if (obj != null) {
-      this.allFiles= obj;
+      this.allFiles = obj;
     }
   }
 

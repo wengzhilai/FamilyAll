@@ -20,7 +20,6 @@ import { AppGlobal } from "../Classes/AppGlobal";
 import { ToPostService } from "../Service/ToPost.Service";
 import { FileUpService } from "../Service/FileUp.Service";
 import { CommonService } from "../Service/Common.Service";
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { HttpClientModule } from "@angular/common/http";
 import { JPush } from 'ionic3-jpush';
@@ -54,9 +53,6 @@ if (AppGlobal.CooksGet('configDemo')) {
 @NgModule({
   declarations: [
     MyApp,
-
-    TabsPage,
-
   ],
   imports: [
     HttpClientModule,
@@ -71,7 +67,6 @@ if (AppGlobal.CooksGet('configDemo')) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage,
   ],
   providers: [
     StatusBar,

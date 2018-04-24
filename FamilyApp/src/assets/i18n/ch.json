@@ -65,8 +65,8 @@
     "Login_Name": "登录名",
     "Change_Lang": "切换语言",
     "Password": "密码",
-    "Region": "立即注册",
-    "FindPwd": "找回密码",
+    "Region": "注册",
+    "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
   "family-edit": {

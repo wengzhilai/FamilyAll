@@ -36,12 +36,17 @@ export class AppGlobal {
   /**
    * 是否登录
    */
-  public static IsLogin(): boolean {
+  static _IsLogin:boolean;
+  public static get IsLogin(): boolean {
     let toke = AppGlobal.GetToken()
     if (toke == null || toke == "")
-      return false
+      this._IsLogin =false
     else
-      return true
+      this._IsLogin =true
+    return this._IsLogin
+  }
+  public static set IsLogin(val: boolean){
+    this._IsLogin = val;
   }
   /**
    * 退出登录，并清除所有登录信息
@@ -50,7 +55,7 @@ export class AppGlobal {
     NgXCookies.deleteCookie("token");
     NgXCookies.deleteCookie("Property");
     NgXCookies.deleteCookie("PropertyId");
-    
+    AppGlobal.IsLogin=false
   }
 
 
