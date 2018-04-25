@@ -35,12 +35,6 @@ export class FamilyEditPage {
   /** 当前操作的用户类型 */
   userType = "husband"
 
-  BirthdaylunlarDate = ""
-  BirthdaysolarDate = ""
-
-  DiedsolarDate = ""
-  DiedlunlarDate = ""
-
   // 过世的干支
   diedTianDi
   // 过世的时间间隔
@@ -87,6 +81,8 @@ export class FamilyEditPage {
       BIRTHDAY_PLACE: ['', [Validators.minLength(0), Validators.maxLength(200)]],
       DIED_PLACE: ['', [Validators.minLength(0), Validators.maxLength(200)]],
       REMARK: ['', [Validators.minLength(0), Validators.maxLength(200)]],
+      BIRTHDAY_TIME: [''],
+      DIED_TIME: [''],
     });
   }
 
@@ -144,6 +140,8 @@ export class FamilyEditPage {
     this.userForm.get('LEVEL_ID').setValue(inEnt.LEVEL_ID)
     this.userForm.get('BIRTHDAY_PLACE').setValue(inEnt.BIRTHDAY_PLACE)
     this.userForm.get('DIED_PLACE').setValue(inEnt.DIED_PLACE)
+    this.userForm.get('BIRTHDAY_TIME').setValue(inEnt.BIRTHDAY_TIME)
+    this.userForm.get('DIED_TIME').setValue(inEnt.DIED_TIME)
     this.userForm.get('REMARK').setValue(inEnt.REMARK)
   }
 
@@ -167,7 +165,9 @@ export class FamilyEditPage {
     this.bean.filesList=this.allFiles;
     console.log(this.bean)
 
+    this.commonService.showLoading()
     this.toPostService.Post("UserInfo/save", { Data: this.bean, "SaveKeys": this.commonService.GetBeanNameStr(this.bean) }).then((currMsg) => {
+      this.commonService.hideLoading()
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       }
@@ -212,28 +212,33 @@ export class FamilyEditPage {
    * @param inDate 
    */
   DoneBirthdayTime(inDate: any) {
+    if(inDate==null){
+      inDate=this.userForm.get('BIRTHDAY_TIME').value
+    }
     console.log(inDate)
     let t = new Date(inDate)
     if (inDate == null || inDate == "") return;
     let dataStr = inDate.substr(0, 15)
     if (this.bean.YEARS_TYPE == "阳历") {
-      this.BirthdaysolarDate = dataStr
-      this.BirthdaylunlarDate = ""
+      this.bean.BirthdaysolarDate = dataStr
+      this.bean.BirthdaylunlarDate = ""
       this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          let nowDate = new Date(currMsg.Msg)
-          this.BirthdaylunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.bean.BirthdaylunlarDate = currMsg.Msg
+          // let nowDate = new Date(currMsg.Msg)
+          // this.BirthdaylunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
 
         }
       });
     } else {
 
-      this.BirthdaylunlarDate = dataStr
-      this.BirthdaysolarDate = ""
+      this.bean.BirthdaylunlarDate = dataStr
+      this.bean.BirthdaysolarDate = ""
       this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          let nowDate = new Date(currMsg.Msg)
-          this.BirthdaysolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.bean.BirthdaysolarDate=currMsg.Msg
+          // let nowDate = new Date(currMsg.Msg)
+          // this.BirthdaysolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     }
@@ -241,27 +246,32 @@ export class FamilyEditPage {
   }
   /** 选择去世时间事件 */
   DoneDiedTime(inDate: any) {
+    if(inDate==null){
+      inDate=this.userForm.get('DIED_TIME').value
+    }
     console.log(inDate)
     let t = new Date(inDate)
 
     if (inDate == null || inDate == "") return;
     let dataStr = inDate.substr(0, 15)
     if (this.bean.YEARS_TYPE == "阳历") {
-      this.DiedsolarDate = dataStr
-      this.DiedlunlarDate = ""
+      this.bean.DiedsolarDate = dataStr
+      this.bean.DiedlunlarDate = ""
       this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          let nowDate = new Date(currMsg.Msg)
-          this.DiedlunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.bean.DiedlunlarDate=currMsg.Msg
+          // let nowDate = new Date(currMsg.Msg)
+          // this.DiedlunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     } else {
-      this.DiedlunlarDate = dataStr
-      this.DiedsolarDate = ""
+      this.bean.DiedlunlarDate = dataStr
+      this.bean.DiedsolarDate = ""
       this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
         if (currMsg.IsSuccess) {
-          let nowDate = new Date(currMsg.Msg)
-          this.DiedsolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+          this.bean.DiedsolarDate=currMsg.Msg
+          // let nowDate = new Date(currMsg.Msg)
+          // this.DiedsolarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
         }
       });
     }
@@ -303,11 +313,7 @@ export class FamilyEditPage {
   UserTypeChanged(obj) {
     console.log(obj.value)
 
-    this.BirthdaylunlarDate = ""
-    this.BirthdaysolarDate = ""
 
-    this.DiedsolarDate = ""
-    this.DiedlunlarDate = ""
     switch (obj.value) {
       case "husband":
         this.GetSingleEnt(this.params.get("userId"))

@@ -145,8 +145,6 @@ export class TabsPage {
   changeTabs(i) {
     let activeNav = this.tabs.getSelected();
     let indx = activeNav.index;
-    console.log(indx)
-
     if (AppGlobal.IsLogin) {
       /**
        * 如果已经登录则修改个人设置地址

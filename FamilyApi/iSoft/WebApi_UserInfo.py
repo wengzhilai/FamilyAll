@@ -39,14 +39,10 @@ def ApiUserInfoDelete():
     return Fun.class_to_JsonStr(message)
 
 @app.route('/Api/UserInfo/Single', methods=['GET', 'POST'])
-@auth.login_required
 def ApiUserInfoSingle():
     '''
     重置密码:RequestSaveModel对象，其中Data里包括VerifyCode，LoginName、NewPwd
     '''
-    if g is None:
-        return Fun.class_to_JsonStr(AppReturnDTO(False, "没有登录"))
-
     j_data, message = Fun.post_to_dict(request)
     if j_data is None:
         return Fun.class_to_JsonStr(message)

@@ -10,11 +10,11 @@ export class Config {
   static debug:boolean = true;
   static pageSize:number = 10;
 
-  // static api:string = 'http://127.0.0.1:5000/Api/';
-  // static imgUrl:string = 'http://127.0.0.1:5000/';
+  static api:string = 'http://127.0.0.1:5000/Api/';
+  static imgUrl:string = 'http://127.0.0.1:5000/';
 
-  static api:string = 'http://192.168.0.154:5000/Api/';
-  static imgUrl:string = 'http://192.168.0.154:5000/';
+  // static api:string = 'http://192.168.0.154:5000/Api/';
+  // static imgUrl:string = 'http://192.168.0.154:5000/';
 
   // static api:string = 'http://47.254.16.126:8080/Api/';
   // static imgUrl:string = 'http://47.254.16.126:8080/';
