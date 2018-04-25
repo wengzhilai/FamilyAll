@@ -16,7 +16,6 @@ class FaAppVersion(db.Model):
     UPDATE_URL = db.Column(db.String(200))
 
 
-
 class FaBulletin(db.Model):
     __tablename__ = 'fa_bulletin'
 
@@ -36,37 +35,34 @@ class FaBulletin(db.Model):
     UPDATE_TIME = db.Column(db.DateTime, nullable=False)
     REGION = db.Column(db.String(10), nullable=False)
 
-    fa_files = db.relationship(u'FaFile', secondary=u'fa_bulletin_file', backref=u'fa_bulletins')
-    fa_role = db.relationship(u'FaRole', secondary=u'fa_bulletin_role', backref=u'fa_bulletins')
-
+    fa_files = db.relationship('FaFile', secondary='fa_bulletin_file', backref='fa_bulletins')
+    fa_role = db.relationship('FaRole', secondary='fa_bulletin_role', backref='fa_bulletins')
 
 
 t_fa_bulletin_file = db.Table(
     'fa_bulletin_file',
-    db.Column('BULLETIN_ID', db.ForeignKey(u'fa_bulletin.ID'), primary_key=True, nullable=False),
-    db.Column('FILE_ID', db.ForeignKey(u'fa_files.ID'), primary_key=True, nullable=False)
+    db.Column('BULLETIN_ID', db.ForeignKey('fa_bulletin.ID'), primary_key=True, nullable=False),
+    db.Column('FILE_ID', db.ForeignKey('fa_files.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaBulletinLog(db.Model):
     __tablename__ = 'fa_bulletin_log'
 
     ID = db.Column(db.Integer, primary_key=True)
-    BULLETIN_ID = db.Column(db.ForeignKey(u'fa_bulletin.ID'), nullable=False)
+    BULLETIN_ID = db.Column(db.ForeignKey('fa_bulletin.ID'), nullable=False)
     USER_ID = db.Column(db.Integer, nullable=False)
     LOOK_TIME = db.Column(db.DateTime, nullable=False)
 
-    fa_bulletin = db.relationship(u'FaBulletin', primaryjoin='FaBulletinLog.BULLETIN_ID == FaBulletin.ID', backref=u'fa_bulletin_logs')
-
+    fa_bulletin = db.relationship('FaBulletin', primaryjoin='FaBulletinLog.BULLETIN_ID == FaBulletin.ID', backref='fa_bulletin_logs')
 
 
 class FaBulletinReview(db.Model):
     __tablename__ = 'fa_bulletin_review'
 
     ID = db.Column(db.Integer, primary_key=True)
-    PARENT_ID = db.Column(db.ForeignKey(u'fa_bulletin_review.ID'))
-    BULLETIN_ID = db.Column(db.ForeignKey(u'fa_bulletin.ID'), nullable=False)
+    PARENT_ID = db.Column(db.ForeignKey('fa_bulletin_review.ID'))
+    BULLETIN_ID = db.Column(db.ForeignKey('fa_bulletin.ID'), nullable=False)
     NAME = db.Column(db.String(50))
     CONTENT = db.Column(db.Text)
     USER_ID = db.Column(db.Integer, nullable=False)
@@ -74,17 +70,15 @@ class FaBulletinReview(db.Model):
     STATUS = db.Column(db.String(10), nullable=False)
     STATUS_TIME = db.Column(db.DateTime, nullable=False)
 
-    fa_bulletin = db.relationship(u'FaBulletin', primaryjoin='FaBulletinReview.BULLETIN_ID == FaBulletin.ID', backref=u'fa_bulletin_reviews')
-    parent = db.relationship(u'FaBulletinReview', remote_side=[ID], primaryjoin='FaBulletinReview.PARENT_ID == FaBulletinReview.ID', backref=u'fa_bulletin_reviews')
-
+    fa_bulletin = db.relationship('FaBulletin', primaryjoin='FaBulletinReview.BULLETIN_ID == FaBulletin.ID', backref='fa_bulletin_reviews')
+    parent = db.relationship('FaBulletinReview', remote_side=[ID], primaryjoin='FaBulletinReview.PARENT_ID == FaBulletinReview.ID', backref='fa_bulletin_reviews')
 
 
 t_fa_bulletin_role = db.Table(
     'fa_bulletin_role',
-    db.Column('BULLETIN_ID', db.ForeignKey(u'fa_bulletin.ID'), primary_key=True, nullable=False),
-    db.Column('ROLE_ID', db.ForeignKey(u'fa_role.ID'), primary_key=True, nullable=False)
+    db.Column('BULLETIN_ID', db.ForeignKey('fa_bulletin.ID'), primary_key=True, nullable=False),
+    db.Column('ROLE_ID', db.ForeignKey('fa_role.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaBulletinType(db.Model):
@@ -92,7 +86,6 @@ class FaBulletinType(db.Model):
 
     ID = db.Column(db.Integer, primary_key=True)
     NAME = db.Column(db.String(80))
-
 
 
 class FaConfig(db.Model):
@@ -109,12 +102,11 @@ class FaConfig(db.Model):
     ADD_TIEM = db.Column(db.DateTime)
 
 
-
 class FaDbServer(db.Model):
     __tablename__ = 'fa_db_server'
 
     ID = db.Column(db.Integer, primary_key=True)
-    DB_TYPE_ID = db.Column(db.ForeignKey(u'fa_db_server_type.ID'), nullable=False)
+    DB_TYPE_ID = db.Column(db.ForeignKey('fa_db_server_type.ID'), nullable=False)
     TYPE = db.Column(db.String(10), nullable=False)
     IP = db.Column(db.String(20), nullable=False)
     PORT = db.Column(db.Integer, nullable=False)
@@ -127,8 +119,7 @@ class FaDbServer(db.Model):
     TO_PATH_M = db.Column(db.String(300))
     TO_PATH_D = db.Column(db.String(300))
 
-    fa_db_server_type = db.relationship(u'FaDbServerType', primaryjoin='FaDbServer.DB_TYPE_ID == FaDbServerType.ID', backref=u'fa_db_servers')
-
+    fa_db_server_type = db.relationship('FaDbServerType', primaryjoin='FaDbServer.DB_TYPE_ID == FaDbServerType.ID', backref='fa_db_servers')
 
 
 class FaDbServerType(db.Model):
@@ -139,12 +130,11 @@ class FaDbServerType(db.Model):
     REMARK = db.Column(db.String(500))
 
 
-
 class FaDistrict(db.Model):
     __tablename__ = 'fa_district'
 
     ID = db.Column(db.Integer, primary_key=True)
-    PARENT_ID = db.Column(db.ForeignKey(u'fa_district.ID'))
+    PARENT_ID = db.Column(db.ForeignKey('fa_district.ID'))
     NAME = db.Column(db.String(255), nullable=False)
     CODE = db.Column(db.String(50))
     IN_USE = db.Column(db.Numeric(1, 0), nullable=False)
@@ -152,9 +142,8 @@ class FaDistrict(db.Model):
     ID_PATH = db.Column(db.String(200))
     REGION = db.Column(db.String(10), nullable=False)
 
-    parent = db.relationship(u'FaDistrict', remote_side=[ID], primaryjoin='FaDistrict.PARENT_ID == FaDistrict.ID', backref=u'fa_districts')
-    fa_user = db.relationship(u'FaUser', secondary=u'fa_user_district', backref=u'fa_districts')
-
+    parent = db.relationship('FaDistrict', remote_side=[ID], primaryjoin='FaDistrict.PARENT_ID == FaDistrict.ID', backref='fa_districts')
+    fa_user = db.relationship('FaUser', secondary='fa_user_district', backref='fa_districts')
 
 
 class FaDynasty(db.Model):
@@ -164,25 +153,22 @@ class FaDynasty(db.Model):
     NAME = db.Column(db.String(20), nullable=False)
 
 
-
 class FaElder(db.Model):
     __tablename__ = 'fa_elder'
 
     ID = db.Column(db.Integer, primary_key=True)
-    FAMILY_ID = db.Column(db.ForeignKey(u'fa_family.ID'))
+    FAMILY_ID = db.Column(db.ForeignKey('fa_family.ID'))
     NAME = db.Column(db.String(2), nullable=False)
     SORT = db.Column(db.Integer)
 
-    fa_family = db.relationship(u'FaFamily', primaryjoin='FaElder.FAMILY_ID == FaFamily.ID', backref=u'fa_elders')
-
+    fa_family = db.relationship('FaFamily', primaryjoin='FaElder.FAMILY_ID == FaFamily.ID', backref='fa_elders')
 
 
 t_fa_event_files = db.Table(
     'fa_event_files',
-    db.Column('EVENT_ID', db.ForeignKey(u'fa_user_event.ID'), primary_key=True, nullable=False),
-    db.Column('FILES_ID', db.ForeignKey(u'fa_files.ID'), primary_key=True, nullable=False)
+    db.Column('EVENT_ID', db.ForeignKey('fa_user_event.ID'), primary_key=True, nullable=False),
+    db.Column('FILES_ID', db.ForeignKey('fa_files.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaExportLog(db.Model):
@@ -197,13 +183,11 @@ class FaExportLog(db.Model):
     REMARK = db.Column(db.String(100))
 
 
-
 class FaFamily(db.Model):
     __tablename__ = 'fa_family'
 
     ID = db.Column(db.Integer, primary_key=True)
     NAME = db.Column(db.String(20), nullable=False)
-
 
 
 class FaFile(db.Model):
@@ -219,8 +203,8 @@ class FaFile(db.Model):
     URL = db.Column(db.String(254))
     FILE_TYPE = db.Column(db.String(50))
 
-    fa_task_flow_handle = db.relationship(u'FaTaskFlowHandle', secondary=u'fa_task_flow_handle_files', backref=u'fa_files')
-
+    fa_task_flow_handle = db.relationship('FaTaskFlowHandle', secondary='fa_task_flow_handle_files', backref='fa_files')
+    fa_user = db.relationship('FaUser', secondary='fa_user_file', backref='fa_files')
 
 
 class FaFlow(db.Model):
@@ -234,7 +218,6 @@ class FaFlow(db.Model):
     REGION = db.Column(db.String(10))
 
 
-
 class FaFlowFlownode(db.Model):
     __tablename__ = 'fa_flow_flownode'
 
@@ -244,13 +227,12 @@ class FaFlowFlownode(db.Model):
     SHOW_URL = db.Column(db.String(200))
 
 
-
 class FaFlowFlownodeFlow(db.Model):
     __tablename__ = 'fa_flow_flownode_flow'
 
     ID = db.Column(db.Integer, primary_key=True)
-    FLOW_ID = db.Column(db.ForeignKey(u'fa_flow.ID'), nullable=False)
-    FROM_FLOWNODE_ID = db.Column(db.ForeignKey(u'fa_flow_flownode.ID'), nullable=False)
+    FLOW_ID = db.Column(db.ForeignKey('fa_flow.ID'), nullable=False)
+    FROM_FLOWNODE_ID = db.Column(db.ForeignKey('fa_flow_flownode.ID'), nullable=False)
     TO_FLOWNODE_ID = db.Column(db.Integer, nullable=False)
     HANDLE = db.Column(db.Numeric(1, 0), nullable=False)
     ASSIGNER = db.Column(db.Numeric(1, 0), nullable=False)
@@ -258,18 +240,16 @@ class FaFlowFlownodeFlow(db.Model):
     REMARK = db.Column(db.String(20))
     EXPIRE_HOUR = db.Column(db.Integer, nullable=False)
 
-    fa_flow = db.relationship(u'FaFlow', primaryjoin='FaFlowFlownodeFlow.FLOW_ID == FaFlow.ID', backref=u'fa_flow_flownode_flows')
-    fa_flow_flownode = db.relationship(u'FaFlowFlownode', primaryjoin='FaFlowFlownodeFlow.FROM_FLOWNODE_ID == FaFlowFlownode.ID', backref=u'fa_flow_flownode_flows')
-    fa_role = db.relationship(u'FaRole', secondary=u'fa_flow_flownode_role', backref=u'fa_flow_flownode_flows')
-
+    fa_flow = db.relationship('FaFlow', primaryjoin='FaFlowFlownodeFlow.FLOW_ID == FaFlow.ID', backref='fa_flow_flownode_flows')
+    fa_flow_flownode = db.relationship('FaFlowFlownode', primaryjoin='FaFlowFlownodeFlow.FROM_FLOWNODE_ID == FaFlowFlownode.ID', backref='fa_flow_flownode_flows')
+    fa_role = db.relationship('FaRole', secondary='fa_flow_flownode_role', backref='fa_flow_flownode_flows')
 
 
 t_fa_flow_flownode_role = db.Table(
     'fa_flow_flownode_role',
-    db.Column('FLOW_ID', db.ForeignKey(u'fa_flow_flownode_flow.ID'), primary_key=True, nullable=False),
-    db.Column('ROLE_ID', db.ForeignKey(u'fa_role.ID'), primary_key=True, nullable=False)
+    db.Column('FLOW_ID', db.ForeignKey('fa_flow_flownode_flow.ID'), primary_key=True, nullable=False),
+    db.Column('ROLE_ID', db.ForeignKey('fa_role.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaFunction(db.Model):
@@ -284,8 +264,7 @@ class FaFunction(db.Model):
     DLL_NAME = db.Column(db.String(100))
     XML_NOTE = db.Column(db.String(254))
 
-    fa_role = db.relationship(u'FaRole', secondary=u'fa_role_function', backref=u'fa_functions')
-
+    fa_role = db.relationship('FaRole', secondary='fa_role_function', backref='fa_functions')
 
 
 class FaLog(db.Model):
@@ -295,7 +274,6 @@ class FaLog(db.Model):
     ADD_TIME = db.Column(db.DateTime, nullable=False)
     MODULE_NAME = db.Column(db.String(100), nullable=False)
     USER_ID = db.Column(db.Integer, nullable=False)
-
 
 
 class FaLogin(db.Model):
@@ -313,8 +291,7 @@ class FaLogin(db.Model):
     LOCKED_REASON = db.Column(db.String(255))
     FAIL_COUNT = db.Column(db.Integer)
 
-    fa_oauth = db.relationship(u'FaOauth', secondary=u'fa_oauth_login', backref=u'fa_logins')
-
+    fa_oauth = db.relationship('FaOauth', secondary='fa_oauth_login', backref='fa_logins')
 
 
 class FaLoginHistory(db.Model):
@@ -329,12 +306,11 @@ class FaLoginHistory(db.Model):
     MESSAGE = db.Column(db.String(255))
 
 
-
 class FaMessage(db.Model):
     __tablename__ = 'fa_message'
 
     ID = db.Column(db.Integer, primary_key=True)
-    MESSAGE_TYPE_ID = db.Column(db.ForeignKey(u'fa_message_type.ID'))
+    MESSAGE_TYPE_ID = db.Column(db.ForeignKey('fa_message_type.ID'))
     KEY_ID = db.Column(db.Integer)
     TITLE = db.Column(db.String(100))
     CONTENT = db.Column(db.String(500))
@@ -346,8 +322,7 @@ class FaMessage(db.Model):
     DISTRICT_ID = db.Column(db.Integer)
     ALL_ROLE_ID = db.Column(db.String(500))
 
-    fa_message_type = db.relationship(u'FaMessageType', primaryjoin='FaMessage.MESSAGE_TYPE_ID == FaMessageType.ID', backref=u'fa_messages')
-
+    fa_message_type = db.relationship('FaMessageType', primaryjoin='FaMessage.MESSAGE_TYPE_ID == FaMessageType.ID', backref='fa_messages')
 
 
 class FaMessageType(db.Model):
@@ -360,12 +335,11 @@ class FaMessageType(db.Model):
     REMARK = db.Column(db.String(500))
 
 
-
 class FaModule(db.Model):
     __tablename__ = 'fa_module'
 
     ID = db.Column(db.Integer, primary_key=True)
-    PARENT_ID = db.Column(db.ForeignKey(u'fa_module.ID'))
+    PARENT_ID = db.Column(db.ForeignKey('fa_module.ID'))
     NAME = db.Column(db.String(60))
     LOCATION = db.Column(db.String(2000))
     CODE = db.Column(db.String(20))
@@ -378,10 +352,9 @@ class FaModule(db.Model):
     W = db.Column(db.Integer)
     H = db.Column(db.Integer)
 
-    parent = db.relationship(u'FaModule', remote_side=[ID], primaryjoin='FaModule.PARENT_ID == FaModule.ID', backref=u'fa_modules')
-    fa_role = db.relationship(u'FaRole', secondary=u'fa_role_module', backref=u'fa_modules')
-    fa_user = db.relationship(u'FaUser', secondary=u'fa_user_module', backref=u'fa_modules')
-
+    parent = db.relationship('FaModule', remote_side=[ID], primaryjoin='FaModule.PARENT_ID == FaModule.ID', backref='fa_modules')
+    fa_role = db.relationship('FaRole', secondary='fa_role_module', backref='fa_modules')
+    fa_user = db.relationship('FaUser', secondary='fa_user_module', backref='fa_modules')
 
 
 class FaOauth(db.Model):
@@ -394,13 +367,11 @@ class FaOauth(db.Model):
     REMARK = db.Column(db.String(500))
 
 
-
 t_fa_oauth_login = db.Table(
     'fa_oauth_login',
-    db.Column('OAUTH_ID', db.ForeignKey(u'fa_oauth.ID'), primary_key=True, nullable=False),
-    db.Column('LOGIN_ID', db.ForeignKey(u'fa_login.ID'), primary_key=True, nullable=False)
+    db.Column('OAUTH_ID', db.ForeignKey('fa_oauth.ID'), primary_key=True, nullable=False),
+    db.Column('LOGIN_ID', db.ForeignKey('fa_login.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaQuery(db.Model):
@@ -429,7 +400,6 @@ class FaQuery(db.Model):
     NEW_DATA = db.Column(db.String(50))
 
 
-
 class FaRole(db.Model):
     __tablename__ = 'fa_role'
 
@@ -438,50 +408,45 @@ class FaRole(db.Model):
     REMARK = db.Column(db.String(255))
     TYPE = db.Column(db.Integer)
 
-    fa_user = db.relationship(u'FaUser', secondary=u'fa_user_role', backref=u'fa_roles')
-
+    fa_user = db.relationship('FaUser', secondary='fa_user_role', backref='fa_roles')
 
 
 class FaRoleConfig(db.Model):
     __tablename__ = 'fa_role_config'
 
     ID = db.Column(db.Integer, primary_key=True)
-    ROLE_ID = db.Column(db.ForeignKey(u'fa_role.ID'), nullable=False)
+    ROLE_ID = db.Column(db.ForeignKey('fa_role.ID'), nullable=False)
     TYPE = db.Column(db.String(10))
     NAME = db.Column(db.String(50), nullable=False)
     VALUE = db.Column(db.String(300))
     REMARK = db.Column(db.String(500))
 
-    fa_role = db.relationship(u'FaRole', primaryjoin='FaRoleConfig.ROLE_ID == FaRole.ID', backref=u'fa_role_configs')
-
+    fa_role = db.relationship('FaRole', primaryjoin='FaRoleConfig.ROLE_ID == FaRole.ID', backref='fa_role_configs')
 
 
 t_fa_role_function = db.Table(
     'fa_role_function',
-    db.Column('FUNCTION_ID', db.ForeignKey(u'fa_function.ID'), primary_key=True, nullable=False),
-    db.Column('ROLE_ID', db.ForeignKey(u'fa_role.ID'), primary_key=True, nullable=False)
+    db.Column('FUNCTION_ID', db.ForeignKey('fa_function.ID'), primary_key=True, nullable=False),
+    db.Column('ROLE_ID', db.ForeignKey('fa_role.ID'), primary_key=True, nullable=False)
 )
-
 
 
 t_fa_role_module = db.Table(
     'fa_role_module',
-    db.Column('ROLE_ID', db.ForeignKey(u'fa_role.ID'), primary_key=True, nullable=False),
-    db.Column('MODULE_ID', db.ForeignKey(u'fa_module.ID'), primary_key=True, nullable=False)
+    db.Column('ROLE_ID', db.ForeignKey('fa_role.ID'), primary_key=True, nullable=False),
+    db.Column('MODULE_ID', db.ForeignKey('fa_module.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaRoleQueryAuthority(db.Model):
     __tablename__ = 'fa_role_query_authority'
 
-    ROLE_ID = db.Column(db.ForeignKey(u'fa_role.ID'), primary_key=True, nullable=False)
-    QUERY_ID = db.Column(db.ForeignKey(u'fa_query.ID'), primary_key=True, nullable=False)
+    ROLE_ID = db.Column(db.ForeignKey('fa_role.ID'), primary_key=True, nullable=False)
+    QUERY_ID = db.Column(db.ForeignKey('fa_query.ID'), primary_key=True, nullable=False)
     NO_AUTHORITY = db.Column(db.String(200))
 
-    fa_query = db.relationship(u'FaQuery', primaryjoin='FaRoleQueryAuthority.QUERY_ID == FaQuery.ID', backref=u'fa_role_query_authorities')
-    fa_role = db.relationship(u'FaRole', primaryjoin='FaRoleQueryAuthority.ROLE_ID == FaRole.ID', backref=u'fa_role_query_authorities')
-
+    fa_query = db.relationship('FaQuery', primaryjoin='FaRoleQueryAuthority.QUERY_ID == FaQuery.ID', backref='fa_role_query_authorities')
+    fa_role = db.relationship('FaRole', primaryjoin='FaRoleQueryAuthority.ROLE_ID == FaRole.ID', backref='fa_role_query_authorities')
 
 
 class FaScript(db.Model):
@@ -502,23 +467,21 @@ class FaScript(db.Model):
     IS_GROUP = db.Column(db.Numeric(1, 0), nullable=False)
 
 
-
 class FaScriptGroupList(db.Model):
     __tablename__ = 'fa_script_group_list'
 
     SCRIPT_ID = db.Column(db.Integer, primary_key=True, nullable=False)
-    GROUP_ID = db.Column(db.ForeignKey(u'fa_script.ID'), primary_key=True, nullable=False)
+    GROUP_ID = db.Column(db.ForeignKey('fa_script.ID'), primary_key=True, nullable=False)
     ORDER_INDEX = db.Column(db.Integer, nullable=False)
 
-    fa_script = db.relationship(u'FaScript', primaryjoin='FaScriptGroupList.GROUP_ID == FaScript.ID', backref=u'fa_script_group_lists')
-
+    fa_script = db.relationship('FaScript', primaryjoin='FaScriptGroupList.GROUP_ID == FaScript.ID', backref='fa_script_group_lists')
 
 
 class FaScriptTask(db.Model):
     __tablename__ = 'fa_script_task'
 
     ID = db.Column(db.Integer, primary_key=True)
-    SCRIPT_ID = db.Column(db.ForeignKey(u'fa_script.ID'), nullable=False)
+    SCRIPT_ID = db.Column(db.ForeignKey('fa_script.ID'), nullable=False)
     BODY_TEXT = db.Column(db.Text, nullable=False)
     BODY_HASH = db.Column(db.String(255), nullable=False)
     RUN_STATE = db.Column(db.String(10), nullable=False, server_default=db.FetchedValue())
@@ -536,22 +499,20 @@ class FaScriptTask(db.Model):
     REGION = db.Column(db.String(10))
     GROUP_ID = db.Column(db.Integer)
 
-    fa_script = db.relationship(u'FaScript', primaryjoin='FaScriptTask.SCRIPT_ID == FaScript.ID', backref=u'fa_script_tasks')
-
+    fa_script = db.relationship('FaScript', primaryjoin='FaScriptTask.SCRIPT_ID == FaScript.ID', backref='fa_script_tasks')
 
 
 class FaScriptTaskLog(db.Model):
     __tablename__ = 'fa_script_task_log'
 
     ID = db.Column(db.Integer, primary_key=True)
-    SCRIPT_TASK_ID = db.Column(db.ForeignKey(u'fa_script_task.ID'), nullable=False)
+    SCRIPT_TASK_ID = db.Column(db.ForeignKey('fa_script_task.ID'), nullable=False)
     LOG_TIME = db.Column(db.DateTime, nullable=False)
     LOG_TYPE = db.Column(db.Numeric(1, 0), nullable=False, server_default=db.FetchedValue())
     MESSAGE = db.Column(db.Text)
     SQL_TEXT = db.Column(db.Text)
 
-    fa_script_task = db.relationship(u'FaScriptTask', primaryjoin='FaScriptTaskLog.SCRIPT_TASK_ID == FaScriptTask.ID', backref=u'fa_script_task_logs')
-
+    fa_script_task = db.relationship('FaScriptTask', primaryjoin='FaScriptTaskLog.SCRIPT_TASK_ID == FaScriptTask.ID', backref='fa_script_task_logs')
 
 
 class FaSmsSend(db.Model):
@@ -567,12 +528,11 @@ class FaSmsSend(db.Model):
     TRY_NUM = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
 
 
-
 class FaTask(db.Model):
     __tablename__ = 'fa_task'
 
     ID = db.Column(db.Integer, primary_key=True)
-    FLOW_ID = db.Column(db.ForeignKey(u'fa_flow.ID'))
+    FLOW_ID = db.Column(db.ForeignKey('fa_flow.ID'))
     TASK_NAME = db.Column(db.String(50))
     CREATE_TIME = db.Column(db.DateTime)
     CREATE_USER = db.Column(db.Integer)
@@ -587,16 +547,15 @@ class FaTask(db.Model):
     DEAL_TIME = db.Column(db.DateTime)
     ROLE_ID_STR = db.Column(db.String(200))
 
-    fa_flow = db.relationship(u'FaFlow', primaryjoin='FaTask.FLOW_ID == FaFlow.ID', backref=u'fa_tasks')
-
+    fa_flow = db.relationship('FaFlow', primaryjoin='FaTask.FLOW_ID == FaFlow.ID', backref='fa_tasks')
 
 
 class FaTaskFlow(db.Model):
     __tablename__ = 'fa_task_flow'
 
     ID = db.Column(db.Integer, primary_key=True)
-    PARENT_ID = db.Column(db.ForeignKey(u'fa_task_flow.ID'))
-    TASK_ID = db.Column(db.ForeignKey(u'fa_task.ID'), nullable=False)
+    PARENT_ID = db.Column(db.ForeignKey('fa_task_flow.ID'))
+    TASK_ID = db.Column(db.ForeignKey('fa_task.ID'), nullable=False)
     LEVEL_ID = db.Column(db.Integer)
     FLOWNODE_ID = db.Column(db.Integer)
     EQUAL_ID = db.Column(db.Integer)
@@ -612,41 +571,37 @@ class FaTaskFlow(db.Model):
     DEAL_TIME = db.Column(db.DateTime)
     ACCEPT_TIME = db.Column(db.DateTime)
 
-    parent = db.relationship(u'FaTaskFlow', remote_side=[ID], primaryjoin='FaTaskFlow.PARENT_ID == FaTaskFlow.ID', backref=u'fa_task_flows')
-    fa_task = db.relationship(u'FaTask', primaryjoin='FaTaskFlow.TASK_ID == FaTask.ID', backref=u'fa_task_flows')
-
+    parent = db.relationship('FaTaskFlow', remote_side=[ID], primaryjoin='FaTaskFlow.PARENT_ID == FaTaskFlow.ID', backref='fa_task_flows')
+    fa_task = db.relationship('FaTask', primaryjoin='FaTaskFlow.TASK_ID == FaTask.ID', backref='fa_task_flows')
 
 
 class FaTaskFlowHandle(db.Model):
     __tablename__ = 'fa_task_flow_handle'
 
     ID = db.Column(db.Integer, primary_key=True)
-    TASK_FLOW_ID = db.Column(db.ForeignKey(u'fa_task_flow.ID'), nullable=False)
+    TASK_FLOW_ID = db.Column(db.ForeignKey('fa_task_flow.ID'), nullable=False)
     DEAL_USER_ID = db.Column(db.Integer, nullable=False)
     DEAL_USER_NAME = db.Column(db.String(50), nullable=False)
     DEAL_TIME = db.Column(db.DateTime, nullable=False)
     CONTENT = db.Column(db.String(2000), nullable=False)
 
-    fa_task_flow = db.relationship(u'FaTaskFlow', primaryjoin='FaTaskFlowHandle.TASK_FLOW_ID == FaTaskFlow.ID', backref=u'fa_task_flow_handles')
-
+    fa_task_flow = db.relationship('FaTaskFlow', primaryjoin='FaTaskFlowHandle.TASK_FLOW_ID == FaTaskFlow.ID', backref='fa_task_flow_handles')
 
 
 t_fa_task_flow_handle_files = db.Table(
     'fa_task_flow_handle_files',
-    db.Column('FLOW_HANDLE_ID', db.ForeignKey(u'fa_task_flow_handle.ID'), primary_key=True, nullable=False),
-    db.Column('FILES_ID', db.ForeignKey(u'fa_files.ID'), primary_key=True, nullable=False)
+    db.Column('FLOW_HANDLE_ID', db.ForeignKey('fa_task_flow_handle.ID'), primary_key=True, nullable=False),
+    db.Column('FILES_ID', db.ForeignKey('fa_files.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaTaskFlowHandleUser(db.Model):
     __tablename__ = 'fa_task_flow_handle_user'
 
-    TASK_FLOW_ID = db.Column(db.ForeignKey(u'fa_task_flow.ID'), primary_key=True, nullable=False)
+    TASK_FLOW_ID = db.Column(db.ForeignKey('fa_task_flow.ID'), primary_key=True, nullable=False)
     HANDLE_USER_ID = db.Column(db.Integer, primary_key=True, nullable=False)
 
-    fa_task_flow = db.relationship(u'FaTaskFlow', primaryjoin='FaTaskFlowHandleUser.TASK_FLOW_ID == FaTaskFlow.ID', backref=u'fa_task_flow_handle_users')
-
+    fa_task_flow = db.relationship('FaTaskFlow', primaryjoin='FaTaskFlowHandleUser.TASK_FLOW_ID == FaTaskFlow.ID', backref='fa_task_flow_handle_users')
 
 
 class FaUpdataLog(db.Model):
@@ -661,7 +616,6 @@ class FaUpdataLog(db.Model):
     TABLE_NAME = db.Column(db.String(50))
 
 
-
 class FaUser(db.Model):
     __tablename__ = 'fa_user'
 
@@ -669,7 +623,7 @@ class FaUser(db.Model):
     NAME = db.Column(db.String(80))
     LOGIN_NAME = db.Column(db.String(20))
     ICON_FILES_ID = db.Column(db.Integer)
-    DISTRICT_ID = db.Column(db.ForeignKey(u'fa_district.ID'), nullable=False)
+    DISTRICT_ID = db.Column(db.ForeignKey('fa_district.ID'), nullable=False)
     IS_LOCKED = db.Column(db.Numeric(1, 0))
     CREATE_TIME = db.Column(db.DateTime)
     LOGIN_COUNT = db.Column(db.Integer)
@@ -678,19 +632,19 @@ class FaUser(db.Model):
     LAST_ACTIVE_TIME = db.Column(db.DateTime)
     REMARK = db.Column(db.String(2000))
 
-    fa_district = db.relationship(u'FaDistrict', primaryjoin='FaUser.DISTRICT_ID == FaDistrict.ID', backref=u'fa_users')
-    fa_user_info = db.relationship(u'FaUserInfo', secondary=u'fa_user_friend', backref=u'fa_users', lazy="select")
+    fa_district = db.relationship('FaDistrict', primaryjoin='FaUser.DISTRICT_ID == FaDistrict.ID', backref='fa_users')
+    fa_user_info = db.relationship('FaUserInfo', secondary='fa_user_friend', backref='fa_users')
 
 
 class FaUserInfo(FaUser):
     __tablename__ = 'fa_user_info'
 
-    ID = db.Column(db.ForeignKey(u'fa_user.ID'), primary_key=True)
+    ID = db.Column(db.ForeignKey('fa_user.ID'), primary_key=True)
     LEVEL_ID = db.Column(db.Integer)
-    FAMILY_ID = db.Column(db.ForeignKey(u'fa_family.ID'))
-    ELDER_ID = db.Column(db.ForeignKey(u'fa_elder.ID'))
+    FAMILY_ID = db.Column(db.ForeignKey('fa_family.ID'))
+    ELDER_ID = db.Column(db.ForeignKey('fa_elder.ID'))
     LEVEL_NAME = db.Column(db.String(2))
-    FATHER_ID = db.Column(db.ForeignKey(u'fa_user_info.ID'))
+    FATHER_ID = db.Column(db.ForeignKey('fa_user_info.ID'))
     COUPLE_ID = db.Column(db.Integer)
     BIRTHDAY_TIME = db.Column(db.DateTime)
     BIRTHDAY_PLACE = db.Column(db.String(500))
@@ -707,47 +661,50 @@ class FaUserInfo(FaUser):
     UPDATE_USER_NAME = db.Column(db.String(50), nullable=False, server_default=db.FetchedValue())
     UPDATE_USER_ID = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
 
-    fa_elder = db.relationship(u'FaElder', primaryjoin='FaUserInfo.ELDER_ID == FaElder.ID', backref=u'fa_user_infos')
-    fa_family = db.relationship(u'FaFamily', primaryjoin='FaUserInfo.FAMILY_ID == FaFamily.ID', backref=u'fa_user_infos')
-    parent = db.relationship(u'FaUserInfo', remote_side=[ID], primaryjoin='FaUserInfo.FATHER_ID == FaUserInfo.ID', backref=u'fa_user_infos')
-
+    fa_elder = db.relationship('FaElder', primaryjoin='FaUserInfo.ELDER_ID == FaElder.ID', backref='fa_user_infos')
+    fa_family = db.relationship('FaFamily', primaryjoin='FaUserInfo.FAMILY_ID == FaFamily.ID', backref='fa_user_infos')
+    parent = db.relationship('FaUserInfo', remote_side=[ID], primaryjoin='FaUserInfo.FATHER_ID == FaUserInfo.ID', backref='fa_user_infos')
 
 
 t_fa_user_district = db.Table(
     'fa_user_district',
-    db.Column('USER_ID', db.ForeignKey(u'fa_user.ID'), primary_key=True, nullable=False),
-    db.Column('DISTRICT_ID', db.ForeignKey(u'fa_district.ID'), primary_key=True, nullable=False)
+    db.Column('USER_ID', db.ForeignKey('fa_user.ID'), primary_key=True, nullable=False),
+    db.Column('DISTRICT_ID', db.ForeignKey('fa_district.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaUserEvent(db.Model):
     __tablename__ = 'fa_user_event'
 
     ID = db.Column(db.Integer, primary_key=True)
-    USER_ID = db.Column(db.ForeignKey(u'fa_user_info.ID'))
+    USER_ID = db.Column(db.ForeignKey('fa_user_info.ID'))
     NAME = db.Column(db.String(50))
     HAPPEN_TIME = db.Column(db.DateTime)
     CONTENT = db.Column(db.String(500))
     ADDRESS = db.Column(db.String(500))
 
-    fa_user_info = db.relationship(u'FaUserInfo', primaryjoin='FaUserEvent.USER_ID == FaUserInfo.ID', backref=u'fa_user_events')
-    fa_files = db.relationship(u'FaFile', secondary=u'fa_event_files', backref=u'fa_user_events')
+    fa_user_info = db.relationship('FaUserInfo', primaryjoin='FaUserEvent.USER_ID == FaUserInfo.ID', backref='fa_user_events')
+    fa_files = db.relationship('FaFile', secondary='fa_event_files', backref='fa_user_events')
 
+
+t_fa_user_file = db.Table(
+    'fa_user_file',
+    db.Column('USER_ID', db.ForeignKey('fa_user.ID'), primary_key=True, nullable=False),
+    db.Column('FILE_ID', db.ForeignKey('fa_files.ID'), primary_key=True, nullable=False)
+)
 
 
 t_fa_user_friend = db.Table(
     'fa_user_friend',
-    db.Column('USER_ID', db.ForeignKey(u'fa_user_info.ID'), primary_key=True, nullable=False),
-    db.Column('FRIEND_ID', db.ForeignKey(u'fa_user.ID'), primary_key=True, nullable=False)
+    db.Column('USER_ID', db.ForeignKey('fa_user_info.ID'), primary_key=True, nullable=False),
+    db.Column('FRIEND_ID', db.ForeignKey('fa_user.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class FaUserMessage(db.Model):
     __tablename__ = 'fa_user_message'
 
-    MESSAGE_ID = db.Column(db.ForeignKey(u'fa_message.ID'), primary_key=True, nullable=False)
+    MESSAGE_ID = db.Column(db.ForeignKey('fa_message.ID'), primary_key=True, nullable=False)
     USER_ID = db.Column(db.Integer, primary_key=True, nullable=False)
     PHONE_NO = db.Column(db.String(20))
     STATUS = db.Column(db.String(10))
@@ -755,24 +712,21 @@ class FaUserMessage(db.Model):
     REPLY = db.Column(db.String(500))
     PUSH_TYPE = db.Column(db.String(10))
 
-    fa_message = db.relationship(u'FaMessage', primaryjoin='FaUserMessage.MESSAGE_ID == FaMessage.ID', backref=u'fa_user_messages')
-
+    fa_message = db.relationship('FaMessage', primaryjoin='FaUserMessage.MESSAGE_ID == FaMessage.ID', backref='fa_user_messages')
 
 
 t_fa_user_module = db.Table(
     'fa_user_module',
-    db.Column('USER_ID', db.ForeignKey(u'fa_user.ID'), primary_key=True, nullable=False),
-    db.Column('MODULE_ID', db.ForeignKey(u'fa_module.ID'), primary_key=True, nullable=False)
+    db.Column('USER_ID', db.ForeignKey('fa_user.ID'), primary_key=True, nullable=False),
+    db.Column('MODULE_ID', db.ForeignKey('fa_module.ID'), primary_key=True, nullable=False)
 )
-
 
 
 t_fa_user_role = db.Table(
     'fa_user_role',
-    db.Column('ROLE_ID', db.ForeignKey(u'fa_role.ID'), primary_key=True, nullable=False),
-    db.Column('USER_ID', db.ForeignKey(u'fa_user.ID'), primary_key=True, nullable=False)
+    db.Column('ROLE_ID', db.ForeignKey('fa_role.ID'), primary_key=True, nullable=False),
+    db.Column('USER_ID', db.ForeignKey('fa_user.ID'), primary_key=True, nullable=False)
 )
-
 
 
 class Sequence(db.Model):

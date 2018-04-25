@@ -57,6 +57,7 @@ export class IonicUpSinglePicComponent implements OnInit {
       console.log("控件获取到文件返回")
 
       this.FileDict = fileModel
+      if (this.FileDict == null) this.FileDict = {}
       this.commonService.PlatformsExists("core") ? console.log(this.FileDict) : console.log(JSON.stringify(this.FileDict));
 
       /**

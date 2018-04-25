@@ -53,12 +53,12 @@ def ApiPublicGetLunarDate():
         return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有问题"))
 
 
-    t = time.strptime(postEnt.Data["Data"], "%Y-%m-%d")
-    y, m, d = t[0:3]
+    t = time.strptime(postEnt.Data["Data"], "%Y-%m-%dT%H:%M")
+    y, m, d,h = t[0:4]
     converter = LunarSolarConverter()
     solar = Solar(y, m, d)
     lunar = converter.SolarToLunar(solar)
-    reStr = "{0}-{1}-{2}".format(lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay)
+    reStr = "%d年%02d月%02d日%02d时" % (lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay,h)
     return Fun.class_to_JsonStr(AppReturnDTO(True, reStr))
 
 
@@ -72,7 +72,7 @@ def ApiPublicGetSolarDate():
     if postEnt is None or postEnt.Data is None:
         return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有问题"))
 
-    t = time.strptime(postEnt.Data["Data"], "%Y-%m-%d")
+    t = time.strptime(postEnt.Data["Data"], "%Y-%m-%dT%H:%M")
     y, m, d = t[0:3]
 
     converter = LunarSolarConverter()

@@ -340,6 +340,16 @@ export class FamilyRelativePage implements OnInit {
     this.graph = new NetronGraph(this.mapElement.nativeElement);
     this.onSucc(this.userId);
   }
+  LookUserInfo(){
+    this.userName = this.tempCheckUser.Name;
+    this.userId = this.tempCheckUser.Id;
+    this.fab.toggleList();
+    this.navCtrl.push("FamilyLookPage",
+      {
+        userId: this.userId,
+        userName: this.userName
+      });
+  }
   SelectUser(userInfo: any) {
     this.graph.dispose();
     this.graph = new NetronGraph(this.mapElement.nativeElement);

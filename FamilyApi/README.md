@@ -53,4 +53,6 @@ deactivate
 python ./sqlacodegen/main.py --noviews --noindexes --flask --outfile ~/github/family/app/entity/model.py mysql://FA:abcdef123@47.254.16.126:3306/fa
 
 
+python ./venv/bin/flask-sqlacodegen --noviews --noindexes --flask --outfile ./iSoft/entity/model.py mysql+pymysql://FA:abcdef123@47.254.16.126:3306/fa
+
 /private/var/root/Desktop/Family/family/venv/Scripts/

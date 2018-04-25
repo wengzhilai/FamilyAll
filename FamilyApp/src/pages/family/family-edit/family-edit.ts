@@ -101,10 +101,9 @@ export class FamilyEditPage {
         break
       case "addSon":
         this.bean.FATHER_ID = this.params.data.userId
+        this.bean.filesList=[]
         break
     }
-
-
   }
 
   /**
@@ -112,6 +111,8 @@ export class FamilyEditPage {
    */
   GetSingleEnt(userId) {
     this.commonService.showLoading()
+    this.bean={};
+    this.bean.iconFiles={}
     this.toPostService.Post("UserInfo/Single", { "Key": userId }).then((currMsg) => {
       this.commonService.hideLoading()
       if (!currMsg.IsSuccess) {
@@ -129,6 +130,8 @@ export class FamilyEditPage {
         if (this.bean.iconFiles == null) this.bean.iconFiles = {}
 
         if (this.userType == "husband") this.hasbandName = this.bean.NAME
+
+        this.bean.filesList=currMsg.Data.filesList
         this.SetForm(this.bean);
       }
     })
@@ -142,10 +145,6 @@ export class FamilyEditPage {
     this.userForm.get('BIRTHDAY_PLACE').setValue(inEnt.BIRTHDAY_PLACE)
     this.userForm.get('DIED_PLACE').setValue(inEnt.DIED_PLACE)
     this.userForm.get('REMARK').setValue(inEnt.REMARK)
-  }
-
-  upImg(key) {
-
   }
 
   save() {
@@ -165,6 +164,7 @@ export class FamilyEditPage {
     {
       this.bean.DIED_TIME = this.bean.DIED_TIME.replace('T', ' ').replace('Z', '')
     }
+    this.bean.filesList=this.allFiles;
     console.log(this.bean)
 
     this.toPostService.Post("UserInfo/save", { Data: this.bean, "SaveKeys": this.commonService.GetBeanNameStr(this.bean) }).then((currMsg) => {
@@ -215,7 +215,7 @@ export class FamilyEditPage {
     console.log(inDate)
     let t = new Date(inDate)
     if (inDate == null || inDate == "") return;
-    let dataStr = inDate.substr(0, 10)
+    let dataStr = inDate.substr(0, 15)
     if (this.bean.YEARS_TYPE == "阳历") {
       this.BirthdaysolarDate = dataStr
       this.BirthdaylunlarDate = ""
@@ -245,7 +245,7 @@ export class FamilyEditPage {
     let t = new Date(inDate)
 
     if (inDate == null || inDate == "") return;
-    let dataStr = inDate.substr(0, 10)
+    let dataStr = inDate.substr(0, 15)
     if (this.bean.YEARS_TYPE == "阳历") {
       this.DiedsolarDate = dataStr
       this.DiedlunlarDate = ""

@@ -23,6 +23,7 @@ import json
 
 class UserDal(FaUser):
     roleIdList = []
+    filesList = []
     moduleList = []
     iconFiles={}
 
@@ -32,33 +33,62 @@ class UserDal(FaUser):
         return relist, is_succ
 
     def user_Save(self, in_dict, saveKeys):
-        relist, is_succ = Fun.model_save(FaUser, self, in_dict, saveKeys)
+        user, is_succ = Fun.model_save(FaUser, self, in_dict, saveKeys)
         if is_succ.IsSuccess:  # 表示已经添加成功角色
-            sqlStr = '''
-                DELETE
-                FROM
-                    fa_user_role
-                WHERE
-                    fa_user_role.USER_ID = {0}
-            '''.format(relist.ID)
-            print(sqlStr)
-            execObj = db.session.execute(sqlStr)
-            if len(relist.roleIdList) > 0:
+            # <!--更新用户的角色--
+            if "roleIdList" in saveKeys:
                 sqlStr = '''
-                    INSERT INTO fa_user_role (ROLE_ID, USER_ID) 
-                        SELECT
-                            m.ID ROLE_ID,
-                            {0}  USER_ID
-                        FROM
-                            fa_role m
-                        WHERE
-                            m.ID IN ({1})
-                '''.format(relist.ID, ','.join(str(i) for i in relist.roleIdList))
+                    DELETE
+                    FROM
+                        fa_user_role
+                    WHERE
+                        fa_user_role.USER_ID = {0}
+                '''.format(user.ID)
                 print(sqlStr)
                 execObj = db.session.execute(sqlStr)
+                if len(in_dict["roleIdList"]) > 0:
+                    sqlStr = '''
+                        INSERT INTO fa_user_role (ROLE_ID, USER_ID) 
+                            SELECT
+                                m.ID ROLE_ID,
+                                {0}  USER_ID
+                            FROM
+                                fa_role m
+                            WHERE
+                                m.ID IN ({1})
+                    '''.format(user.ID, ','.join(str(i) for i in in_dict["roleIdList"]))
+                    print(sqlStr)
+                    execObj = db.session.execute(sqlStr)
+            # --更新用户的角色--!>
+
+            # <!--更新用户的附件--
+            if "filesList" in saveKeys:
+                sqlStr = '''
+                    DELETE
+                    FROM
+                        fa_user_file
+                    WHERE
+                        fa_user_file.USER_ID = {0}
+                '''.format(user.ID)
+                print(sqlStr)
+                execObj = db.session.execute(sqlStr)
+                if len(in_dict["filesList"]) > 0:
+                    sqlStr = '''
+                        INSERT INTO fa_user_file (FILE_ID, USER_ID) 
+                            SELECT
+                                m.ID FILE_ID,
+                                {0}  USER_ID
+                            FROM
+                                fa_files m
+                            WHERE
+                                m.ID IN ({1})
+                    '''.format(user.ID, ','.join(str(i.ID) for i in in_dict["filesList"]))
+                    print(sqlStr)
+                    execObj = db.session.execute(sqlStr)
+            # --更新用户的角色--!>
             db.session.commit()
 
-        return relist, is_succ
+        return user, is_succ
 
     def user_delete(self, key):
         is_succ = Fun.model_delete(FaUser, self, key)
@@ -82,11 +112,22 @@ class UserDal(FaUser):
 
     def user_single(self, key):
         '''查询一用户'''
-        relist, is_succ = Fun.model_single(FaUser, key)
+        user, is_succ = Fun.model_single(FaUser, key)
         tmp = UserDal()
-        tmp.__dict__ = relist.__dict__
-        tmpId = [x.ID for x in relist.fa_roles]
+        tmp.__dict__ = user.__dict__
+        # 获取角色ID
+        tmpId = [x.ID for x in user.fa_roles]
         tmp.roleIdList = tmpId
+        
+        # 获取用户头像
+        if user.ICON_FILES_ID is not None:
+            file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
+            if file is not None:
+                tmp.iconFiles=json.loads(json.dumps(file, cls=AlchemyEncoder)) 
+        # 获取用户附件
+        tmpList = [x for x in user.fa_files]
+        tmp.filesList = json.loads(json.dumps(tmp, cls=AlchemyEncoder))
+
         return tmp, is_succ
 
     def user_login(self, _inent):

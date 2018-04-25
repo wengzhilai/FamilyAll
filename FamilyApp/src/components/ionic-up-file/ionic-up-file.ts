@@ -112,4 +112,8 @@ export class IonicUpFileComponent implements OnInit {
   decodeURI(str){
     return decodeURI(str)
   }
+  GetAllFiles(){
+    console.log(2)
+    return this.inAllFiles;
+  }
 }

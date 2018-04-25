@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{title}}
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
+      <ion-segment-button value="husband">
+        {{hasbandName}}
+      </ion-segment-button>
+      <ion-segment-button value="wife">
+        {{hasbandName}}的配偶
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider color="light">{{i18n+'.baseInfo'|translate}}</ion-item-divider>
+      <ion-item class="thumbnailMy">
+        <ion-thumbnail item-left>
+          <up-single-pic [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
+        </ion-thumbnail>
+        <div item-right style="width: 100%;">
+          <ion-item>
+            <ion-label class="MyTitle">{{i18n+'.NAME'|translate}}</ion-label>
+            <ion-note item-end>{{bean.NAME}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label class="MyTitle">{{i18n+'.LEVEL_ID'|translate}}</ion-label>
+            <ion-note item-end>{{bean.LEVEL_ID}}</ion-note>
+          </ion-item>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.SEX'|translate}}</ion-label>
+        <ion-note item-end>{{bean.SEX}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">是否健在</ion-label>
+        <ion-note item-end>{{bean.IS_LIVE}}</ion-note>
+      </ion-item>
+
+      <ionic-up-file *ngIf="bean.filesList!=null" [CanEdit]="false" [inAllFiles]="bean.filesList"></ionic-up-file>
+    </ion-item-group>
+    <ion-item-divider color="light">{{i18n+'.BirthdayInfo'|translate}}</ion-item-divider>
+    <ion-item-group>
+      <ion-item>
+        <ion-label class="MyTitle">农历</ion-label>
+        <ion-label item-end>{{bean.BirthdaylunlarDate}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">阳历</ion-label>
+        <ion-label item-end>{{bean.BirthdaysolarDate}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.BIRTHDAY_PLACE'|translate}}</ion-label>
+        <ion-note item-end>{{bean.BIRTHDAY_PLACE}}</ion-note>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group *ngIf="!bean.IS_LIVE">
+      <ion-item-divider color="light">{{i18n+'.DiedInfo'|translate}}</ion-item-divider>
+      <ion-item-group>
+        <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
+          <ion-label class="MyTitle">农历</ion-label>
+          <ion-label item-end>{{bean.DiedlunlarDate}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="this.bean.YEARS_TYPE=='农历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
+          <ion-label class="MyTitle">阳历</ion-label>
+          <ion-label item-end>{{bean.DiedsolarDate}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="MyTitle">{{i18n+'.DIED_PLACE'|translate}}</ion-label>
+          <ion-label item-end>{{bean.DIED_PLACE}}</ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light">{{i18n+'.REMARK'|translate}}</ion-item-divider>
+      <ion-item>
+        <ion-label item-end>{{bean.REMARK}}</ion-label>
+      </ion-item>
+  </ion-item-group>
+  </ion-list>
+
+</ion-content>

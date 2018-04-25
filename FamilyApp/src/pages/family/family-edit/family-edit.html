@@ -63,7 +63,8 @@
                 <ion-label stacked class="MyTitle">是否健在</ion-label>
                 <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.IS_LIVE"></ion-toggle>
             </ion-item>
-                <ionic-up-file [inAllFiles]="bean.AllFiles" (ChangeFileJson)="ChangeAllFileJson($event)"></ionic-up-file>
+
+            <ionic-up-file *ngIf="bean.filesList!=null" [inAllFiles]="bean.filesList" (ChangeFileJson)="ChangeAllFileJson($event)"></ionic-up-file>
         </ion-item-group>
         <ion-item-divider color="light">{{i18n+'.BirthdayInfo'|translate}}</ion-item-divider>
         <ion-item-group>

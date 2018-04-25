@@ -19,10 +19,20 @@ import json
 from iSoft.model.AppRegisterModel import AppRegisterModel
 from .LoginDal import LoginDal
 from .UserDal import UserDal
+from iSoft.core.LunarSolarConverter import LunarSolarConverter,Solar,Lunar
+import iSoft.core.LunarDate
 
 
 class UserInfoDal(FaUserInfo):
     FatherName = ""
+    filesList = []
+    iconFiles={}
+
+    BirthdaysolarDate=""
+    BirthdaylunlarDate=""
+
+    DiedlunlarDate=""
+    DiedsolarDate=""
 
     def userInfo_findall(self, pageIndex, pageSize, criterion, where):
         relist, is_succ = Fun.model_findall(FaUserInfo, pageIndex, pageSize,
@@ -40,11 +50,39 @@ class UserInfoDal(FaUserInfo):
         else:
             pass
 
-        relist, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys,FaUser)
-        # 更新配
-        FaUserInfo.query.filter(FaUserInfo.ID == in_dict["COUPLE_ID"]).update({FaUserInfo.COUPLE_ID:relist.ID})
-        db.session.commit()
-        return relist, is_succ
+        user, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys,FaUser)
+        if is_succ.IsSuccess:  # 表示已经添加成功角色
+            # <!--更新用户的附件--
+            if "filesList" in saveKeys:
+                sqlStr = '''
+                    DELETE
+                    FROM
+                        fa_user_file
+                    WHERE
+                        fa_user_file.USER_ID = {0}
+                '''.format(user.ID)
+                print(sqlStr)
+                execObj = db.session.execute(sqlStr)
+                if len(in_dict["filesList"]) > 0:
+                    print(in_dict["filesList"])
+                    sqlStr = '''
+                        INSERT INTO fa_user_file (FILE_ID, USER_ID) 
+                            SELECT
+                                m.ID FILE_ID,
+                                {0}  USER_ID
+                            FROM
+                                fa_files m
+                            WHERE
+                                m.ID IN ({1})
+                    '''.format(user.ID, ','.join(str(i["ID"]) for i in in_dict["filesList"]))
+                    print(sqlStr)
+                    execObj = db.session.execute(sqlStr)
+            # --更新用户的角色--!>
+        
+            # 更新配
+            FaUserInfo.query.filter(FaUserInfo.ID == in_dict["COUPLE_ID"]).update({FaUserInfo.COUPLE_ID:user.ID})
+            db.session.commit()
+        return user, is_succ
 
     def userInfo_delete(self, key):
         delMode,is_succ = Fun.model_delete(FaUserInfo, key)
@@ -52,11 +90,44 @@ class UserInfoDal(FaUserInfo):
 
     def userInfo_single(self, key):
         '''查询一用户'''
+        
         user,is_succ = Fun.model_single(FaUserInfo, key)
         if user.ICON_FILES_ID is not None:
             file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
             if file is not None:
                 user.iconFiles=json.loads(json.dumps(file, cls=AlchemyEncoder))
+
+        # 获取用户附件
+        tmp = [x for x in user.fa_files]
+        user.filesList = json.loads(json.dumps(tmp, cls=AlchemyEncoder))
+
+        converter = LunarSolarConverter()
+        
+        if user.YEARS_TYPE=="阳历":
+            if user.BIRTHDAY_TIME is not None:
+                solar = Solar(user.BIRTHDAY_TIME.year, user.BIRTHDAY_TIME.month, user.BIRTHDAY_TIME.day)
+                lunar = converter.SolarToLunar(solar)
+                user.BirthdaysolarDate=user.BIRTHDAY_TIME.strftime("%Y年%m月%d日%H时")
+                user.BirthdaylunlarDate = "%d年%02d月%02d日%02d时" % (lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay,user.BIRTHDAY_TIME.hour)
+            
+            if user.DIED_TIME is not None:
+                user.DiedsolarDate=user.DIED_TIME.strftime("%Y年%m月%d日%H时")
+                solar = Solar(user.DIED_TIME.year, user.DIED_TIME.month, user.DIED_TIME.day)
+                lunar = converter.SolarToLunar(solar)
+                user.DiedlunlarDate = "%d年%02d月%02d日%02d时" % (lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay,user.DIED_TIME.hour)
+
+        else:
+            if user.BIRTHDAY_TIME is not None:
+                user.BirthdaylunlarDate = user.BIRTHDAY_TIME.strftime("%Y年%m月%d日%H时")
+                lunar = Lunar(user.BIRTHDAY_TIME.year, user.BIRTHDAY_TIME.month, user.BIRTHDAY_TIME.day, isleap=False)
+                solar = converter.LunarToSolar(lunar)
+                user.BirthdaysolarDate = "%d年%02d月%02d日%02d时" % (solar.solarYear, solar.solarMonth, solar.solarDay,user.BIRTHDAY_TIME.hour)
+            
+            if user.DIED_TIME is not None:
+                user.DiedlunlarDate = user.DIED_TIME.strftime("%Y年%m月%d日%H时")
+                lunar = Lunar(user.DIED_TIME.year, user.DIED_TIME.month, user.DIED_TIME.day, isleap=False)
+                solar = converter.LunarToSolar(lunar)
+                user.DiedsolarDate = "%d年%02d月%02d日%02d时" % (solar.solarYear, solar.solarMonth, solar.solarDay,user.DIED_TIME.hour)
         return user,is_succ
 
     def userInfo_SingleByName(self, name):
