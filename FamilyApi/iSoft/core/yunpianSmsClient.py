@@ -1,4 +1,5 @@
-import httplib
+import http.client
+import ssl
 import urllib
 import json
 #服务地址
@@ -18,16 +19,22 @@ sms_tpl_send_uri = "/" + version + "/sms/tpl_single_send.json"
 sms_voice_send_uri = "/" + version + "/voice/send.json"
 #语音验证码
 voiceCode = 1234
+
 def get_user_info(apikey):
     """
     取账户信息
     """
-    conn = httplib.HTTPSConnection(sms_host , port=port)
+    ssl._create_default_https_context = ssl._create_unverified_context
+    
+    conn = http.client.HTTPSConnection(sms_host , port=port)
     headers = {
         "Content-type": "application/x-www-form-urlencoded",
         "Accept": "text/plain"
     }
-    conn.request('POST',user_get_uri,urllib.urlencode( {'apikey' : apikey}))
+    print(111)
+    print(urllib.parse.urlencode( {'apikey' : apikey}))
+
+    conn.request('POST',user_get_uri,urllib.parse.urlencode( {'apikey' : apikey}))
     response = conn.getresponse()
     response_str = response.read()
     conn.close()
@@ -37,33 +44,45 @@ def send_sms(apikey, text, mobile):
     """
     通用接口发短信
     """
+    ssl._create_default_https_context = ssl._create_unverified_context
+    
     params = urllib.urlencode({'apikey': apikey, 'text': text, 'mobile':mobile})
     headers = {
         "Content-type": "application/x-www-form-urlencoded",
         "Accept": "text/plain"
     }
-    conn = httplib.HTTPSConnection(sms_host, port=port, timeout=30)
+    conn = http.client.HTTPSConnection(sms_host, port=port, timeout=30)
     conn.request("POST", sms_send_uri, params, headers)
     response = conn.getresponse()
     response_str = response.read()
     conn.close()
     return response_str
+def send_verify_code(mobile,code):
+    #修改为您的apikey
+    apikey = "51f88df9eedd2e9565f5f3a9417c45df"
+    #修改为您要发送的手机号码，多个号码用逗号隔开
+    tpl_id = 1323633 #对应的模板内容为：您的验证码是#code#【#company#】
+    tpl_value = {'#code#':code}
+    return tpl_send_sms(apikey, tpl_id, tpl_value, mobile)
 
 def tpl_send_sms(apikey, tpl_id, tpl_value, mobile):
     """
     模板接口发短信
     """
-    params = urllib.urlencode({
+
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+    params = urllib.parse.urlencode({
         'apikey': apikey,
         'tpl_id': tpl_id,
-        'tpl_value': urllib.urlencode(tpl_value),
+        'tpl_value': urllib.parse.urlencode(tpl_value),
         'mobile': mobile
     })
     headers = {
         "Content-type": "application/x-www-form-urlencoded",
         "Accept": "text/plain"
     }
-    conn = httplib.HTTPSConnection(sms_host, port=port, timeout=30)
+    conn = http.client.HTTPSConnection(sms_host, port=port, timeout=30)
     conn.request("POST", sms_tpl_send_uri, params, headers)
     response = conn.getresponse()
     response_str = response.read()
@@ -74,12 +93,12 @@ def send_voice_sms(apikey, code, mobile):
     """
     通用接口发短信
     """
-    params = urllib.urlencode({'apikey': apikey, 'code': code, 'mobile':mobile})
+    params = urllib.parse.urlencode({'apikey': apikey, 'code': code, 'mobile':mobile})
     headers = {
         "Content-type": "application/x-www-form-urlencoded",
         "Accept": "text/plain"
     }
-    conn = httplib.HTTPSConnection(voice_host, port=port, timeout=30)
+    conn = http.client.HTTPSConnection(voice_host, port=port, timeout=30)
     conn.request("POST", sms_voice_send_uri, params, headers)
     response = conn.getresponse()
     response_str = response.read()
@@ -87,19 +106,22 @@ def send_voice_sms(apikey, code, mobile):
     return response_str
 
 if __name__ == '__main__':
+    send_verify_code("18180770313",'abde')
+
     #修改为您的apikey.可在官网（http://www.yunpian.com)登录后获取
-    apikey = "xxxxxxxxxxxxxxxx"
-    #修改为您要发送的手机号码，多个号码用逗号隔开
-    mobile = "xxxxxxxxxxxxxxxx"
-    #修改为您要发送的短信内容
-    text = "【云片网】您的验证码是1234"
-    #查账户信息
-    print(get_user_info(apikey))
+    # apikey = "51f88df9eedd2e9565f5f3a9417c45df"
+    # #修改为您要发送的手机号码，多个号码用逗号隔开
+    # mobile = "18180770313"
+    # #修改为您要发送的短信内容
+    # text = "【云片网】您的验证码是1234"
+    # #查账户信息
+    # print(get_user_info(apikey))
     #调用智能匹配模板接口发短信
-    print send_sms(apikey,text,mobile)
+    # print send_sms(apikey,text,mobile)
+
     #调用模板接口发短信
-    tpl_id = 1 #对应的模板内容为：您的验证码是#code#【#company#】
-    tpl_value = {'#code#':'1234','#company#':'云片网'}
-    print tpl_send_sms(apikey, tpl_id, tpl_value, mobile)
+    # tpl_id = 1323633 #对应的模板内容为：您的验证码是#code#【#company#】
+    # tpl_value = {'#code#':'1234'}
+    # print(tpl_send_sms(apikey, tpl_id, tpl_value, mobile))
     #调用模板接口发语音短信
-    print send_voice_sms(apikey,voiceCode,mobile)
+    # print send_voice_sms(apikey,voiceCode,mobile)
