@@ -22,7 +22,7 @@ export class FamilyLookPage {
   userType = "husband"
 
   hasbandName = ""
-
+  title: string = "宗亲详情"
   bean: any = {
     YEARS_TYPE: "阳历",
     SEX: "男",

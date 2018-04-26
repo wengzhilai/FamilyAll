@@ -56,3 +56,9 @@ python ./sqlacodegen/main.py --noviews --noindexes --flask --outfile ~/github/fa
 python ./venv/bin/flask-sqlacodegen --noviews --noindexes --flask --outfile ./iSoft/entity/model.py mysql+pymysql://FA:abcdef123@47.254.16.126:3306/fa
 
 /private/var/root/Desktop/Family/family/venv/Scripts/
+
+
+ssh 47.254.16.126
+cd  github/FamilyAll/FamilyApi/
+git pull
+systemctl restart gunicorn

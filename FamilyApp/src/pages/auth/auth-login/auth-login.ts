@@ -171,7 +171,11 @@ export class AuthLoginPage {
    * @param password 
    */
   PostGetToken(loginName, password) {
-    return this.toPostService.Post('auth/UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
+    
+    
+
+    return this.toPostService.Soap('BindCard', { cardNo  : this.userForm.value.loginName, password: this.userForm.value.password,extId:1 })
+    // return this.toPostService.Post('auth/UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
       .then((res: AppReturnDTO) => {
         this.commonService.hideLoading();
         if (res == null) {

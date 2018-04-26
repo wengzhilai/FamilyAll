@@ -77,7 +77,7 @@ export class UserFindPwdPage {
     this.sendCodeText = "60秒";
     this.i = 60;
     this.SetTimeValue();
-    this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }, (currMsg) => {
+    this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }).then((currMsg) => {
       if (currMsg.IsError) {
         this.commonService.hint(currMsg.Message)
       } else {
@@ -109,7 +109,7 @@ export class UserFindPwdPage {
     }
 
 
-    this.toPostService.Post("Login/ResetPassword", this.bean, (currMsg) => {
+    this.toPostService.Post("Login/ResetPassword", this.bean).then((currMsg) => {
       if (currMsg.IsError) {
         this.commonService.hint(currMsg.Message)
       } else {

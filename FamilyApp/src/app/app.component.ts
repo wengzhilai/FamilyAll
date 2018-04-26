@@ -262,7 +262,7 @@ export class MyApp {
         //获取服务器上版本
         var postBean: PostBaseModel = new PostBaseModel();
         postBean.Key = nowversionNum;
-        this.toPostService.Post("Common/CheckUpdate", postBean, (ent: AppReturnDTO) => {
+        this.toPostService.Post("Common/CheckUpdate", postBean).then((ent: AppReturnDTO) => {
           if (!ent.IsSuccess) {
             this.commonService.hint(ent.Msg, '获取版本错误');
           }

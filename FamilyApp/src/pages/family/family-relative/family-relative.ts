@@ -1,6 +1,6 @@
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, App, FabContainer, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, FabContainer, AlertController } from 'ionic-angular';
 
 import { NetronGraph } from '../../../Classes/Netron/Graph';
 import { NetronElement } from "../../../Classes/Netron/Element";
@@ -11,8 +11,6 @@ import { FileUpService } from "../../../Service/FileUp.Service";
 
 import { AppGlobal } from "../../../Classes/AppGlobal";
 import { Dictionary } from "../../../Classes/Dictionary";
-import { max } from 'rxjs/operator/max';
-
 
 @IonicPage()
 @Component({
@@ -57,7 +55,7 @@ export class FamilyRelativePage implements OnInit {
       var postBean = {
         SearchKey: [{ "Key": "NAME", "Type": "like", "Value": val.trim() }]
       }
-      this.toPostService.Post("UserInfo/list", postBean, (currMsg) => {
+      this.toPostService.Post("UserInfo/list", postBean).then((currMsg) => {
         if (!currMsg.IsSuccess) {
           this.commonService.hint(currMsg.Message);
         }
@@ -94,7 +92,7 @@ export class FamilyRelativePage implements OnInit {
     //   this.fab.toggleList();
     // }
     this.commonService.showLoading();
-    this.toPostService.Post("Family/Relative", { Key: postUserId }, (currMsg) => {
+    this.toPostService.Post("Family/Relative", { Key: postUserId }).then((currMsg) => {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
@@ -274,7 +272,7 @@ export class FamilyRelativePage implements OnInit {
               userId: this.userId,
               entity: data.userNameArrStr
             };
-            this.toPostService.Post("UserInfo/UserInfoAddMultiSon", postBean, (currMsg) => {
+            this.toPostService.Post("UserInfo/UserInfoAddMultiSon", postBean).then((currMsg) => {
               if (currMsg.IsError) {
                 this.commonService.hint(currMsg.Message);
               } else {
@@ -318,7 +316,7 @@ export class FamilyRelativePage implements OnInit {
             var postBean = {
               Key: this.tempCheckUser.Id
             };
-            this.toPostService.Post("UserInfo/Delete", postBean, (currMsg) => {
+            this.toPostService.Post("UserInfo/Delete", postBean).then((currMsg) => {
               if (currMsg.IsSuccess) {
                 this.tempCheckUser.Name = ""
                 this.tempCheckUser.Id = ""

@@ -90,7 +90,7 @@ export class FamilyEditFatherPage {
     switch (this.params.get("optype")) {
       case "EditFather":
         this.title = "添加[" + this.params.get("userName") + "]的父亲";
-        this.toPostService.Post("UserInfo/Single", {"Key":this.params.get("userId")}, (currMsg) => {
+        this.toPostService.Post("UserInfo/Single", {"Key":this.params.get("userId")}).then((currMsg) => {
           if (currMsg.IsError) {
             this.commonService.hint(currMsg.Message)
             this.navCtrl.pop();
@@ -109,7 +109,7 @@ export class FamilyEditFatherPage {
         break;
       case "edit":
         this.bean.ID = this.params.get("userId")
-        this.toPostService.Post("UserInfo/Single", {"Key":this.bean.ID}, (currMsg) => {
+        this.toPostService.Post("UserInfo/Single", {"Key":this.bean.ID}).then((currMsg) => {
           if (currMsg.IsError) {
             this.commonService.hint(currMsg.Message)
             this.navCtrl.pop();
@@ -328,7 +328,7 @@ export class FamilyEditFatherPage {
       data: inDate.substr(0,inDate.indexOf('T')),
       para: [{ K: "inType", V: "china" }]
     }
-    this.toPostService.Post("Public/GetChineseCalendar", postBean, (currMsg) => {
+    this.toPostService.Post("Public/GetChineseCalendar", postBean).then((currMsg) => {
       if (currMsg.IsError) {
         this.commonService.hint(currMsg.Message)
       }
@@ -362,7 +362,7 @@ export class FamilyEditFatherPage {
     var postBean = {
       data: inDate.substr(0,inDate.indexOf('T'))
     }
-    this.toPostService.Post("Public/GetChineseCalendar", postBean, (currMsg) => {
+    this.toPostService.Post("Public/GetChineseCalendar", postBean).then((currMsg) => {
       if (currMsg.IsError) {
         this.commonService.hint(currMsg.Message)
       }

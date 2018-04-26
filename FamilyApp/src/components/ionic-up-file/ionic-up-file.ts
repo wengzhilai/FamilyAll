@@ -5,7 +5,6 @@ import { FileUpService } from "../../Service/FileUp.Service";
 import { Config } from "../../Classes/Config";
 
 import { FileModel } from "../../Model/Transport/FileModel";
-import { AppGlobal } from "../../Classes/AppGlobal";
 
 
 @Component({
@@ -41,7 +40,14 @@ export class IonicUpFileComponent implements OnInit {
     console.log(this.inAllFiles)
 
     console.log("CanEdit:" + this.CanEdit)
-    this.AllFiles = this.inAllFiles
+    this.AllFiles = []
+    for (let index = 0; index < this.inAllFiles.length; index++) {
+      const element = this.inAllFiles[index];
+      element.indexNo=index
+      element.key = 'allFile_' + index;
+      this.AllFiles.push(element)
+    }
+
   }
 
   AddImg() {
@@ -67,8 +73,13 @@ export class IonicUpFileComponent implements OnInit {
       return
     }
     this.fileUpService.upImg(this, key, this.CanEdit, (inFile: FileModel, url: string, fileModel: FileModel) => {
+      console.log(44444)
+      console.log(inFile)
+      console.log(url)
+      console.log(fileModel)
       switch (inFile.key) {
         default:
+
           //表示是附件
           if (inFile.key.indexOf('allFile_') == 0) {
             /**

@@ -5,13 +5,10 @@ import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Config } from "../Classes/Config";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { CommonService } from "./Common.Service";
 import { AppGlobal } from "../Classes/AppGlobal";
 import { AppReturnDTO } from "../Model/Transport/AppReturnDTO"
-import { AppDTO } from "../Model/Transport/AppDTO"
-import { KeyValuePair } from "../Model/Transport/KeyValuePair"
 
 @Injectable()
 export class ToPostService {
@@ -21,61 +18,18 @@ export class ToPostService {
   ) {
   }
 
-  // List(apiName: string, postBean: AppDTO, callback = null) {
-  //   postBean.InitUser();
-  //   postBean.User.Token = AppGlobal.GetToken();
-  //   postBean.InitPageParam();
-  //   if (postBean.PageParam.PageSize == null || postBean.PageParam.PageSize == 0) {
-  //     postBean.PageParam.PageSize = Config.pageSize;
-  //   }
-  //   if (postBean.PageParam.PageIndex == null || postBean.PageParam.PageIndex == 0) {
-  //     postBean.PageParam.PageIndex = 1;
-  //   }
-  //   return this.Post(apiName, postBean, callback)
-  // }
-
-  // SaveOrUpdate(apiName: string, bean, saveKeyStr: string = null, para: Array<KeyValuePair> = null, callback = null) {
-  //   if (saveKeyStr == null || saveKeyStr == '') {
-  //     saveKeyStr = this.commonService.GetBeanNameStr(bean).join(",");
-  //   }
-  //   if (saveKeyStr == "") {
-  //     this.commonService.hint("保存参数saveKeys不能为空");
-  //     return;
-  //   }
-  //   var postBean: AppDTO = new AppDTO();
-  //   postBean.InitUser();
-  //   postBean.User.Token = AppGlobal.GetToken();
-  //   postBean.Data = bean;
-  //   postBean.para = para;
-  //   postBean.PropertyCode = saveKeyStr;
-  //   return this.Post(apiName, postBean, callback)
-  // }
-
-
-  // Search(apiName, postBean: any, callback = null): Observable<any> {
-  //   console.log("请求[" + apiName + "]参数：");
-  //   console.log(postBean);
-  //   var headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   if (AppGlobal.GetToken() != null) {
-  //     headers.append('Authorization', 'Bearer ' + AppGlobal.GetToken());
-  //   }
-  //   let options = new RequestOptions({ headers: headers });
-  //   return this.http
-  //     .post(Config.api + apiName, postBean, options)
-  //     .map(response => response.json());
-  // }
-
-  Post(apiName, postBean: any, callback = null) {
+  Post(apiName, postBean: any, headers = new Headers()) {
     console.group("开始请求[" + apiName + "]参数：");
     console.time("Post时间");
 
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    if (AppGlobal.GetToken() != null) {
-      headers.append('Authorization', 'Bearer ' + AppGlobal.GetToken());
+    if (headers.getAll.length == 0) {
+      headers.append('Content-Type', 'application/json');
+      if (AppGlobal.GetToken() != null) {
+        headers.append('Authorization', 'Bearer ' + AppGlobal.GetToken());
+      }
     }
-    // console.log(headers)
+
+    console.log(headers)
     this.commonService.PlatformsExists("core") ? console.log(postBean) : console.log(JSON.stringify(postBean));
     let options = new RequestOptions({ headers: headers });
 
@@ -86,9 +40,6 @@ export class ToPostService {
         console.log("返回结果：");
         let response: any = res.json();
         this.commonService.PlatformsExists("core") ? console.log(response) : console.log(JSON.stringify(response));
-        if (callback) {
-          callback(response);
-        }
         if (!response.IsSuccess) {
           this.commonService.PlatformsExists("core") ? console.warn(response.Msg) : console.warn(JSON.stringify(response.Msg));
         }
@@ -99,7 +50,7 @@ export class ToPostService {
         console.error('请求失败:');
 
         this.commonService.PlatformsExists("core") ? console.error(error) : console.error(JSON.stringify(error)); // for demo purposes only
-        console.error("接中地址："+Config.api + apiName)
+        console.error("接中地址：" + Config.api + apiName)
         console.error("参数")
         this.commonService.PlatformsExists("core") ? console.error(postBean) : console.error(JSON.stringify(postBean)); // for demo purposes only
         console.timeEnd("Post时间");
@@ -109,6 +60,7 @@ export class ToPostService {
       })
       .catch(this.handleError);
   }
+
   PostContentType(apiName, postStr: string, contentType: string) {
     console.group("请求[" + apiName + "]参数：");
     console.time("Post时间");
@@ -137,26 +89,29 @@ export class ToPostService {
       .catch(this.handleError);
   }
 
-  // /**
-  //  * 查询单条数据
-  //  * 
-  //  * @param {any} apiName 接口名称
-  //  * @param {any} id 参数
-  //  * @param {any} [callback=null] 
-  //  * @returns 
-  //  * @memberof ToPostService
-  //  */
-  // Single(apiName, id, callback = null) {
-  //   if (id == null && id == 0) {
-  //     alert("查询id不能为空");
-  //     return;
-  //   }
-  //   var postBean: AppDTO = new AppDTO();
-  //   postBean.InitUser();
-  //   postBean.User.Token = AppGlobal.GetToken();
-  //   postBean.Data = id;
-  //   return this.Post(apiName, postBean, callback)
-  // }
+  Soap(apiName, postBean: any) {
+    var headers = new Headers();
+    headers.append('Content-Type', "text/xml");
+    headers.append('SOAPAction', "http://tempuri.org/IApp/Register");
+    let sendBody = `
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:{apiName}>
+         {iem} 
+      </tem:{apiName}>
+   </soapenv:Body>
+</soapenv:Envelope>
+    `
+    sendBody = sendBody.replace(/\{apiName\}/g, apiName)
+    let iem = []
+    for (var item in postBean) {
+      var objV = postBean[item];
+      iem.push("<tem:" + item + ">" + objV + "</tem:" + item + ">");
+    }
+    sendBody = sendBody.replace("{iem}", iem.join("\r\n"))
+    return this.Post("", sendBody, headers)
+  }
 
   handleError(error: any): Promise<any> {
     console.error('请求失败', error); // for demo purposes only
@@ -167,17 +122,4 @@ export class ToPostService {
     return Promise.reject(errorMsg);
   }
 
-  /**
-   * 退出登录,并关闭tabls的监听
-   */
-
-  // LoginOut() {
-  //   Config.homeSubscribeNotification=false;
-  //   return this.Post("UserPls/LogoutedEquipment",
-  //     {
-  //       EquipmentCode: AppGlobal.CooksGet("EquipmentCode")
-  //     }
-  //   );
-
-  // }
 }

@@ -90,7 +90,7 @@ export class UserRegPage {
     this.sendCodeText = "60秒";
     this.i = 60;
     this.SetTimeValue();
-    this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }, (currMsg) => {
+    this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }).then((currMsg) => {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {
@@ -104,7 +104,7 @@ export class UserRegPage {
     var postBean: any = {
       Data: { "name": this.fatherName }
     }
-    this.toPostService.Post("UserInfo/SingleByName", postBean, (currMsg) => {
+    this.toPostService.Post("UserInfo/SingleByName", postBean).then((currMsg) => {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {
@@ -189,7 +189,7 @@ export class UserRegPage {
     console.log(this.bean)
     let postBean = { Data: this.bean }
 
-    this.toPostService.Post("UserInfo/Register", postBean, (currMsg) => {
+    this.toPostService.Post("UserInfo/Register", postBean).then((currMsg) => {
       if (currMsg.IsSuccess) {
         this.commonService.hint("注册成功");
         this.navCtrl.pop();
@@ -220,7 +220,7 @@ export class UserRegPage {
             this.bean.YEARS_TYPE = "农历"
             this.lunlarDate = dataStr
             this.solarDate = ""
-            this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }, (currMsg) => {
+            this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }).then((currMsg) => {
               if (currMsg.IsSuccess) {
                 let nowDate = new Date(currMsg.Msg)
                 this.solarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
@@ -234,7 +234,7 @@ export class UserRegPage {
             this.bean.YEARS_TYPE = "阳历"
             this.solarDate = dataStr
             this.lunlarDate = ""
-            this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }, (currMsg) => {
+            this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }).then((currMsg) => {
               if (currMsg.IsSuccess) {
                 let nowDate = new Date(currMsg.Msg)
                 this.lunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"

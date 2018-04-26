@@ -88,7 +88,7 @@ export class AuthRegPage {
     this.sendCodeText = "60秒";
     this.i = 60;
     this.SetTimeValue();
-    this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }, (currMsg) => {
+    this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }).then((currMsg) => {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {

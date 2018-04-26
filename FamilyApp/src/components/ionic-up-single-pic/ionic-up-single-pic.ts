@@ -5,7 +5,6 @@ import { FileUpService } from "../../Service/FileUp.Service";
 import { Config } from "../../Classes/Config";
 
 import { FileModel } from "../../Model/Transport/FileModel";
-import { AppGlobal } from "../../Classes/AppGlobal";
 
 
 @Component({
