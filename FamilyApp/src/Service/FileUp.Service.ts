@@ -273,6 +273,7 @@ export class FileUpService {
         text: this.commonService.LanguageStr("public.LookBigPic"),
         icon: "image",
         handler: () => {
+          console.log(this.inFile)
           this.Download(this.inFile.URL, this.inFile.NAME);
         }
       })

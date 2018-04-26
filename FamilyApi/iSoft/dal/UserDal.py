@@ -27,6 +27,29 @@ class UserDal(FaUser):
     moduleList = []
     iconFiles={}
 
+    def user_export(self,inModel):
+        tmp = UserDal()
+        tmp.__dict__ = inModel.__dict__
+        # 获取角色ID
+        tmpId = [x.ID for x in inModel.fa_roles]
+        tmp.roleIdList = tmpId
+        
+        # 获取用户头像
+        if inModel.ICON_FILES_ID is not None:
+            file=FaFile.query.filter_by(ID=inModel.ICON_FILES_ID).first()
+            if file is not None:
+                tmp.iconFiles=json.loads(json.dumps(file, cls=AlchemyEncoder)) 
+        # 获取用户附件
+        tmpList = [x for x in inModel.fa_files]
+        tmp.filesList = json.loads(json.dumps(tmp, cls=AlchemyEncoder))
+
+        # 获取用户模块
+        moduleIdList, msg = self.user_all_module(inModel.ID)
+        if not msg.IsSuccess:
+            return None,msg
+        tmp.moduleList = json.loads(json.dumps(moduleIdList, cls=AlchemyEncoder))
+        return tmp, msg
+
     def user_findall(self, pageIndex, pageSize, criterion, where):
         relist, is_succ = Fun.model_findall(
             FaUser, pageIndex, pageSize, criterion, where)
@@ -113,60 +136,37 @@ class UserDal(FaUser):
     def user_single(self, key):
         '''查询一用户'''
         user, is_succ = Fun.model_single(FaUser, key)
-        tmp = UserDal()
-        tmp.__dict__ = user.__dict__
-        # 获取角色ID
-        tmpId = [x.ID for x in user.fa_roles]
-        tmp.roleIdList = tmpId
-        
-        # 获取用户头像
-        if user.ICON_FILES_ID is not None:
-            file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
-            if file is not None:
-                tmp.iconFiles=json.loads(json.dumps(file, cls=AlchemyEncoder)) 
-        # 获取用户附件
-        tmpList = [x for x in user.fa_files]
-        tmp.filesList = json.loads(json.dumps(tmp, cls=AlchemyEncoder))
-
-        return tmp, is_succ
+        if not is_succ.IsSuccess:
+            return None,is_succ
+        return self.user_export(user)
 
     def user_login(self, _inent):
         '''用户登录'''
         in_ent = LogingModel()
+        # 验证输入是否合法
         in_ent.__dict__ = _inent
         if in_ent.loginName is None or in_ent.loginName == '':
             return AppReturnDTO(False, "用户名不能为空")
         if in_ent.passWord is None or in_ent.passWord == '':
             return AppReturnDTO(False, "密码不能为空")
-
+        
+        # 验证输入是否正确
         login = FaLogin.query.filter_by(LOGIN_NAME=in_ent.loginName).first()
         user = FaUser.query.filter_by(LOGIN_NAME=in_ent.loginName).first()
         if user is None or login is None:
             return AppReturnDTO(False, "用户名有误")
-
         if login.PASSWORD != Fun.md5(in_ent.passWord):
             return AppReturnDTO(False, "密码有误")
 
-        tmp = UserDal()
-        tmp.__dict__ = user.__dict__
-        tmpId = [x.ID for x in user.fa_roles]
-        tmp.roleIdList = tmpId
-
-        moduleIdList, msg = self.user_all_module(user.ID)
-        # 获取用户模块
+        # 读取用户信息
+        exUser, msg = self.user_export(user)
         if not msg.IsSuccess:
-            return msg
-
-        tmp.moduleList = json.loads(
-            json.dumps(moduleIdList, cls=AlchemyEncoder))
-        token = AuthDal.generate_auth_token(tmp)
+            return AppReturnDTO(True, "登录失败", msg)
+        # 获取token值
+        token = AuthDal.generate_auth_token(exUser)
         token = token.decode('utf-8')
-        if user.ICON_FILES_ID is not None:
-            file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
-            if file is not None:
-                tmp.iconFiles=file.__dict__
         
-        return AppReturnDTO(True, "登录成功", tmp, token)
+        return AppReturnDTO(True, "登录成功", exUser, token)
     
     def user_checkLoginExist(self, loginName):
         '检测登录名是否存在'

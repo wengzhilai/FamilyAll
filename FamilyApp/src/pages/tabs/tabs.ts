@@ -158,7 +158,6 @@ export class TabsPage {
         // this.navCtrl.push("AuthLoginPage")
         let profileModal = this.modalCtrl.create("AuthLoginPage", {
           callBack: (isScuss, loginPageNav) => {
-            console.log(2222)
             this.tabs.getByIndex(2).root = "SettingPage"
             setTimeout(() => {
               this.tabs.select(2)

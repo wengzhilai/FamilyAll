@@ -122,9 +122,8 @@ export class SettingPage {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
             AppGlobal.LoginOut()
-            // this.navCtrl.setRoot("TabsPage")
+            this.navCtrl.setRoot("TabsPage")
 
-            console.log(this.navCtrl.parent);
             // this.navCtrl.push("AuthLoginPage", {
             //   callBack: (isScuss, loginPageNav) => {
             //     this.navCtrl.pop()

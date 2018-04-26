@@ -4,7 +4,7 @@
       {{title}}
     </ion-title>
   </ion-navbar>
-  <ion-toolbar no-border-top>
+  <ion-toolbar no-border-top *ngIf="bean.COUPLE_ID!=null">
     <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
       <ion-segment-button value="husband">
         {{hasbandName}}

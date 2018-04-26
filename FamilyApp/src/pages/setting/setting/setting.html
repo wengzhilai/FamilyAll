@@ -14,14 +14,11 @@
 <ion-content padding>
 
     <ion-list>
-        <ion-item class="thumbnailMy">
+        <ion-item>
             <ion-thumbnail item-left>
-                <up-single-pic (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
+                <up-single-pic [CanEdit]="false" [FileDict]="model.iconFiles"></up-single-pic>
             </ion-thumbnail>
-
-            <h2>头像上传
-            </h2>
-
+            <h5>{{model.NAME}}</h5>
         </ion-item>
         <ion-list-header>
             {{"setting.setting"|translate}}

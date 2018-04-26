@@ -63,7 +63,7 @@ export class IonicUpFileComponent implements OnInit {
   upImg(key: FileModel) {
     this.commonService.PlatformsExists("core") ? console.log(key) : console.log(JSON.stringify(key));
     if (!this.CanEdit) {
-      this.showFile(key.ID, key.NAME)
+      this.showFile(key)
       return
     }
     this.fileUpService.upImg(this, key, this.CanEdit, (inFile: FileModel, url: string, fileModel: FileModel) => {
@@ -93,8 +93,9 @@ export class IonicUpFileComponent implements OnInit {
     });
   }
 
-  showFile(fileId, fileName) {
-    this.fileUpService.Download(Config.api + "Common/ShowImage?id=" + fileId + "&PropertyId=" + AppGlobal.GetPropertyId() + "&Product=" + AppGlobal.GetProduct(), fileName)
+  showFile(fileObj) {
+    // let url=Config.api + "Common/ShowImage?id=" + fileObj.ID + "&PropertyId=" + AppGlobal.GetPropertyId() + "&Product=" + AppGlobal.GetProduct()
+    this.fileUpService.Download(Config.imgUrl + fileObj.URL, fileObj.NAME)
   }
   IsImage(fileName) {
     return this.commonService.IsPicName(fileName)
@@ -109,10 +110,10 @@ export class IonicUpFileComponent implements OnInit {
   changeFileJson(obj) {
     this.ChangeFileJson.next(obj)
   }
-  decodeURI(str){
+  decodeURI(str) {
     return decodeURI(str)
   }
-  GetAllFiles(){
+  GetAllFiles() {
     console.log(2)
     return this.inAllFiles;
   }
