@@ -5,12 +5,17 @@ import json
 import datetime
 import hashlib
 from iSoft.core.Fun import Fun
+from iSoft.core.yunpianSmsClient import send_verify_code
 
 
 class LoginDal(FaLogin):
 
     def UpdateCode(self, loginName, verifyCode):
-        '更新短验证码，如果号码不存在，则添加新有号码'
+        '更新短验证码，如果号码不存在，则添加新有号码,并发送短信'
+        
+        if not send_verify_code(loginName,verifyCode):
+            return AppReturnDTO(False, "短信发送失败")
+
         loginEnt=FaLogin.query.filter(FaLogin.LOGIN_NAME==loginName).first()
         if loginEnt is None:
             loginEnt=self

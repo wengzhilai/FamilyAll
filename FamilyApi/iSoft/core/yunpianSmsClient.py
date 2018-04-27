@@ -63,7 +63,12 @@ def send_verify_code(mobile,code):
     #修改为您要发送的手机号码，多个号码用逗号隔开
     tpl_id = 1323633 #对应的模板内容为：您的验证码是#code#【#company#】
     tpl_value = {'#code#':code}
-    return tpl_send_sms(apikey, tpl_id, tpl_value, mobile)
+    msg = tpl_send_sms(apikey, tpl_id, tpl_value, mobile)
+    msg = json.loads(msg)
+    if msg["code"]==0:
+        return True;
+    print(msg)
+    return False
 
 def tpl_send_sms(apikey, tpl_id, tpl_value, mobile):
     """
@@ -106,7 +111,8 @@ def send_voice_sms(apikey, code, mobile):
     return response_str
 
 if __name__ == '__main__':
-    send_verify_code("18180770313",'abde')
+    msg =send_verify_code("18180770313",'abde')
+    print(msg)
 
     #修改为您的apikey.可在官网（http://www.yunpian.com)登录后获取
     # apikey = "51f88df9eedd2e9565f5f3a9417c45df"
