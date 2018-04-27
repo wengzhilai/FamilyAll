@@ -145,20 +145,28 @@ export class TabsPage {
   changeTabs(i) {
     let activeNav = this.tabs.getSelected();
     let indx = activeNav.index;
+
+    let personPage = "SettingPage"
+    if (Config.userType == "vip") {
+      personPage = "VipPersonPage"
+    }
+
     if (AppGlobal.IsLogin) {
       /**
        * 如果已经登录则修改个人设置地址
        */
-      if (this.tabs.getByIndex(2).root != "SettingPage") {
-        this.tabs.getByIndex(2).root = "SettingPage"
+      if (this.tabs.getByIndex(2).root != personPage) {
+        this.tabs.getByIndex(2).root = personPage
       }
     }
     else {
       if (indx == 2) {
         // this.navCtrl.push("AuthLoginPage")
-        let profileModal = this.modalCtrl.create("AuthLoginPage", {
+        console.log(Config.userType)
+        let profileModal = this.modalCtrl.create((Config.userType == "user") ? "AuthLoginPage" : "VipLoginPage", {
+          // let profileModal = this.modalCtrl.create("VipLoginPage", {
           callBack: (isScuss, loginPageNav) => {
-            this.tabs.getByIndex(2).root = "SettingPage"
+            this.tabs.getByIndex(2).root = personPage
             setTimeout(() => {
               this.tabs.select(2)
             }, 100);
@@ -171,7 +179,7 @@ export class TabsPage {
         return;
       }
     }
-    
+
     if (indx == 2) {
       setTimeout(() => {
         this.tabs.select(2)

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{i18n+'.Title'|translate}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+      <ion-item class="thumbnailMy">
+        <ion-thumbnail item-left>
+          <up-single-pic [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
+        </ion-thumbnail>
+        <div item-right style="width: 100%;">
+          <ion-item>
+            <ion-label class="MyTitle">{{i18n+'.Name'|translate}}</ion-label>
+            <ion-note item-end>{{bean.Name}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label class="MyTitle">{{i18n+'.Gender'|translate}}</ion-label>
+            <ion-note item-end>{{bean.Gender}}</ion-note>
+          </ion-item>
+        </div>
+      </ion-item>
+
+      <ion-item *ngFor="let item of beanItemList">
+        <ion-label class="MyTitle">{{i18n+'.'+item|translate}}</ion-label>
+        <ion-note item-end>{{bean[item]}}</ion-note>
+      </ion-item>
+
+    </ion-item-group>
+    <button ion-button block (click)="Exit()">{{"setting.ExitLogin"|translate}}</button>
+ 
+  </ion-list>
+</ion-content>

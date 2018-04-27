@@ -12,16 +12,17 @@ import { AppReturnDTO } from "../../../Model/Transport/AppReturnDTO";
 import { TranslateService } from '@ngx-translate/core'
 @IonicPage()
 @Component({
-  selector: 'page-auth-login',
-  templateUrl: 'auth-login.html',
+  selector: 'page-vip-login',
+  templateUrl: 'vip-login.html',
 })
-export class AuthLoginPage {
-  i18n="auth-login"
+export class VipLoginPage {
+  i18n = "vip-login"
   cif: Cif = Cif;
   Key: string = ""
   msg: String;
   userForm: FormGroup;
   timer: any;
+  validationMessages: any;
   bean: any = {
     openid: "",
     loginName: "",
@@ -64,39 +65,33 @@ export class AuthLoginPage {
       loginName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       password: ['', [Validators.required]]
     });
-
+    this.validationMessages = {
+      'loginName': {
+        'aliasName': ""
+      },
+      'password': {
+        'aliasName': ""
+      }
+    }
 
 
     if (Cif.debug) {
       this.userForm.get('loginName').setValue("18180770313");
       this.userForm.get('password').setValue("123456");
     }
-    // if (this.userAndPwdList.length > 0) {
-    //   console.log("设置值")
-    //   this.userForm.get('loginName').setValue(this.userAndPwdList[this.userAndPwdList.length - 1].loginName);
-    //   this.userForm.get('password').setValue(this.userAndPwdList[this.userAndPwdList.length - 1].password);
-    // }
-    // let nowRememberPwd = AppGlobal.CooksGet("rememberPwd")
-    // if (nowRememberPwd == null || nowRememberPwd == '' || nowRememberPwd == 'false') {
-    //   this.rememberPwd = false
-    // }
-    // else {
-    //   this.rememberPwd = true
-    // }
 
 
   }
 
   ionViewDidLoad() {
     console.log(this.i18n)
-
   }
 
 
   submit() {
 
     if (this.userForm.invalid) {
-      let formErrors = this.commonService.FormValidMsg(this.userForm, this.i18n);
+      let formErrors = this.commonService.FormValidMsg(this.userForm, this.validationMessages);
       console.log(formErrors);
       this.commonService.hint(formErrors.ErrorMessage, this.translate.instant("public.Invalid_input"))
       return;
@@ -131,11 +126,11 @@ export class AuthLoginPage {
     this.PostGetToken(this.bean.loginName, this.bean.password).then((isSuccess: any) => {
       this.commonService.hideLoading()
       if (isSuccess) { //认证成功
-        let callBack=this.navParams.get("callBack")
-        if(callBack==null){
-          this.navCtrl.push(TabsPage,this.navCtrl);
+        let callBack = this.navParams.get("callBack")
+        if (callBack == null) {
+          this.navCtrl.push(TabsPage, this.navCtrl);
         }
-        else{
+        else {
           callBack(isSuccess)
         }
       }
@@ -151,11 +146,10 @@ export class AuthLoginPage {
    * @param password 
    */
   PostGetToken(loginName, password) {
-    
-    
 
-    // return this.toPostService.Soap('BindCard', { cardNo  : this.userForm.value.loginName, password: this.userForm.value.password,extId:1 })
-    return this.toPostService.Post('auth/UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
+
+    return this.toPostService.Soap('BindCard', { cardNo: this.userForm.value.loginName, password: this.userForm.value.password, extId: 1 })
+      // return this.toPostService.Post('auth/UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
       .then((res: AppReturnDTO) => {
         this.commonService.hideLoading();
         if (res == null) {
@@ -187,6 +181,12 @@ export class AuthLoginPage {
     this.translate.setDefaultLang(lang);
     this.translate.use(lang).toPromise().then(() => {
       console.log(this.translate);
+      this.translate.get("login.Login_Name").toPromise().then((res: string) => {
+        this.validationMessages.loginName.aliasName = res
+      })
+      this.translate.get("login.Password").toPromise().then((res: string) => {
+        this.validationMessages.password.aliasName = res
+      })
       let config = this._config.settings();
       this.commonService.LanguageStrGet("public.Back").toPromise().then((x) => {
         config.backButtonText = x;
@@ -258,10 +258,10 @@ export class AuthLoginPage {
   }
 
   GoFindPwd() {
-    this.navCtrl.push('AuthFindPwdPage');
+    this.navCtrl.push('UserFindPwdPage');
   }
   GoRegister() {
-    this.navCtrl.push('UserRegPage');
-    // this.navCtrl.push('AuthRegPage');
+    // this.navCtrl.push('UserRegPage');
+    this.navCtrl.push('VipRegPage');
   }
 }

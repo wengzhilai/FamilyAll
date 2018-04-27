@@ -56,31 +56,36 @@
     "ContractExtHandleNum": "签到",
     "ContractParkHandleNum": "停车缴费",
     "contract": "打车",
-    "Utilities": "意见反馈"    
+    "Utilities": "意见反馈"
   },
-  "login": {
+  "auth-login": {
     "Sign_Title": "登录",
     "Remember_Pwd": "记住密码",
     "Email": "邮箱",
-    "Login_Name": "登录名",
+    "loginName": "登录名",
     "Change_Lang": "切换语言",
-    "Password": "密码",
+    "paassword": "密码",
     "Region": "注册",
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
+  "auth-find-pwd":{
+    "Title":"找回密码",
+    "LoginName":"请输入手机号码",
+    "VerifyCode":"短信验证码",
+    "NewPwd":"密码由6-20位数字字母构成",
+    "submit":"提交"
+  },
   "family-edit": {
-    "baseInfo":"基础资料",
-
+    "baseInfo": "基础资料",
     "NAME": "姓名",
     "SEX": "性别",
     "LEVEL_ID": "排行",
     "BIRTHDAY_PLACE": "出生地点",
     "REMARK": "个人概述",
-    "BirthdayInfo":"出生信息",
-    "DiedInfo":"逝世信息",
-    "DIED_PLACE":"逝世地点"
-    
+    "BirthdayInfo": "出生信息",
+    "DiedInfo": "逝世信息",
+    "DIED_PLACE": "逝世地点"
   },
   "setting": {
     "Title": "设置",
@@ -99,5 +104,27 @@
     "ExitLogin": "退出登录",
     "ExitConfirmIng": "退出确认",
     "ExitConfirm": "确定要退出吗？"
+  },
+  "vip-reg": {
+    "extId": "微信会员编号",
+    "name": "名称",
+    "credentialType": "类型",
+    "credentialNo": "证件号码",
+    "mobileNo": "手机号码",
+    "password": "密码"
+  },
+  "vip-person": {
+    "Title":"查看个人信息",
+    "CustomerId": "会员编号",
+    "CustomerNo": "会员编码",
+    "Name": "名称",
+    "Gender": "性别",
+    "Nationlity": "国籍",
+    "MaritalStatus": "婚姻状况",
+    "DOB": "生日",
+    "Occupation": "职业",
+    "EducationLevel": "教育程度",
+    "CredentialType": "证件类型",
+    "CredentialNo": "证件号码"
   }
 }

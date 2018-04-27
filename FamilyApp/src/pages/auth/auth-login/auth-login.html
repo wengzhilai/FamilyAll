@@ -7,7 +7,7 @@
         </ion-buttons>
         <ion-title>登录购物广场</ion-title>
         <ion-buttons right>
-            <button ion-button (click)="GoRegister()">{{'login.Region'|translate}}</button>
+            <button ion-button (click)="GoRegister()">{{i18n+'.Region'|translate}}</button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -17,19 +17,19 @@
         <ion-list [formGroup]="userForm">
             <ion-item>
                 <ion-icon item-start name="contact"></ion-icon>
-                <ion-input type="text" formControlName="loginName" (change)="ChangeLoginName()" placeholder="{{validationMessages.loginName.aliasName}}"></ion-input>
+                <ion-input type="text" formControlName="loginName" (change)="ChangeLoginName()" placeholder="{{i18n+'.loginName'|translate}}"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-icon item-start name="unlock"></ion-icon>
-                <ion-input type="password" formControlName="password" placeholder="{{validationMessages.password.aliasName}}"></ion-input>
+                <ion-input type="password" formControlName="password" placeholder="{{i18n+'.password'|translate}}"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label> {{'login.Remember_Pwd'|translate}}</ion-label>
+                <ion-label> {{i18n+'.Remember_Pwd'|translate}}</ion-label>
                 <ion-toggle color="primary" [ngModelOptions]="{standalone: true}" [(ngModel)]="rememberPwd"></ion-toggle>
             </ion-item>
             <ion-item>
-                <ion-label> {{'login.Change_Lang'|translate}} </ion-label>
-                <ion-select placeholder="{{'login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
+                <ion-label> {{i18n+'.Change_Lang'|translate}} </ion-label>
+                <ion-select placeholder="{{i18n+'.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
                     (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
                     <ion-option *ngFor="let lang of cif.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
                 </ion-select>
@@ -40,9 +40,9 @@
             <div class="changApi">
                 <span (click)="CheckAppUrl($event)">　　</span>
             </div>
-            <button ion-button color="primary" block (click)="submit()">{{'login.Login_Btn'|translate}}</button>
+            <button ion-button color="primary" block (click)="submit()">{{i18n+'.Login_Btn'|translate}}</button>
             <ion-label right style="text-align: right;">
-                <button ion-button clear (click)="GoFindPwd()">{{'login.FindPwd'|translate}}</button>
+                <button ion-button clear (click)="GoFindPwd()">{{i18n+'.FindPwd'|translate}}</button>
             </ion-label>
         </div>
     </div>

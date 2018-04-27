@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="GoBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{i18n+'.Title'|translate}}</ion-title>
+    <ion-buttons right style="width: 30px">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list [formGroup]="userForm">
+    <ion-item>
+      <ion-icon name="call" item-left></ion-icon>
+      <ion-input type="text" formControlName="LoginName" placeholder="{{i18n+'.LoginName'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="wifi" item-left></ion-icon>
+      <ion-input type="text" formControlName="VerifyCode" placeholder="{{i18n+'.VerifyCode'|translate}}"></ion-input>
+      <button item-right ion-button small color="secondary" [disabled]="sendCodeDisabled" (click)="SendCode($event)" #sendCode>{{sendCodeText}}</button>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="lock" item-left></ion-icon>
+      <ion-input type="text" formControlName="NewPwd" placeholder="{{i18n+'.NewPwd'|translate}}"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button color="car" block (click)="submit()">{{i18n+'.submit'|translate}}</button>
+  </div>
+</ion-content>

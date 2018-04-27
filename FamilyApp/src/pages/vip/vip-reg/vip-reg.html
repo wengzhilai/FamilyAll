@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="GoBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>注册</ion-title>
+    <ion-buttons right style="width: 30px">
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list [formGroup]="userForm">
+    <ion-item-divider color="light">账号信息</ion-item-divider>
+    <ion-item>
+      <ion-icon name="chatbubbles" item-left></ion-icon>
+      <ion-input type="text" formControlName="extId" placeholder="{{i18n+'.extId'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="person" item-left></ion-icon>
+      <ion-input type="text" formControlName="name" placeholder="{{i18n+'.name'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="pricetags" item-left></ion-icon>
+      <ion-input type="text" formControlName="credentialType" placeholder="{{ i18n+'.credentialType'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="card" item-left></ion-icon>
+      <ion-input type="text" formControlName="credentialNo" placeholder="{{i18n+'.credentialNo'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="call" item-left></ion-icon>
+      <ion-input type="text" formControlName="mobileNo" placeholder="{{i18n+'.mobileNo'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="lock" item-left></ion-icon>
+      <ion-input type="text" formControlName="password" placeholder="{{i18n+'.password'|translate}}"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button block (click)="submit()">提交</button>
+  </div>
+</ion-content>
