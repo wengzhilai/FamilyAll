@@ -11,12 +11,6 @@ import { Config as fig } from "../../../Classes/Config";
 import { AppGlobal } from '../../../Classes/AppGlobal';
 
 
-/**
- * Generated class for the SettingPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-setting',

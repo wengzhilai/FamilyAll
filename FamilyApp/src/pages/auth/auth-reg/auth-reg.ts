@@ -11,13 +11,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'auth-reg.html',
 })
 export class AuthRegPage {
-
+  i18n = "auth-reg"
   userForm: FormGroup;
-  validationMessages: any;
   timer: any;
   formErrors: any = {};
   bean = {}
- constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     public navCtrl: NavController,
     public commonService: CommonService,
     public toastCtrl: ToastController,
@@ -28,30 +27,25 @@ export class AuthRegPage {
       code: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
       password: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
     });
-    this.validationMessages = {
-      'loginName': { 'aliasName': '登录名' },
-      'code': { 'aliasName': '短信验证码' },
-      'pollCode': { 'aliasName': '推荐码' },
-      'password': { 'aliasName': '密码' }
-    };
+    this.sendCodeText = this.commonService.LanguageStr(this.i18n + ".SendCode")
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AuthRegPage');
+    console.log(this.i18n);
   }
 
   sendCodeDisabled = false;
-  sendCodeText = "发送验证码"
+  sendCodeText = ""
   i = 0
   SetTimeValue() {
     if (this.i > 0) {
       this.i--
-      this.sendCodeText = this.i + "秒";
+      this.sendCodeText = this.i + "S";
       setTimeout(() => { this.SetTimeValue() }, 1000);
     }
     else {
       this.sendCodeDisabled = false;
-      this.sendCodeText = "发送验证码"
+      this.sendCodeText = this.commonService.LanguageStr(this.i18n + ".SendCode")
     }
   }
   SendCode($event) {
@@ -62,7 +56,7 @@ export class AuthRegPage {
       return;
     }
     this.sendCodeDisabled = true;
-    this.sendCodeText = "60秒";
+    this.sendCodeText = "60S";
     this.i = 60;
     this.SetTimeValue();
     this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }).then((currMsg) => {

@@ -57,6 +57,7 @@ export class ToPostService {
 
         console.groupEnd();
         this.commonService.showError(error);
+        return {IsSuccess: false, Msg: "网络错误"}
       })
       .catch(this.handleError);
   }

@@ -10,8 +10,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: 'auth-find-pwd.html',
 })
 export class AuthFindPwdPage {
-  i18n="auth-find-pwd"
-  
+  i18n = "auth-find-pwd"
+
   @ViewChild('sendCode') sendCode: Button;
   msg: String;
   userForm: FormGroup;
@@ -20,8 +20,9 @@ export class AuthFindPwdPage {
     userId: 0,
     id: 0,
     para: [],
-    Data:{}
+    Data: {}
   }
+  sendCodeText = ""
 
   constructor(private formBuilder: FormBuilder,
     public navCtrl: NavController,
@@ -33,21 +34,24 @@ export class AuthFindPwdPage {
       VerifyCode: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
       NewPwd: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
     });
+    this.sendCodeText = this.commonService.LanguageStr(this.i18n + ".SendCode")
+  }
+  ionViewDidLoad() {
+    console.log(this.i18n)
   }
 
-
   sendCodeDisabled = false;
-  sendCodeText = "发送验证码"
+
   i = 0
   SetTimeValue() {
     if (this.i > 0) {
       this.i--
-      this.sendCodeText = this.i + "秒";
+      this.sendCodeText = this.i + "S";
       setTimeout(() => { this.SetTimeValue() }, 1000);
     }
     else {
       this.sendCodeDisabled = false;
-      this.sendCodeText = "发送验证码"
+      this.sendCodeText = this.commonService.LanguageStr(this.i18n + ".SendCode")
     }
   }
   SendCode($event) {
@@ -58,7 +62,7 @@ export class AuthFindPwdPage {
       return;
     }
     this.sendCodeDisabled = true;
-    this.sendCodeText = "60秒";
+    this.sendCodeText = "60S";
     this.i = 60;
     this.SetTimeValue();
     this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }).then((currMsg) => {
@@ -81,8 +85,8 @@ export class AuthFindPwdPage {
     const thisValue = this.userForm.value
     if (thisValue != null) {
       this.bean.Data = {
-        'VerifyCode':thisValue.VerifyCode,
-        'LoginName': thisValue.LoginName ,
+        'VerifyCode': thisValue.VerifyCode,
+        'LoginName': thisValue.LoginName,
         'NewPwd': thisValue.NewPwd,
       }
     }

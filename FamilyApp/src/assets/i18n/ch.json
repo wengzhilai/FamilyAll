@@ -69,12 +69,21 @@
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
+  "auth-reg":{
+    "loginName": "登录名",
+    "code": "短信验证码",
+    "pollCode": "推荐码",
+    "password": "密码",
+    "SendCode":"发送验证码",
+    "submit":"提交"
+  },
   "auth-find-pwd":{
     "Title":"找回密码",
     "LoginName":"请输入手机号码",
     "VerifyCode":"短信验证码",
     "NewPwd":"密码由6-20位数字字母构成",
-    "submit":"提交"
+    "submit":"提交",
+    "SendCode":"发送验证码"
   },
   "family-edit": {
     "baseInfo": "基础资料",

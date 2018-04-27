@@ -105,6 +105,7 @@ export class UserRegPage {
       Data: { "name": this.fatherName }
     }
     this.toPostService.Post("UserInfo/SingleByName", postBean).then((currMsg) => {
+      console.log(currMsg)
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {

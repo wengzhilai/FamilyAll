@@ -89,7 +89,6 @@ export class AuthLoginPage {
 
   ionViewDidLoad() {
     console.log(this.i18n)
-
   }
 
 
@@ -194,7 +193,7 @@ export class AuthLoginPage {
         AppGlobal.CooksSet('Language', lang);
 
         console.log(AppGlobal.CooksGet('Language'))
-        window.location.reload();
+        // window.location.reload();
       })
     });
 
@@ -229,7 +228,7 @@ export class AuthLoginPage {
             console.log("api:" + Cif.api);
             AppGlobal.CooksSet('apiUrl', Cif.api);
 
-            window.location.reload();
+            // window.location.reload();
           }
         },
         {
@@ -240,7 +239,7 @@ export class AuthLoginPage {
             Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
             console.log("imgUrl:" + Cif.imgUrl);
             console.log("api:" + Cif.api);
-            window.location.reload();
+            // window.location.reload();
           }
         }
       ]

@@ -24,7 +24,7 @@
             {{"setting.setting"|translate}}
         </ion-list-header>
         <ion-item>
-            <ion-label> {{"login.Change_Lang"|translate}} </ion-label>
+            <ion-label> {{"auth-login.Change_Lang"|translate}} </ion-label>
             <ion-select placeholder="{{'login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
                 (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
                 <ion-option *ngFor="let lang of fig.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
