@@ -177,7 +177,7 @@ export class CommonService {
     console.log(url);
     if (this.plt.is('ios') || this.plt.is('android')) {
       console.log('真机');
-      this.photoViewer.show(url);
+      this.photoViewer.show(url, "", { "share": false });
     }
     else {
       this.hint('<img style="display: block; margin: 0px;" src="' + url + '"/>', this.translate.instant("public.pic"))
@@ -342,7 +342,7 @@ export class CommonService {
         for (const key in control.errors) {
           //判断是否有配置
           if (typeof (validationMessages) == "object") {
-            const messages = validationMessages[field];            
+            const messages = validationMessages[field];
             //是否配置了错误信息
             if (messages[key] != null) {
               keyMesg += messages[key];
@@ -351,7 +351,7 @@ export class CommonService {
               if (defautMsg[key] != null) {
                 keyMesg += defautMsg[key](control.errors[key]);
               }
-              else{
+              else {
                 keyMesg += key;
               }
             }
@@ -360,12 +360,12 @@ export class CommonService {
             if (defautMsg[key] != null) {
               keyMesg += defautMsg[key](control.errors[key]);
             }
-            else{
+            else {
               keyMesg += key;
             }
           }
 
-          
+
         }
         formErrors[keyName] = keyMesg;
       }

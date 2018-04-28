@@ -51,7 +51,7 @@ export class FamilyEditPage {
     COUPLE_ID: null,
     iconFiles: {}
   };
-  title: string = "添加用户"
+  title: string = "用户管理"
 
   constructor(
     private formBuilder: FormBuilder,
