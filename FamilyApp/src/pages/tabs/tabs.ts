@@ -26,8 +26,8 @@ export class TabsPage {
     },
     {
       text: "tabs.Index2",
-      Icon: "keypad",
-      root: "HomeIndexPage"
+      Icon: "home",
+      root: (Config.userType == "user") ? "FamilyRelativePage" : "HomeIndexPage"
     },
     {
       text: "tabs.Index5",

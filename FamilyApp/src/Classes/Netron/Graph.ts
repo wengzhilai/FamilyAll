@@ -288,12 +288,12 @@ export class NetronGraph {
         }
         else {
             this._selection = null;
-            
+
             this.updateActiveObject(point);
             if (this._activeObject === null) {
                 // 点的空白处
                 this._selection = new NetronSelection(point);
-                if(this.ClickBlack!=null){
+                if (this.ClickBlack != null) {
                     this.ClickBlack()
                 }
             }
@@ -421,7 +421,7 @@ export class NetronGraph {
             // placing new element
             this._newElement.invalidate();
             // this._newElement.rectangle = new NetronRectangle(point.x, point.y, this._newElement.rectangle.width, this._newElement.rectangle.height);
-            this._newElement.rectangle = new NetronRectangle(e.offsetX, e.offsetY+50, this._newElement.rectangle.width, this._newElement.rectangle.height);
+            this._newElement.rectangle = new NetronRectangle(e.offsetX, e.offsetY + 50, this._newElement.rectangle.width, this._newElement.rectangle.height);
             this._newElement.invalidate();
         }
 
@@ -654,7 +654,7 @@ export class NetronGraph {
         // console.log(e)
         this._shiftKey = e.shiftKey;
         // this._pointerPosition = new NetronPoint(e.pageX, e.pageY);
-        this._pointerPosition = new NetronPoint(e.offsetX, e.offsetY+50);
+        this._pointerPosition = new NetronPoint(e.offsetX, e.offsetY + 50);
         let node: HTMLElement = this._canvas;
         while (node !== null) {
             this._pointerPosition.x -= node.offsetLeft;
@@ -682,10 +682,15 @@ export class NetronGraph {
         //console.log(this._canvas.remove())
 
     }
-    public update() {
+    tmpInit = null
+    public update(initBackground = null) {
         this._canvas.style.background = this.theme.background;
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-        
+        if (initBackground == null) initBackground = this.tmpInit
+        if (initBackground != null) {
+            this.tmpInit = initBackground
+            initBackground()
+        }
         // 绘制连接线
         let connections: NetronConnection[] = [];
         for (let i = 0; i < this._elements.length; i++) {
@@ -694,7 +699,7 @@ export class NetronGraph {
                 let connector: NetronConnector = element.connectors[j];
                 for (let k = 0; k < connector.connections.length; k++) {
                     let connection: NetronConnection = connector.connections[k];
-                    if (connections.indexOf(connection)==-1) {
+                    if (connections.indexOf(connection) == -1) {
                         connection.paint(this._context);
                         connections.push(connection);
                     }

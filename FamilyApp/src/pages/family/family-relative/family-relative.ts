@@ -37,11 +37,14 @@ export class FamilyRelativePage implements OnInit {
 
   }
   ngOnInit() {
+
+
     this.onSucc();
     // this.test()
     // var ctx=this.mapElement.nativeElement.getContext("2d");
     // ctx.fillStyle="#FF0000";
-    // ctx.fillRect(0,0,10,10);
+    // ctx.fillRect(0,0,100,100);
+
   }
   IsLogin() {
     return AppGlobal.IsLogin
@@ -103,12 +106,15 @@ export class FamilyRelativePage implements OnInit {
         this.commonService.showLongToast("总" + this.userRelative.ItemList.length + "人")
         // 计算宽高
         let maxX = 0;
-        let maxY = 0
+        let maxY = 0;
+        let topItem = null
         for (var i = 0; i < this.userRelative.ItemList.length; i++) {
           var item = this.userRelative.ItemList[i];
           if (maxX < item.x) maxX = item.x
           if (maxY < item.y) maxY = item.y
+          if (item.y == 0) topItem = item.ElderId
         }
+        if (topItem == null) topItem = 1;
         let canvas = this.mapElement.nativeElement
         maxX = maxX * 15 + 100
         maxY = maxY * 90 + 200
@@ -125,7 +131,7 @@ export class FamilyRelativePage implements OnInit {
         }
         for (let i = 0; i < this.userRelative.ItemList.length; i++) {
           let item = this.userRelative.ItemList[i];
-          let e1 = this.graph.addElement(this.personTemplate, { x: item.x * 15 + 20, y: item.y * 90 + 50 }, item.Name, item);
+          let e1 = this.graph.addElement(this.personTemplate, { x: item.x * 15 + 40, y: item.y * 90 + 50 }, item.Name, item);
           this.allRelative.add(item.Id, e1);
         }
         let allR = this.allRelative.toLookup();
@@ -139,7 +145,27 @@ export class FamilyRelativePage implements OnInit {
 
 
 
-        this.graph.update();
+        this.graph.update(() => {
+          var ctx = this.mapElement.nativeElement.getContext("2d");
+          // ctx.fillStyle = "#FF000000";
+          ctx.beginPath();
+          ctx.strokeStyle = "rgba(0,128,0,0.1)";
+          ctx.moveTo(35, 0);
+          ctx.lineTo(35, maxY);
+          ctx.stroke();
+          ctx.font = "12px Verdana";
+          ctx.fillStyle = "green";
+
+          for (let index = 0; index < (maxY - 200) / 90; index++) {
+            ctx.moveTo(0, index * 90 + 35);
+            ctx.lineTo(maxX, index * 90 + 35);
+            ctx.fillText('第', 10, index * 90 + 60)
+            ctx.fillText(topItem + index, 10, index * 90 + 90)
+            ctx.fillText('代', 10, index * 90 + 120)
+            ctx.stroke();
+          }
+        });
+
       }
     })
   }
@@ -201,8 +227,10 @@ export class FamilyRelativePage implements OnInit {
       // ctx.fillRect(0,0,20,70);
       //表示是自己
       if (element.Object.Id == this.userId) {
-        context.fillStyle = "#c8d4e8";
-        context.strokeStyle = element.selected ? "#666" : "#F00";
+        // context.fillStyle = "#c8d4e8";
+        // context.strokeStyle = element.selected ? "#666" : "#F00";
+        context.fillStyle = "#fff";
+        context.strokeStyle = element.selected ? "#444" : "#000";
       }
       else {
         context.fillStyle = "#fff";
