@@ -93,5 +93,21 @@
         "Login_Btn": "Login",
         "Region": "Region",
         "FindPwd": "Forget password?"
+    },
+    "auth-find-pwd": {
+        "Title": "Find pwd",
+        "LoginName": "Login Name",
+        "VerifyCode": "Verify Code",
+        "NewPwd": "New Password",
+        "submit": "Submit",
+        "SendCode": "Send SMS Code"
+    },
+    "auth-reg": {
+        "loginName": "User Name",
+        "code": "Code",
+        "pollCode": "Poll Code",
+        "password": "password",
+        "SendCode": "Send Code",
+        "submit": "Submit"
     }
 }

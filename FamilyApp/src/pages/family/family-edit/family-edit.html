@@ -60,7 +60,7 @@
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label class="MyTitle">是否健在</ion-label>
+                <ion-label class="MyTitle">{{i18n+'.IS_LIVE'|translate}}</ion-label>
                 <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.IS_LIVE"></ion-toggle>
             </ion-item>
 
@@ -68,23 +68,23 @@
         </ion-item-group>
         <ion-item-divider color="light">{{i18n+'.BirthdayInfo'|translate}}</ion-item-divider>
         <ion-item-group>
-            <ion-item *ngIf="bean.YEARS_TYPE!='农历' && bean.YEARS_TYPE!='阳历' ">
-                <ion-label class="MyTitle">年份({{bean.YEARS_TYPE}})</ion-label>
+            <ion-item *ngIf="bean.YEARS_TYPE!='阴历' && bean.YEARS_TYPE!='阳历' ">
+                <ion-label class="MyTitle">{{i18n+'.YEARS_TYPE'|translate}}({{bean.YEARS_TYPE}})</ion-label>
                 <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="tianDi" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
                     <ion-option *ngFor="let key of yearPicker.GetAllTianDi()" value="{{key}}">{{key}}</ion-option>
                 </ion-select>
             </ion-item>
-            <ion-item *ngIf="bean.YEARS_TYPE=='农历' || bean.YEARS_TYPE=='阳历' ">
+            <ion-item *ngIf="bean.YEARS_TYPE=='阴历' || bean.YEARS_TYPE=='阳历' ">
                 <ion-label class="MyTitle">{{this.bean.YEARS_TYPE}}</ion-label>
                 <ion-datetime formControlName="BIRTHDAY_TIME" style="margin:0px;padding:0px" displayFormat="YYYY年MMM月DD日HH时" min="1661"
                     (ionChange)="DoneBirthdayTime()" cancelText='取消' doneText='确定'></ion-datetime>
             </ion-item>
-            <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
-                <ion-label class="MyTitle">农历</ion-label>
+            <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
+                <ion-label class="MyTitle">{{i18n+'.lunlar'|translate}}</ion-label>
                 <ion-label item-end>{{bean.BirthdaylunlarDate}}</ion-label>
             </ion-item>
-            <ion-item *ngIf="this.bean.YEARS_TYPE=='农历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
-                <ion-label class="MyTitle">阳历</ion-label>
+            <ion-item *ngIf="this.bean.YEARS_TYPE=='阴历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
+                <ion-label class="MyTitle">{{i18n+'.solar'|translate}}</ion-label>
                 <ion-label item-end>{{bean.BirthdaysolarDate}}</ion-label>
             </ion-item>
             <ion-item>
@@ -96,8 +96,8 @@
 
             <ion-item-divider color="light">{{i18n+'.DiedInfo'|translate}}</ion-item-divider>
             <ion-item-group>
-                <ion-item *ngIf="bean.YEARS_TYPE!='农历' && bean.YEARS_TYPE!='阳历' ">
-                    <ion-label class="MyTitle">年份({{bean.YEARS_TYPE}})</ion-label>
+                <ion-item *ngIf="bean.YEARS_TYPE!='阴历' && bean.YEARS_TYPE!='阳历' ">
+                    <ion-label class="MyTitle">{{i18n+'.YEARS_TYPE'|translate}}({{bean.YEARS_TYPE}})</ion-label>
                     <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="diedTianDi" (ngModelChange)="SelectedChinaYearDied(1)" okText="{{'public.Okay' | translate}}"
                         cancelText="{{'public.Dismiss' | translate}}">
                         <ion-option *ngFor="let key of yearPicker.GetAllTianDi()" value="{{key}}">{{key}}</ion-option>
@@ -105,17 +105,17 @@
                     <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]="diedDistantYears" (ngModelChange)="SelectedChinaYearDied()">
                     </ion-input>
                 </ion-item>
-                <ion-item *ngIf="bean.YEARS_TYPE=='农历' || bean.YEARS_TYPE=='阳历' ">
+                <ion-item *ngIf="bean.YEARS_TYPE=='阴历' || bean.YEARS_TYPE=='阳历' ">
                     <ion-label class="MyTitle">{{this.bean.YEARS_TYPE}}</ion-label>
                     <ion-datetime style="margin:0px;padding:0px" pickerFormat="YYYY MM DD HH" displayFormat="YYYY年MMM月DD日HH时"
                         min="1661" formControlName="DIED_TIME" (ionChange)="DoneDiedTime()" cancelText='取消' doneText='确定'></ion-datetime>
                 </ion-item>
-                <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
-                    <ion-label class="MyTitle">农历</ion-label>
+                <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
+                    <ion-label class="MyTitle">{{i18n+'.lunlar'|translate}}</ion-label>
                     <ion-label item-end>{{bean.DiedlunlarDate}}</ion-label>
                 </ion-item>
-                <ion-item *ngIf="this.bean.YEARS_TYPE=='农历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
-                    <ion-label class="MyTitle">阳历</ion-label>
+                <ion-item *ngIf="this.bean.YEARS_TYPE=='阴历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
+                    <ion-label class="MyTitle">{{i18n+'.solar'|translate}}</ion-label>
                     <ion-label item-end>{{bean.DiedsolarDate}}</ion-label>
                 </ion-item>
                 <ion-item>
@@ -132,6 +132,6 @@
         </ion-item-group>
     </ion-list>
     <div padding>
-        <button ion-button block (click)="save()">保存</button>
+        <button ion-button block (click)="save()">{{'public.Okay'|translate}}</button>
     </div>
 </ion-content>

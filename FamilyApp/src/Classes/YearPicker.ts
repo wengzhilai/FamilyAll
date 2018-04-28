@@ -1,7 +1,7 @@
 export class YearPicker {
   public static yeasGroup: any = [
     { "name": "阳历", value: 0 },
-    { "name": "农历", value: 0 },
+    { "name": "阴历", value: 0 },
     { "name": "康熙", value: 1661 },
     { "name": "雍正", value: 1722 },
     { "name": "乾隆", value: 1736 },

@@ -216,9 +216,9 @@ export class UserRegPage {
       message: "选择的时间为：" + dataStr,
       buttons: [
         {
-          text: '农历',
+          text: '阴历',
           handler: () => {
-            this.bean.YEARS_TYPE = "农历"
+            this.bean.YEARS_TYPE = "阴历"
             this.lunlarDate = dataStr
             this.solarDate = ""
             this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }).then((currMsg) => {

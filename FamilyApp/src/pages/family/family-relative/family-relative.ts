@@ -84,7 +84,9 @@ export class FamilyRelativePage implements OnInit {
     if(postUserId==null){
       postUserId=AppGlobal.GetPropertyId()
     }
-
+    if(postUserId==null){
+      postUserId=1
+    }
     this.userId = postUserId;
     this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
 

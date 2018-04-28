@@ -143,7 +143,6 @@ export class SettingPage {
     this.translate.use(lang);
     this.translate.translations
     this.commonService.translate = this.translate;
-
   }
 
   ChangeFileJson(obj) {

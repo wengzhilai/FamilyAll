@@ -1,12 +1,12 @@
 
 import { Component } from '@angular/core';
-import { IonicPage,NavController, ToastController, IonicApp, Platform, App } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, IonicApp, Platform, App } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from "../../../Service/Common.Service";
 import { ToPostService } from "../../../Service/ToPost.Service";
 import { AppGlobal } from "../../../Classes/AppGlobal";
 import { TabsPage } from "../../tabs/tabs";
-import {AppReturnDTO  } from "../../../Model/Transport/AppReturnDTO";
+import { AppReturnDTO } from "../../../Model/Transport/AppReturnDTO";
 
 @IonicPage()
 @Component({
@@ -14,7 +14,7 @@ import {AppReturnDTO  } from "../../../Model/Transport/AppReturnDTO";
   templateUrl: 'user-login.html',
 })
 export class UserLoginPage {
-  Key:string="nt5P-2rgld6ui-pabueLhZSKo423hh3dE-OoqttcwgCIJ0kUTXnwYNu-y2WfR0J7z0KSa3obJROUe5qXLseUT4ygFg1yPxcAmjQtuBTemo8Y7KjX4p6Y11wkkuRfg9Fr2jLfIUhXVp6spnji7-J2sL8sw8v2HF5SANiWS1WhbgbpYH7s04b_PJguLuEMXz_lUv81pF871bTc1tojKO1NUvdgr9QV9DXkpCgRynWnF8ixgAKgCK7BVZMPf3_OTQv8mcQ-XfD025fVhUSeTyXXZ-9pC1JLdP2L-V8Jmox8kWjiImu489TGhEWeHowKSRrceO8x8G0c9L02Je7aZzmhaFW0koRkZKwjn58NNRrDDFXHePEZ84ZNKu9vTznNC8mw"
+  Key: string = "nt5P-2rgld6ui-pabueLhZSKo423hh3dE-OoqttcwgCIJ0kUTXnwYNu-y2WfR0J7z0KSa3obJROUe5qXLseUT4ygFg1yPxcAmjQtuBTemo8Y7KjX4p6Y11wkkuRfg9Fr2jLfIUhXVp6spnji7-J2sL8sw8v2HF5SANiWS1WhbgbpYH7s04b_PJguLuEMXz_lUv81pF871bTc1tojKO1NUvdgr9QV9DXkpCgRynWnF8ixgAKgCK7BVZMPf3_OTQv8mcQ-XfD025fVhUSeTyXXZ-9pC1JLdP2L-V8Jmox8kWjiImu489TGhEWeHowKSRrceO8x8G0c9L02Je7aZzmhaFW0koRkZKwjn58NNRrDDFXHePEZ84ZNKu9vTznNC8mw"
   msg: String;
   userForm: FormGroup;
   timer: any;
@@ -48,10 +48,10 @@ export class UserLoginPage {
         'aliasName': "密码",
       }
     }
-    
+
     this.userForm.get('loginName').setValue(AppGlobal.CooksGet("loginName"));
     this.userForm.get('password').setValue(AppGlobal.CooksGet("password"));
-    this.rememberPwd=(AppGlobal.CooksGet("rememberPwd"));
+    this.rememberPwd = (AppGlobal.CooksGet("rememberPwd"));
   }
 
   ionViewDidLoad() {
@@ -87,11 +87,11 @@ export class UserLoginPage {
 
     this.commonService.showLoading();
 
-    this.toPostService.Post('auth/UserLogin',{loginName:this.userForm.value.loginName,passWord:this.userForm.value.password})
+    this.toPostService.Post('auth/UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
 
       .then((res: AppReturnDTO) => {
         this.commonService.hideLoading();
-        if(res==null){
+        if (res == null) {
           this.commonService.hint('登录错误，请联系管理员')
           return;
         }
@@ -102,8 +102,8 @@ export class UserLoginPage {
         else {
           this.commonService.hint(res.Msg);
         };
-      },(err)=>{
-        this.commonService.hint(err,'错误');
+      }, (err) => {
+        this.commonService.hint(err, '错误');
       })
   }
 

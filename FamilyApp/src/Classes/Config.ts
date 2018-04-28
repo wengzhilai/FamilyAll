@@ -15,10 +15,11 @@ export class Config {
 
   // static api:string = 'http://192.168.0.154:5000/Api/';
   // static imgUrl:string = 'http://192.168.0.154:5000/';
-
+  static userType="user"
   static api:string = 'http://47.254.16.126:8080/Api/';
   static imgUrl:string = 'http://47.254.16.126:8080/';
-  static userType="user"
+
+
 
   // static api:string = 'http://192.168.0.110:8066/App.svc/';
   // static imgUrl:string = 'http://47.254.16.126:8080/';

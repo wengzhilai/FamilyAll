@@ -54,7 +54,7 @@
       </ion-item-group>
       <ion-item-divider color="light">出生信息({{bean.YEARS_TYPE}})</ion-item-divider>
       <ion-item-group>
-          <ion-item *ngIf="bean.YEARS_TYPE!='农历' && bean.YEARS_TYPE!='阳历' ">
+          <ion-item *ngIf="bean.YEARS_TYPE!='阴历' && bean.YEARS_TYPE!='阳历' ">
               <ion-label>年份</ion-label>
               <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="yeasTypes" (ngModelChange)="SelectedYeasGroup()" okText="确定"
                   cancelText="取消">
@@ -90,7 +90,7 @@
       </ion-item-group>
       <ion-item-group *ngIf="!bean.IS_LIVE">
           <ion-item-divider color="light">逝世信息</ion-item-divider>
-          <ion-item *ngIf="bean.YEARS_TYPE!='农历' && bean.YEARS_TYPE!='阳历' ">
+          <ion-item *ngIf="bean.YEARS_TYPE!='阴历' && bean.YEARS_TYPE!='阳历' ">
               <ion-label>逝世年份</ion-label>
               <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="yeasTypes1" (ngModelChange)="SelectedYeasGroup1()" okText="确定"
                   cancelText="取消">

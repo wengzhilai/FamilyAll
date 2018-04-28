@@ -22,7 +22,7 @@ export class TabsPage {
     {
       text: "tabs.Index1",
       Icon: "appstore",
-      root: "FamilyRelativePage",
+      root: (Config.userType == "user") ? "FamilyRelativePage" : "StoreListPage",
     },
     {
       text: "tabs.Index2",
@@ -146,7 +146,7 @@ export class TabsPage {
     let activeNav = this.tabs.getSelected();
     let indx = activeNav.index;
 
-    let personPage = "SettingPage"
+    let personPage = "UserProfilePage"
     if (Config.userType == "vip") {
       personPage = "VipPersonPage"
     }

@@ -75,10 +75,10 @@
           min="1661" [(ngModel)]="bean.BIRTHDAY_TIME" (ionChange)="DoneBirthdayTime(bean.BIRTHDAY_TIME)" cancelText='取消' doneText='确定'></ion-datetime>
       </ion-item>
       <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历'">
-        <ion-label>农历</ion-label>
+        <ion-label>阴历</ion-label>
         <ion-label item-end>{{lunlarDate}}</ion-label>
       </ion-item>
-      <ion-item *ngIf="this.bean.YEARS_TYPE=='农历'">
+      <ion-item *ngIf="this.bean.YEARS_TYPE=='阴历'">
         <ion-label>阳历</ion-label>
         <ion-label item-end>{{solarDate}}</ion-label>
       </ion-item>

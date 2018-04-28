@@ -69,21 +69,21 @@
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
-  "auth-reg":{
+  "auth-reg": {
     "loginName": "登录名",
     "code": "短信验证码",
     "pollCode": "推荐码",
     "password": "密码",
-    "SendCode":"发送验证码",
-    "submit":"提交"
+    "SendCode": "发送验证码",
+    "submit": "提交"
   },
-  "auth-find-pwd":{
-    "Title":"找回密码",
-    "LoginName":"请输入手机号码",
-    "VerifyCode":"短信验证码",
-    "NewPwd":"密码由6-20位数字字母构成",
-    "submit":"提交",
-    "SendCode":"发送验证码"
+  "auth-find-pwd": {
+    "Title": "找回密码",
+    "LoginName": "请输入手机号码",
+    "VerifyCode": "短信验证码",
+    "NewPwd": "密码由6-20位数字字母构成",
+    "submit": "提交",
+    "SendCode": "发送验证码"
   },
   "family-edit": {
     "baseInfo": "基础资料",
@@ -94,7 +94,11 @@
     "REMARK": "个人概述",
     "BirthdayInfo": "出生信息",
     "DiedInfo": "逝世信息",
-    "DIED_PLACE": "逝世地点"
+    "DIED_PLACE": "逝世地点",
+    "IS_LIVE": "是否健在",
+    "YEARS_TYPE": "年份",
+    "lunlar": "阴历",
+    "solar": "阳历"
   },
   "setting": {
     "Title": "设置",
@@ -114,6 +118,26 @@
     "ExitConfirmIng": "退出确认",
     "ExitConfirm": "确定要退出吗？"
   },
+  "user-profile": {
+    "Title": "查看个人信息",
+    "setting": "功能设置",
+    "api": "接口地址",
+    "BaseUserInfo": "用户基本信息",
+    "NAME": "姓名",
+    "SEX": "性别",
+    "LEVEL_ID": "排行",
+    "BIRTHDAY_PLACE": "出生地点",
+    "REMARK": "个人概述",
+    "BirthdayInfo": "出生信息",
+    "DiedInfo": "逝世信息",
+    "DIED_PLACE": "逝世地点",
+    "BirthdaylunlarDate": "出生阴历",
+    "BirthdaysolarDate": "出生阳历",
+    "DiedlunlarDate": "逝世阴历",
+    "DiedsolarDate": "逝世阳历",
+    "ExitLogin": "退出登录"
+    
+  },
   "vip-reg": {
     "extId": "微信会员编号",
     "name": "名称",
@@ -123,7 +147,7 @@
     "password": "密码"
   },
   "vip-person": {
-    "Title":"查看个人信息",
+    "Title": "查看个人信息",
     "CustomerId": "会员编号",
     "CustomerNo": "会员编码",
     "Name": "名称",

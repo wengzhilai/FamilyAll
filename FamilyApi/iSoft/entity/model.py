@@ -633,7 +633,7 @@ class FaUser(db.Model):
     REMARK = db.Column(db.String(2000))
 
     fa_district = db.relationship('FaDistrict', primaryjoin='FaUser.DISTRICT_ID == FaDistrict.ID', backref='fa_users')
-    fa_user_info = db.relationship('FaUserInfo', secondary='fa_user_friend', backref='fa_users')
+    fa_user_info = db.relationship('FaUserInfo', secondary='fa_user_friend', backref='fa_users',lazy="select")
 
 
 class FaUserInfo(FaUser):

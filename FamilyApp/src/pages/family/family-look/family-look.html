@@ -50,7 +50,7 @@
     <ion-item-divider color="light">{{i18n+'.BirthdayInfo'|translate}}</ion-item-divider>
     <ion-item-group>
       <ion-item>
-        <ion-label class="MyTitle">农历</ion-label>
+        <ion-label class="MyTitle">阴历</ion-label>
         <ion-label item-end>{{bean.BirthdaylunlarDate}}</ion-label>
       </ion-item>
       <ion-item>
@@ -65,11 +65,11 @@
     <ion-item-group *ngIf="!bean.IS_LIVE">
       <ion-item-divider color="light">{{i18n+'.DiedInfo'|translate}}</ion-item-divider>
       <ion-item-group>
-        <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
-          <ion-label class="MyTitle">农历</ion-label>
+        <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
+          <ion-label class="MyTitle">阴历</ion-label>
           <ion-label item-end>{{bean.DiedlunlarDate}}</ion-label>
         </ion-item>
-        <ion-item *ngIf="this.bean.YEARS_TYPE=='农历' || (this.bean.YEARS_TYPE!='农历' && this.bean.YEARS_TYPE!='阳历')">
+        <ion-item *ngIf="this.bean.YEARS_TYPE=='阴历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
           <ion-label class="MyTitle">阳历</ion-label>
           <ion-label item-end>{{bean.DiedsolarDate}}</ion-label>
         </ion-item>
