@@ -52,6 +52,7 @@ export class AppGlobal {
    * 退出登录，并清除所有登录信息
    */
   public static LoginOut():void {
+    console.log("退出登录")
     NgXCookies.deleteCookie("token");
     NgXCookies.deleteCookie("Property");
     NgXCookies.deleteCookie("PropertyId");

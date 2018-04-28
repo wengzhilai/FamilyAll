@@ -28,7 +28,7 @@
     "Error": "错误",
     "pullingText": "下拉刷新",
     "refreshingText": "刷新中...",
-    "loadingText": "加载更多...",
+    "loadingText": "加载中...",
     "StartTime": "开始时间",
     "EndTime": "结束时间",
     "NoPower": "无权限查看该信息",
@@ -96,7 +96,7 @@
     "DiedInfo": "逝世信息",
     "DIED_PLACE": "逝世地点",
     "IS_LIVE": "是否健在",
-    "YEARS_TYPE": "年份",
+    "YEARS_TYPE": "年份类型",
     "lunlar": "阴历",
     "solar": "阳历"
   },

@@ -5,12 +5,12 @@
             <ng-container *ngIf="AllFiles!=null && AllFiles.length>0">
                 <ng-container *ngFor="let o of AllFiles">
                     <ion-col>
-                        <img *ngIf="IsImage(o.NAME)" width="80" height="80" alt="{{o.NAME}}" title="{{o.NAME}}" src="{{o.URL|ImgUrl}}" (click)="upImg(o)" />
+                        <img *ngIf="IsImage(o.NAME)" width="80" height="80" title="{{o.NAME}}" src="{{o.URL|ImgUrl}}" (click)="upImg(o)" />
                         <ng-container *ngIf="!IsImage(o.NAME)">
-                            <img *ngIf="o.URL==null || o.URL==''" alt="{{o.NAME}}" title="{{o.NAME}}" width="80" height="80" src="assets/images/file.png" (click)="upImg(o)"
+                            <img *ngIf="o.URL==null || o.URL==''"  title="{{o.NAME}}" width="80" height="80" src="assets/images/file.png" (click)="upImg(o)"
                             />
                             <ng-container *ngIf="o.URL!=null && o.URL!=''">
-                                <img alt="{{o.NAME}}" title="{{o.NAME}}" src="assets/images/{{GetFileMiMe(o.NAME).Type}}.png" width="80" height="80" (click)="upImg(o)" />
+                                <img title="{{o.NAME}}" src="assets/images/{{GetFileMiMe(o.NAME).Type}}.png" width="80" height="80" (click)="upImg(o)" />
                             </ng-container>
                         </ng-container>
                         <!-- <div>

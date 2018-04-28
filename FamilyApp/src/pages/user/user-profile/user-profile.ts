@@ -14,7 +14,7 @@ export class UserProfilePage {
   i18n = "user-profile"
   bean: any
   fig: Config = Config
-
+  property
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,15 +28,25 @@ export class UserProfilePage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log(this.i18n);
-    this.PostData();
+    this.property = AppGlobal.GetProperty()
+    if (this.property == null) {
+      this.bean = null;
+    }
+    else {
+      this.PostData();
+    }
   }
   PostData() {
+    if (this.property.ID == null || this.property.ID == undefined || this.property.ID == "undefined") {
+      AppGlobal.LoginOut()
+      this.navCtrl.setRoot("TabsPage")
+      return
+    }
     this.commonService.showLoading();
-    let pro = AppGlobal.GetProperty()
 
-    this.toPostService.Post("UserInfo/Single", { "Key": pro.ID }).then((currMsg) => {
+    this.toPostService.Post("UserInfo/Single", { "Key": this.property.ID }).then((currMsg) => {
       this.commonService.hideLoading();
       if (currMsg == null) return;
       if (!currMsg.IsSuccess) {
@@ -73,13 +83,6 @@ export class UserProfilePage {
             AppGlobal.LoginOut()
             this.navCtrl.setRoot("TabsPage")
 
-            // this.navCtrl.push("AuthLoginPage", {
-            //   callBack: (isScuss, loginPageNav) => {
-            //     this.navCtrl.pop()
-            //     this.model = AppGlobal.GetProperty()
-            //   }
-            // })
-            // this.app.getRootNav().setRoot("AuthLoginPage",{reload:true});
           }
         }
       ]
@@ -95,6 +98,6 @@ export class UserProfilePage {
     this.commonService.translate = this.translate;
   }
   edit() {
-    this.navCtrl.push("FamilyEditPage", { "userId": AppGlobal.GetProperty().ID,"optype":"edit" })
+    this.navCtrl.push("FamilyEditPage", { "userId": this.property.ID, "optype": "edit" })
   }
 }

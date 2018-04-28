@@ -58,7 +58,7 @@ def ApiPublicGetLunarDate():
     converter = LunarSolarConverter()
     solar = Solar(y, m, d)
     lunar = converter.SolarToLunar(solar)
-    reStr = "%d年%02d月%02d日%02d时" % (lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay,h)
+    reStr = "%d年%02d月%02d日%02d时" % (lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay, h)
     return Fun.class_to_JsonStr(AppReturnDTO(True, reStr))
 
 
@@ -73,12 +73,12 @@ def ApiPublicGetSolarDate():
         return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有问题"))
 
     t = time.strptime(postEnt.Data["Data"], "%Y-%m-%dT%H:%M")
-    y, m, d = t[0:3]
+    y, m, d,h = t[0:4]
 
     converter = LunarSolarConverter()
     lunar = Lunar(y, m, d, isleap=False)
     solar = converter.LunarToSolar(lunar)
-    reStr = "{0}-{1}-{2}".format(solar.solarYear, solar.solarMonth, solar.solarDay)
+    reStr = "%d年%02d月%02d日%02d时" % (solar.solarYear, solar.solarMonth, solar.solarDay, h)
     return Fun.class_to_JsonStr(AppReturnDTO(True, reStr))
 
     
@@ -106,6 +106,8 @@ def ApiPublicUpload():
         re_ent,message=dal.file_Save(addFile,[])
         if message.IsSuccess:
             tmp=json.dumps(re_ent, cls=AlchemyEncoder)
+            if len(tmp)<5:
+                tmp=json.dumps(re_ent, cls=AlchemyEncoder)
             msg = json.loads(tmp)
             # print(tmp)
             # print(re_ent)

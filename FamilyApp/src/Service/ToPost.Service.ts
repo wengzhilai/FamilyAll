@@ -22,11 +22,9 @@ export class ToPostService {
     console.group("开始请求[" + apiName + "]参数：");
     console.time("Post时间");
 
-    if (headers.getAll.length == 0) {
-      headers.append('Content-Type', 'application/json');
-      if (AppGlobal.GetToken() != null) {
-        headers.append('Authorization', 'Bearer ' + AppGlobal.GetToken());
-      }
+    headers.append('Content-Type', 'application/json');
+    if (AppGlobal.GetToken() != null) {
+      headers.append('Authorization', 'Bearer ' + AppGlobal.GetToken());
     }
 
     console.log(headers)
@@ -57,7 +55,7 @@ export class ToPostService {
 
         console.groupEnd();
         this.commonService.showError(error);
-        return {IsSuccess: false, Msg: "网络错误"}
+        return { IsSuccess: false, Msg: "网络错误" }
       })
       .catch(this.handleError);
   }

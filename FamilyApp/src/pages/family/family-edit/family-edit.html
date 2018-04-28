@@ -3,11 +3,11 @@
         <ion-title>
             {{title}}
         </ion-title>
-        <ion-buttons end>
+        <!-- <ion-buttons end>
             <button ion-button icon-only (click)="SetOptions()">
                 <ion-icon name="options"></ion-icon>
             </button>
-        </ion-buttons>
+        </ion-buttons> -->
 
     </ion-navbar>
     <ion-toolbar no-border-top>
@@ -59,6 +59,7 @@
                     <ion-option value="女">女</ion-option>
                 </ion-select>
             </ion-item>
+
             <ion-item>
                 <ion-label class="MyTitle">{{i18n+'.IS_LIVE'|translate}}</ion-label>
                 <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.IS_LIVE"></ion-toggle>
@@ -74,11 +75,19 @@
                     <ion-option *ngFor="let key of yearPicker.GetAllTianDi()" value="{{key}}">{{key}}</ion-option>
                 </ion-select>
             </ion-item>
+            <ion-item>
+                <ion-label class="MyTitle">{{i18n+'.YEARS_TYPE'|translate}}</ion-label>
+                <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.YEARS_TYPE" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+                    <ion-option value="阴历">阴历</ion-option>
+                    <ion-option value="阳历">阳历</ion-option>
+                </ion-select>
+            </ion-item>
             <ion-item *ngIf="bean.YEARS_TYPE=='阴历' || bean.YEARS_TYPE=='阳历' ">
                 <ion-label class="MyTitle">{{this.bean.YEARS_TYPE}}</ion-label>
-                <ion-datetime formControlName="BIRTHDAY_TIME" style="margin:0px;padding:0px" displayFormat="YYYY年MMM月DD日HH时" min="1661"
-                    (ionChange)="DoneBirthdayTime()" cancelText='取消' doneText='确定'></ion-datetime>
+                <ion-datetime formControlName="BIRTHDAY_TIME" style="margin:0px;padding:0px" displayFormat="YYYY年MMM月DD日HH时" min="1661" (ionChange)="DoneBirthdayTime()"
+                    cancelText='取消' doneText='确定'></ion-datetime>
             </ion-item>
+
             <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
                 <ion-label class="MyTitle">{{i18n+'.lunlar'|translate}}</ion-label>
                 <ion-label item-end>{{bean.BirthdaylunlarDate}}</ion-label>
@@ -107,8 +116,8 @@
                 </ion-item>
                 <ion-item *ngIf="bean.YEARS_TYPE=='阴历' || bean.YEARS_TYPE=='阳历' ">
                     <ion-label class="MyTitle">{{this.bean.YEARS_TYPE}}</ion-label>
-                    <ion-datetime style="margin:0px;padding:0px" pickerFormat="YYYY MM DD HH" displayFormat="YYYY年MMM月DD日HH时"
-                        min="1661" formControlName="DIED_TIME" (ionChange)="DoneDiedTime()" cancelText='取消' doneText='确定'></ion-datetime>
+                    <ion-datetime style="margin:0px;padding:0px" pickerFormat="YYYY MM DD HH" displayFormat="YYYY年MMM月DD日HH时" min="1661" formControlName="DIED_TIME"
+                        (ionChange)="DoneDiedTime()" cancelText='取消' doneText='确定'></ion-datetime>
                 </ion-item>
                 <ion-item *ngIf="this.bean.YEARS_TYPE=='阳历' || (this.bean.YEARS_TYPE!='阴历' && this.bean.YEARS_TYPE!='阳历')">
                     <ion-label class="MyTitle">{{i18n+'.lunlar'|translate}}</ion-label>

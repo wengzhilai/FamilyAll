@@ -9,55 +9,63 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-list *ngIf="bean!=null">
-    <ion-item>
-      <ion-thumbnail item-left>
-        <up-single-pic [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
-      </ion-thumbnail>
-      <h5>{{bean.NAME}}</h5>
-    </ion-item>
-    <ion-list-header>
-      {{i18n+'.setting'|translate}}
-    </ion-list-header>
-    <ion-item>
-      <ion-label class="MyTitle"> {{"auth-login.Change_Lang"|translate}} </ion-label>
-      <ion-select placeholder="{{'auth-login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
-        (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
-        <ion-option *ngFor="let lang of fig.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.api'|translate}}</ion-label>
-      <ion-note item-end>{{fig.api}}</ion-note>
-    </ion-item>
+  <ng-container *ngIf="bean!=null">
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail item-left>
+          <up-single-pic [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
+        </ion-thumbnail>
+        <h5>{{bean.NAME}}</h5>
+      </ion-item>
+      <ion-list-header>
+        {{i18n+'.setting'|translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label class="MyTitle"> {{"auth-login.Change_Lang"|translate}} </ion-label>
+        <ion-select placeholder="{{'auth-login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
+          (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+          <ion-option *ngFor="let lang of fig.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.api'|translate}}</ion-label>
+        <ion-note item-end>{{fig.api}}</ion-note>
+      </ion-item>
 
-    <ion-list-header>
-      {{i18n+'.BaseUserInfo'|translate}}
-    </ion-list-header>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.SEX'|translate}}</ion-label>
-      <ion-note item-end>{{bean.SEX}}</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.LEVEL_ID'|translate}}</ion-label>
-      <ion-note item-end>{{bean.LEVEL_ID}}</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.BirthdaylunlarDate'|translate}}</ion-label>
-      <ion-note item-end>{{bean.BirthdaylunlarDate}}</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.BirthdaysolarDate'|translate}}</ion-label>
-      <ion-note item-end>{{bean.BirthdaysolarDate}}</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.BIRTHDAY_PLACE'|translate}}</ion-label>
-      <ion-note item-end>{{bean.BIRTHDAY_PLACE}}</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label class="MyTitle">{{i18n+'.REMARK'|translate}}</ion-label>
-      <ion-note item-end>{{bean.REMARK}}</ion-note>
-    </ion-item>
-  </ion-list>
-  <button ion-button block (click)="Exit()">{{i18n+'.ExitLogin'|translate}}</button>
+      <ion-list-header>
+        {{i18n+'.BaseUserInfo'|translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.SEX'|translate}}</ion-label>
+        <ion-note item-end>{{bean.SEX}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.LEVEL_ID'|translate}}</ion-label>
+        <ion-note item-end>{{bean.LEVEL_ID}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.BirthdaylunlarDate'|translate}}</ion-label>
+        <ion-note item-end>{{bean.BirthdaylunlarDate}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.BirthdaysolarDate'|translate}}</ion-label>
+        <ion-note item-end>{{bean.BirthdaysolarDate}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.BIRTHDAY_PLACE'|translate}}</ion-label>
+        <ion-note item-end>{{bean.BIRTHDAY_PLACE}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.REMARK'|translate}}</ion-label>
+        <ion-note item-end>{{bean.REMARK}}</ion-note>
+      </ion-item>
+    </ion-list>
+    <button ion-button block (click)="Exit()">{{i18n+'.ExitLogin'|translate}}</button>
+  </ng-container>
+  <div *ngIf="bean==null" style="height: 100%;width: 100%;background-color: #EFEFEF;">
+    <div style="position: absolute;top: 50%;transform: translateY(-50%); text-align: center;width: 100%;">
+      <ion-icon name="sad" style="font-size: 80px;"></ion-icon>
+      <p>{{"public.loadingText"|translate}}...</p>
+    </div>
+  </div>
 </ion-content>

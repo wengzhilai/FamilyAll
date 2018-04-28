@@ -43,7 +43,7 @@ export class FamilyRelativePage implements OnInit {
     // ctx.fillStyle="#FF0000";
     // ctx.fillRect(0,0,10,10);
   }
-  IsLogin(){
+  IsLogin() {
     return AppGlobal.IsLogin
   }
   CancelKey(ev: any) {
@@ -81,11 +81,11 @@ export class FamilyRelativePage implements OnInit {
 
 
   onSucc(postUserId = null) {
-    if(postUserId==null){
-      postUserId=AppGlobal.GetPropertyId()
+    if (postUserId == null) {
+      postUserId = AppGlobal.GetPropertyId()
     }
-    if(postUserId==null){
-      postUserId=1
+    if (postUserId == null) {
+      postUserId = 1
     }
     this.userId = postUserId;
     this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
@@ -112,8 +112,8 @@ export class FamilyRelativePage implements OnInit {
         let canvas = this.mapElement.nativeElement
         maxX = maxX * 15 + 100
         maxY = maxY * 90 + 200
-        if(maxX<screen.width)maxX=screen.width
-        if(maxY<screen.height)maxY=screen.height
+        if (maxX < screen.width) maxX = screen.width
+        if (maxY < screen.height) maxY = screen.height
         canvas.width = maxX
         canvas.height = maxY
         canvas.style.width = canvas.width + "px";
@@ -340,7 +340,7 @@ export class FamilyRelativePage implements OnInit {
     this.graph = new NetronGraph(this.mapElement.nativeElement);
     this.onSucc(this.userId);
   }
-  LookUserInfo(){
+  LookUserInfo() {
     this.userName = this.tempCheckUser.Name;
     this.userId = this.tempCheckUser.Id;
     this.fab.toggleList();
