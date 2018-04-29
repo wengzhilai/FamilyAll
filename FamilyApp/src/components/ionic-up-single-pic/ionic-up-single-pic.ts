@@ -12,9 +12,18 @@ import { FileModel } from "../../Model/Transport/FileModel";
   templateUrl: 'ionic-up-single-pic.html'
 })
 export class IonicUpSinglePicComponent implements OnInit {
+  /**
+   * 是否可以编辑
+   */
   @Input()
   CanEdit: boolean = true
 
+  @Input()
+  PicStyle = {W:80,H:80}
+
+  /**
+   * 输入的文件对象
+   */
   @Input()
   FileDict: any
 
@@ -29,14 +38,15 @@ export class IonicUpSinglePicComponent implements OnInit {
   ) {
     console.log('Hello IonicUpFileComponent Component');
     this.isApp = !this.plt.is('core')
-    if (this.FileDict == null) this.FileDict = {}
-
   }
   ngOnInit() {
     console.log("获取:")
     console.log("CanEdit:" + this.CanEdit)
     console.log("FileDict:" + this.FileDict)
+    console.log(this.FileDict)
+    console.log(this.PicStyle)
     if (this.FileDict == null) this.FileDict = {}
+    if (this.PicStyle == null) this.PicStyle = {W:80,H:80}
   }
 
   /**

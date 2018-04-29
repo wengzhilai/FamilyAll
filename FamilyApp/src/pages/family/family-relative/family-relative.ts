@@ -23,7 +23,7 @@ export class FamilyRelativePage implements OnInit {
   public graph: NetronGraph = null;
   public userId: number;
   public userName: string;
-  public tempCheckUser: any;
+  public tempCheckUser: any={};
   public userRelative: any;
   public allRelative: Dictionary = new Dictionary();
   public userInfoList: any;
@@ -93,9 +93,6 @@ export class FamilyRelativePage implements OnInit {
     this.userId = postUserId;
     this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
 
-    // if(this.fab!=null){
-    //   this.fab.toggleList();
-    // }
     this.commonService.showLoading();
     this.toPostService.Post("Family/Relative", { Key: postUserId }).then((currMsg) => {
       this.commonService.hideLoading();
@@ -159,9 +156,9 @@ export class FamilyRelativePage implements OnInit {
           for (let index = 0; index < (maxY - 200) / 90; index++) {
             ctx.moveTo(0, index * 90 + 35);
             ctx.lineTo(maxX, index * 90 + 35);
-            ctx.fillText('第', 10, index * 90 + 60)
-            ctx.fillText(topItem + index, 10, index * 90 + 90)
-            ctx.fillText('代', 10, index * 90 + 120)
+            ctx.fillText('第', 10, index * 90 + 55)
+            ctx.fillText(topItem + index, 10, index * 90 + 85)
+            ctx.fillText('代', 10, index * 90 + 115)
             ctx.stroke();
           }
         });
@@ -256,6 +253,7 @@ export class FamilyRelativePage implements OnInit {
     },
     edit: (element: NetronElement, context, point: any) => { //点击事件
       this.tempCheckUser = element.Object;
+      console.log(this.tempCheckUser)
       this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = ""
     }
   }

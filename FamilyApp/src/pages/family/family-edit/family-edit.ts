@@ -76,6 +76,7 @@ export class FamilyEditPage {
 
     this.userForm = this.formBuilder.group({
       NAME: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
+      ALIAS: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       SEX: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       LEVEL_ID: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       BIRTHDAY_PLACE: ['', [Validators.minLength(0), Validators.maxLength(200)]],
@@ -143,8 +144,9 @@ export class FamilyEditPage {
     this.userForm.get('BIRTHDAY_TIME').setValue(inEnt.BIRTHDAY_TIME)
     this.userForm.get('DIED_TIME').setValue(inEnt.DIED_TIME)
     this.userForm.get('REMARK').setValue(inEnt.REMARK)
+    this.userForm.get('ALIAS').setValue(inEnt.ALIAS)
   }
-
+  
   save() {
     console.log(this.allFiles)
     if (this.userForm.invalid) {

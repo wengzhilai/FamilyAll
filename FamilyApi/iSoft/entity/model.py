@@ -660,6 +660,8 @@ class FaUserInfo(FaUser):
     UPDATE_TIME = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue())
     UPDATE_USER_NAME = db.Column(db.String(50), nullable=False, server_default=db.FetchedValue())
     UPDATE_USER_ID = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    ALIAS = db.Column(db.String(10))
+    AUTHORITY = db.Column(db.Integer)
 
     fa_elder = db.relationship('FaElder', primaryjoin='FaUserInfo.ELDER_ID == FaElder.ID', backref='fa_user_infos')
     fa_family = db.relationship('FaFamily', primaryjoin='FaUserInfo.FAMILY_ID == FaFamily.ID', backref='fa_user_infos')

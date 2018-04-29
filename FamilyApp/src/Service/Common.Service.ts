@@ -114,7 +114,7 @@ export class CommonService {
     if (this.loader == null) {
       this.loader = this.loadingCtrl.create({
         content: msg,
-        duration: 40000
+        duration: 10000
       });
       this.loader.present();
     }

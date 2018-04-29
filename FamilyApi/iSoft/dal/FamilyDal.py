@@ -149,6 +149,7 @@ class FamilyDal(object):
         reEnt.Id = faUserInfo.ID
         reEnt.Name = faUserInfo.NAME
         reEnt.Sex = faUserInfo.SEX
+        reEnt.Authority = faUserInfo.AUTHORITY
         reEnt.x = x
         reEnt.y = y
         return reEnt

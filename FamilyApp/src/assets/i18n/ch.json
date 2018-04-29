@@ -88,6 +88,7 @@
   "family-edit": {
     "baseInfo": "基础资料",
     "NAME": "姓名",
+    "ALIAS": "字号/小名",
     "SEX": "性别",
     "LEVEL_ID": "排行",
     "BIRTHDAY_PLACE": "出生地点",
@@ -124,6 +125,7 @@
     "api": "接口地址",
     "BaseUserInfo": "用户基本信息",
     "NAME": "姓名",
+    "ALIAS": "字号/小名",
     "SEX": "性别",
     "LEVEL_ID": "排行",
     "BIRTHDAY_PLACE": "出生地点",

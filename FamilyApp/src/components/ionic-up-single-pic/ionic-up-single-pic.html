@@ -1,6 +1,6 @@
 <!-- Generated template for the IonicUpFileComponent component -->
 <ng-container>
-        <img *ngIf="IsImage(FileDict.NAME)" width="80" height="80" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" src="{{FileDict.URL|ImgUrl}}" (click)="upImg(FileDict)"
+        <img *ngIf="IsImage(FileDict.NAME)" width="{{PicStyle.W}}" height="{{PicStyle.H}}" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" src="{{FileDict.URL|ImgUrl}}" (click)="upImg(FileDict)"
         />
         <ng-container *ngIf="!IsImage(FileDict.NAME)">
             <img *ngIf="FileDict.URL==null || FileDict.URL==''" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" width="80" height="80" src="assets/images/file.png"

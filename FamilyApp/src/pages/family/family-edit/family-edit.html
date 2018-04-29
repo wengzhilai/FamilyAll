@@ -28,12 +28,16 @@
             <ion-item-divider color="light">{{i18n+'.baseInfo'|translate}}</ion-item-divider>
             <ion-item class="thumbnailMy">
                 <ion-thumbnail item-left>
-                    <up-single-pic [FileDict]="bean.iconFiles" (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
+                    <up-single-pic [FileDict]="bean.iconFiles" [PicStyle]="{W:80,H:80}" (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
                 </ion-thumbnail>
                 <div item-right style="width: 100%;">
                     <ion-item>
                         <ion-label class="MyTitle">{{i18n+'.NAME'|translate}}</ion-label>
                         <ion-input formControlName="NAME"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="MyTitle">{{i18n+'.ALIAS'|translate}}</ion-label>
+                        <ion-input formControlName="ALIAS"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label class="MyTitle">{{i18n+'.LEVEL_ID'|translate}}</ion-label>
