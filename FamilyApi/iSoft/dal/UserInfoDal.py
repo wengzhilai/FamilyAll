@@ -49,36 +49,19 @@ class UserInfoDal(FaUserInfo):
             in_dict["DISTRICT_ID"]=fatherUser.DISTRICT_ID
         else:
             pass
+        
+        if "ID" not in in_dict or in_dict["ID"] is None or in_dict["ID"]==0:
+            in_dict["AUTHORITY"]="777"
+            in_dict["roleIdList"]="3"
+            if "roleIdList" not in saveKeys:
+                saveKeys.append('roleIdList')
 
         user, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys,FaUser)
         if is_succ.IsSuccess:  # 表示已经添加成功角色
-            # <!--更新用户的附件--
-            if "filesList" in saveKeys:
-                sqlStr = '''
-                    DELETE
-                    FROM
-                        fa_user_file
-                    WHERE
-                        fa_user_file.USER_ID = {0}
-                '''.format(user.ID)
-                print(sqlStr)
-                execObj = db.session.execute(sqlStr)
-                if len(in_dict["filesList"]) > 0:
-                    print(in_dict["filesList"])
-                    sqlStr = '''
-                        INSERT INTO fa_user_file (FILE_ID, USER_ID) 
-                            SELECT
-                                m.ID FILE_ID,
-                                {0}  USER_ID
-                            FROM
-                                fa_files m
-                            WHERE
-                                m.ID IN ({1})
-                    '''.format(user.ID, ','.join(str(i["ID"]) for i in in_dict["filesList"]))
-                    print(sqlStr)
-                    execObj = db.session.execute(sqlStr)
-            # --更新用户的角色--!>
-        
+            userDal=UserDal()
+            parentUser,is_succ = userDal.user_save_extend(user,in_dict, saveKeys)
+            if not is_succ:
+                return user, is_succ
             # 更新配
             FaUserInfo.query.filter(FaUserInfo.ID == in_dict["COUPLE_ID"]).update({FaUserInfo.COUPLE_ID:user.ID})
             db.session.commit()

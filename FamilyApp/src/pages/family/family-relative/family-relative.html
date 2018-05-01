@@ -9,16 +9,16 @@
   <ion-fab #fab bottom right>
     <button ion-fab>操作</button>
     <ion-fab-list side="top" style="margin-left: -90px;">
-      <ng-container *ngIf="IsLogin() && tempCheckUser.Authority>4">
-        <button ion-button icon-end color="primary" (click)="AddSon()" *ngIf="tempCheckUser.Authority>=5">
+      <ng-container *ngIf="IsLogin() && tempCheckUser.Authority==777">
+        <button ion-button icon-end color="primary" (click)="AddSon()" *ngIf="tempCheckUser.Authority==777">
           <ion-icon name="people"></ion-icon>
           <span class="fabTitle">添加子女</span>
         </button>
-        <button ion-button icon-end color="primary" (click)="DeleteUserInfo()" *ngIf="tempCheckUser.Authority==7">
+        <button ion-button icon-end color="primary" (click)="DeleteUserInfo()" *ngIf="tempCheckUser.Authority==777">
           <ion-icon name="trash"></ion-icon>
           <span class="fabTitle">删除用户</span>
         </button>
-        <button ion-button icon-end color="primary" (click)="EditUserInfo()" *ngIf="tempCheckUser.Authority==7">
+        <button ion-button icon-end color="primary" (click)="EditUserInfo()" *ngIf="tempCheckUser.Authority==777">
           <ion-icon name="at"></ion-icon>
           <span class="fabTitle">修改用户</span>
         </button>
