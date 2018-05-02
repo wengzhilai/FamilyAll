@@ -149,13 +149,29 @@ export class UserRegPage {
           alert.addButton({
             text: '确定',
             handler: data => {
+              console.log(data)
+
+              //表示选择了人
               if (data != '0') {
-
-                if (this.bean.parentArr.length == 0 && (data["LOGIN_NAME"] != 'undefined' && data["LOGIN_NAME"] != null && data["LOGIN_NAME"] != '')) {
-                  this.commonService.hint("该用户已经注册了，登录帐号为：" + data.LOGIN_NAME)
-                  return
+                if (this.bean.parentArr.length == 0) //表示修改用户资料
+                {
+                  // 判断用户是否已经注册
+                  if ((data["LOGIN_NAME"] != 'undefined' && data["LOGIN_NAME"] != null && data["LOGIN_NAME"] != '')) {
+                    this.commonService.hint("该用户已经注册了，登录帐号为：" + data.LOGIN_NAME)
+                    return
+                  }
+                  //判断用户是否允许修改
+                  if (!this.commonService.ListContains(this.commonService.GetPowerList((data["AUTHORITY"] + "").substr(0, 1)), 2)) {
+                    this.commonService.hint("该用户不能被修改，资料已被锁定，如有问题请联系管理员")
+                    return
+                  }
                 }
-
+                else{ //表示添加子项
+                  if (!this.commonService.ListContains(this.commonService.GetPowerList((data["AUTHORITY"] + "").substr(0, 1)), 1)) {
+                    this.commonService.hint("该用户资料已被锁定，如有问题请联系管理员")
+                    return
+                  }
+                }
 
                 this.bean.parentArr.push({ "V": data.NAME, K: data.ID })
                 this.bean.parentArr.push({ "V": data.FatherName, K: data.FATHER_ID })
@@ -224,7 +240,7 @@ export class UserRegPage {
             this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }).then((currMsg) => {
               if (currMsg.IsSuccess) {
                 let nowDate = new Date(currMsg.Msg)
-                this.solarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+                this.solarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
               }
             });
           }
@@ -238,7 +254,7 @@ export class UserRegPage {
             this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }).then((currMsg) => {
               if (currMsg.IsSuccess) {
                 let nowDate = new Date(currMsg.Msg)
-                this.lunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth()+1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+                this.lunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
               }
             });
           }

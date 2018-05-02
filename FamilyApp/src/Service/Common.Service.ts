@@ -549,4 +549,42 @@ export class CommonService {
     }
     return path;
   }
+  /**
+   * 查看列表是否包含
+   * @param arrObj 
+   * @param value 
+   */
+  ListContains(arrObj,value){
+    console.log(arrObj)
+    for (let index = 0; index < arrObj.length; index++) {
+      const element = arrObj[index];
+      if(element==value) return true
+    }
+    return false;
+  }
+  /**
+   * 获取权限列表
+   * 权限字符串，第一位表示创建者，第二位管理员，第三位表示超级管理员
+   * 判断的权限，1添加，2修改，4查看
+   * @param powerInt 权限值
+   */
+  GetPowerList(powerInt): any {
+    console.log(powerInt)
+    switch (powerInt) {
+      case "7":
+        return [1, 2, 4]
+      case "6":
+        return [2, 4]
+      case "5":
+        return [1, 4]
+      case "4":
+        return [4]
+      case "3":
+        return [1, 2]
+      case "2":
+        return [2]
+      case "1":
+        return [1]
+    }
+  }
 }

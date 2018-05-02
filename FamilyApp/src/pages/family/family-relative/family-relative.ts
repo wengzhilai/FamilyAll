@@ -1,6 +1,6 @@
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, FabContainer, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, FabContainer, AlertController, List } from 'ionic-angular';
 
 import { NetronGraph } from '../../../Classes/Netron/Graph';
 import { NetronElement } from "../../../Classes/Netron/Element";
@@ -23,7 +23,7 @@ export class FamilyRelativePage implements OnInit {
   public graph: NetronGraph = null;
   public userId: number;
   public userName: string;
-  public tempCheckUser: any={};
+  public tempCheckUser: any = {};
   public userRelative: any;
   public allRelative: Dictionary = new Dictionary();
   public userInfoList: any;
@@ -81,6 +81,7 @@ export class FamilyRelativePage implements OnInit {
       this.userInfoList = [];
     }
   }
+
 
 
   onSucc(postUserId = null) {
@@ -383,4 +384,30 @@ export class FamilyRelativePage implements OnInit {
     this.CancelKey(null);
     this.onSucc(userInfo.ID)
   }
+
+  /**
+   * 
+   * @param powerStr 权限字符串，第一位表示创建者，第二位管理员，第三位表示超级管理员
+   * @param type 判断的权限，1添加，2修改，4查看
+   */
+  GetIsPower(powerStr, type, createUserId = 0) {
+    if(powerStr==null || powerStr==undefined) return false
+    let user = AppGlobal.GetProperty()
+    let powerNum = "7"
+    powerStr=""+powerStr
+    if (this.commonService.ListContains(user.roleIdList, 1)) { //表示超级管理员
+      powerNum = powerStr.substr(2, 1) //取第3位
+    }
+    else if (this.commonService.ListContains(user.roleIdList, 2)) { //一般管理员
+      powerNum = powerStr.substr(1, 1) //取第3位
+    }
+    else if (createUserId == user.ID || createUserId==0) {
+      powerNum = powerStr.substr(0, 1) //取第3位
+    } else {
+      return false
+    }
+    return this.commonService.ListContains(this.commonService.GetPowerList(powerNum), type)
+  }
+
+  
 }

@@ -113,7 +113,8 @@ export class ToPostService {
   }
 
   handleError(error: any): Promise<any> {
-    console.error('请求失败', error); // for demo purposes only
+    console.error('请求失败'); 
+    console.error(error); 
     //this.commonService.showError(error)
     let errorMsg: AppReturnDTO = new AppReturnDTO();
     errorMsg.IsSuccess = false;

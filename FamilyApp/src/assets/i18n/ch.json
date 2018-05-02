@@ -69,6 +69,18 @@
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
+  "vip-login": {
+    "Title":"登录凯丹会员系统",
+    "Sign_Title": "登录",
+    "Remember_Pwd": "记住密码",
+    "Email": "邮箱",
+    "loginName": "登录名",
+    "Change_Lang": "切换语言",
+    "paassword": "密码",
+    "Region": "注册",
+    "FindPwd": "忘记密码?",
+    "Login_Btn": "登录"
+  },
   "auth-reg": {
     "loginName": "登录名",
     "code": "短信验证码",
