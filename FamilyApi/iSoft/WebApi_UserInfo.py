@@ -12,6 +12,8 @@ import json
 import random  # 生成随机数
 from iSoft.model.framework.RequestSaveModel import RequestSaveModel
 from iSoft.model.framework.PostBaseModel import PostBaseModel
+from iSoft.model.framework.RequestPagesModel import RequestPagesModel
+
 from iSoft.entity.model import FaUserInfo
 
 @app.route('/Api/UserInfo/Delete', methods=['GET', 'POST'])

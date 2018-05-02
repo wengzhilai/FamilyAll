@@ -145,7 +145,6 @@ class FamilyDal(object):
         if faUserInfo.fa_elder is not None:
             reEnt.ElderName = faUserInfo.fa_elder.NAME
         reEnt.FatherId = faUserInfo.FATHER_ID
-        reEnt.IcoUrl = reEnt
         reEnt.Id = faUserInfo.ID
         reEnt.Name = faUserInfo.NAME
         reEnt.Sex = faUserInfo.SEX
