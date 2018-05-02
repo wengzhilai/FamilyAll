@@ -8,12 +8,13 @@ from flask import send_file, make_response, send_from_directory, request, g
 from functools import wraps
 from iSoft.dal.UserDal import UserDal
 from iSoft.dal.AuthDal import AuthDal
+from iSoft.dal.QueryDal import QueryDal
+from iSoft.dal.FileDal import FileDal
 import json
 import os
 import sys
 import iSoft.core.Office as Of
 
-from iSoft.dal.QueryDal import QueryDal
 from iSoft.model.framework.RequestPagesModel import RequestPagesModel
 from iSoft.model.AppReturnDTO import AppReturnDTO
 
@@ -42,8 +43,8 @@ def view_export():
     in_ent = RequestPagesModel(j_data)
 
     _modele = QueryDal()
-    sql, cfg, message = _modele.query_GetSqlByCode(in_ent.Key, in_ent.SearchKey,
-                                                   in_ent.OrderBy)
+    sql, cfg, message = _modele.query_GetSqlByCode(
+        in_ent.Key, in_ent.SearchKey, in_ent.OrderBy)
     if not message.IsSuccess:
         return Fun.class_to_JsonStr(message)
 
@@ -61,7 +62,8 @@ def view_export():
     # response.headers["Content-Disposition"] = "attachment; filename={}".format(
     #     file_name.encode().decode('latin-1'))
 
-    return Fun.class_to_JsonStr(AppReturnDTO(True,"{0}/{1}".format('download',file_name)))
+    return Fun.class_to_JsonStr(
+        AppReturnDTO(True, "{0}/{1}".format('download', file_name)))
 
 
 @app.route("/download/<path:filename>")
@@ -71,11 +73,20 @@ def downloader(filename):
     return send_from_directory(dirpath, filename, as_attachment=True)
 
 
+@app.route("/lookfile/<path:fileId>")
+def lookfile(fileId):
+    '查看查看文件下所有文件'
+    fileId = fileId[0:fileId.index(".")]
+    fileDal = FileDal()
+    file, is_succ = fileDal.file_single(fileId)
+
+    dirpath = os.path.join(app.root_path, '../static')
+    return send_from_directory(dirpath, file.URL, as_attachment=True)
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return "Hello,wendell"
-
-
 
 
 @app.route('/user/<username>')

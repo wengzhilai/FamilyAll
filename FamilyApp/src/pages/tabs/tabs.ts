@@ -20,17 +20,17 @@ export class TabsPage {
   };
   allRoot = [
     {
-      text: "tabs.Index1",
+      text: (Config.userType == "user") ? "tabs.Contact" : "tabs.IndexStore",
       Icon: "appstore",
-      root: (Config.userType == "user") ? "FamilyRelativePage" : "StoreListPage",
+      root: (Config.userType == "user") ? "FamilyContactPage" : "StoreListPage",
     },
     {
-      text: "tabs.Index2",
+      text: "tabs.Index",
       Icon: "home",
       root: (Config.userType == "user") ? "FamilyRelativePage" : "HomeIndexPage"
     },
     {
-      text: "tabs.Index5",
+      text: "tabs.MyProfile",
       Icon: "person",
       root: "HomeIndexPage"
     }

@@ -48,8 +48,9 @@ export class UserProfilePage {
 
     this.toPostService.Post("UserInfo/Single", { "Key": this.property.ID }).then((currMsg) => {
       this.commonService.hideLoading();
-      if (currMsg == null) return;
+      if (currMsg == null) return
       if (!currMsg.IsSuccess) {
+        this.bean = {}
         this.commonService.hint(currMsg.Msg)
         this.navCtrl.pop();
         return;

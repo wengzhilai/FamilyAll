@@ -37,6 +37,7 @@ class UserInfoDal(FaUserInfo):
     def userInfo_findall(self, pageIndex, pageSize, criterion, where):
         relist, is_succ = Fun.model_findall(FaUserInfo, pageIndex, pageSize,
                                             criterion, where)
+        
         return relist, is_succ
 
     def userInfo_Save(self, in_dict, saveKeys):

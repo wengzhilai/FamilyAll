@@ -1,0 +1,36 @@
+<!--
+  Generated template for the FamilyContactPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>通信录</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText='{{"public.pullingText"|translate}}' refreshingSpinner="circles"
+      refreshingText='{{"public.refreshingText"|translate}}'>
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngFor="let login of userList">
+      <div item-start style="width:80px;height:80px">
+          <img  src="{{'lookfile/'+login.ICON_FILES_ID+'.jpg'|ImgUrl}}" width="80" height="80" />
+      </div>
+      <h2>{{login.NAME}}</h2>
+      <p>{{login.LOGIN_NAME}}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

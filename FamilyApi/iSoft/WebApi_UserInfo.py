@@ -2,7 +2,6 @@
 '''首页'''
 from iSoft.core.Fun import Fun
 from iSoft import auth, login_manager, app
-import iSoft.entity.model
 from flask import send_file, make_response, send_from_directory, request, g
 
 from iSoft.dal.FamilyDal import FamilyDal
@@ -13,7 +12,7 @@ import json
 import random  # 生成随机数
 from iSoft.model.framework.RequestSaveModel import RequestSaveModel
 from iSoft.model.framework.PostBaseModel import PostBaseModel
-from iSoft.UserController import user_list
+from iSoft.entity.model import FaUserInfo
 
 @app.route('/Api/UserInfo/Delete', methods=['GET', 'POST'])
 @auth.login_required
@@ -75,5 +74,30 @@ def ApiUserInfoSave():
 @app.route('/Api/UserInfo/list', methods=['GET', 'POST'])
 @auth.login_required
 def ApiUserInfolist():
-    return user_list()
+    j_data = request.json
+    if j_data is None:
+        return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有误"))
+    in_ent = RequestPagesModel(j_data)
+    where = []
+    for search in in_ent.SearchKey:
+        if search["Type"]=="like" :
+            where.append(eval("FaUserInfo.%(Key)s.like('%%%(Value)s%%')" % search))
+        else:
+            where.append(eval("FaUserInfo.%(Key)s%(Type)s%(Value)s" % search))
+
+    criterion = []
+    for search in in_ent.OrderBy:
+        search["Value"] = search["Value"].lower()
+        criterion.append(eval("FaUserInfo.%(Key)s.%(Value)s()" % search))
+
+    _modele = UserInfoDal()
+    re_ent, message = _modele.userInfo_findall(
+        in_ent.PageIndex,
+        in_ent.PageSize,
+        criterion,
+        where)
+
+    if message.IsSuccess:
+        message.set_data(re_ent)
+    return Fun.class_to_JsonStr(message)
 

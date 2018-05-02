@@ -39,11 +39,11 @@
     "NoVersion": "获取文件路径失败，可能是本手机系统版本太底或者没有权限获取文件路径"
   },
   "tabs": {
-    "Index1": "商户",
-    "Index2": "商场活动",
-    "Index3": "会员卡",
+    "IndexStore": "商户",
+    "Index": "首页",
+    "Contact": "通信录",
     "Index4": "影院",
-    "Index5": "我的"
+    "MyProfile": "我的"
   },
   "home": {
     "BuildingNum": "楼栋数",

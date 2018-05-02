@@ -101,7 +101,7 @@ export class FamilyRelativePage implements OnInit {
         this.commonService.hint(currMsg.Msg);
       } else {
         this.userRelative = currMsg.Data;
-        this.commonService.showLongToast("总" + this.userRelative.ItemList.length + "人")
+        // this.commonService.showLongToast("总" + this.userRelative.ItemList.length + "人")
         // 计算宽高
         let maxX = 0;
         let maxY = 0;
