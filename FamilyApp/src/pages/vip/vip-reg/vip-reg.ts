@@ -26,7 +26,7 @@ export class VipRegPage {
       extId: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(11)]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
       credentialType: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
-      credentialNo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
+      credentialNo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       mobileNo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
       password: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
     });
@@ -49,8 +49,11 @@ export class VipRegPage {
     }
     console.log(this.bean)
 
-    this.toPostService.Soap("Register", this.bean).then((currMsg) => {
-
+    this.toPostService.Post("Register", this.bean).then((currMsg) => {
+      if(currMsg.Status=="Success"){
+        this.commonService.hint("注册成功");
+        this.navCtrl.pop();
+      }
     })
   }
   reset() {

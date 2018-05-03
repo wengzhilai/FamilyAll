@@ -38,7 +38,7 @@ export class ToPostService {
         console.log("返回结果：");
         let response: any = res.json();
         this.commonService.PlatformsExists("core") ? console.log(response) : console.log(JSON.stringify(response));
-        if (!response.IsSuccess) {
+        if (!response.IsSuccess || response.Status!="Success") {
           this.commonService.PlatformsExists("core") ? console.warn(response.Msg) : console.warn(JSON.stringify(response.Msg));
         }
         console.timeEnd("Post时间");
@@ -55,7 +55,7 @@ export class ToPostService {
 
         console.groupEnd();
         // this.commonService.showError(error);
-        return { IsSuccess: false, Msg: "网络错误" }
+        return { IsSuccess: false, Msg: "网络错误",Status:"Fail" }
       })
       .catch(this.handleError);
   }
