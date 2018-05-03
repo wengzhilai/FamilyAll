@@ -69,7 +69,7 @@ def view_export():
 @app.route("/download/<path:filename>")
 def downloader(filename):
     '查看static下所有文件'
-    dirpath = os.path.join(app.root_path, '../static')
+    dirpath = os.path.join(app.root_path, '../static/')
     return send_from_directory(dirpath, filename, as_attachment=True)
 
 
@@ -78,11 +78,11 @@ def lookfile(fileId):
     '查看查看文件下所有文件'
     fileId = fileId[0:fileId.index(".")]
     fileDal = FileDal()
-    dirpath = os.path.join(app.root_path, '../static')
+    dirpath = os.path.join(app.root_path, '../static/')
 
     file, is_succ = fileDal.file_single(fileId)
     if file is None or file.URL is None:
-        return send_from_directory(dirpath, "uploads/ian-avatar.png", as_attachment=True)
+        return send_from_directory(dirpath, "/uploads/ian-avatar.png", as_attachment=True)
     if not os.path.exists("{0}{1}".format(dirpath, file.URL)):
         return "{0}{1}".format(dirpath, file.URL)
     return send_from_directory(dirpath, file.URL, as_attachment=True)
