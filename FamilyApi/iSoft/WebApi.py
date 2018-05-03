@@ -96,7 +96,7 @@ def ApiPublicUpload():
         f.save(upload_path)
         addFile = {
             "NAME": f.filename,
-            "URL": 'download/uploads/{0}'.format(f.filename),
+            "URL": 'uploads/{0}'.format(f.filename),
             "PATH":upload_path,
             "USER_ID":g.current_user.ID,
             "LENGTH":len(f.read()),
