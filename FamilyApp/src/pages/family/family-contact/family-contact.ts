@@ -10,24 +10,9 @@ import { CommonService, ToPostService } from "../../../Service";
 export class FamilyContactPage {
   /** 多语言 */
   public i18n = "family-contact"
-  userList = [
-    {
-      icon: 'logo-twitter',
-      name: 'Twitter',
-      username: 'admin',
-    }, {
-      icon: 'logo-github',
-      name: 'GitHub',
-      username: 'admin37',
-    }, {
-      icon: 'logo-instagram',
-      name: 'Instagram',
-      username: 'imanadmin',
-    }, {
-      icon: 'logo-codepen',
-      name: 'Codepen',
-      username: 'administrator',
-    }];
+  DataList = []
+  postModel: any = {};
+
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
@@ -38,37 +23,65 @@ export class FamilyContactPage {
 
   ionViewDidLoad() {
     console.log(this.i18n);
-    this.onSucc()
+    this.PostData()
   }
 
-  onSucc(postUserId = null) {
+  PostData(isPage=null) {
 
-    let SearchKey=[]
-    SearchKey.push({"Key":"LOGIN_NAME","Value":"1","Type":"like"})
+    let PostData: any = {};
+    console.log(this.postModel)
+    PostData.PageIndex = this.postModel.PageIndex;
+    PostData.PageSize = this.postModel.PageSize;
+    let SearchKey = []
+    SearchKey.push({ "Key": "LOGIN_NAME", "Value": "1", "Type": "like" })
+    PostData.SearchKey = SearchKey
+
     this.commonService.showLoading();
-    this.toPostService.Post("UserInfo/list", {"SearchKey":SearchKey}).then((currMsg) => {
+    return this.toPostService.Post("UserInfo/list", PostData).then((currMsg) => {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
-      } else {
-        this.userList = currMsg.Data;
+      } 
+      else if(isPage==null) {
+        this.DataList = currMsg.Data;
       }
+      return currMsg.Data
     })
   }
 
+
+  moreinfiniteScroll: any
   doRefresh(refresher) {
     if (this.moreinfiniteScroll != null) this.moreinfiniteScroll.enable(true);
     console.log('Begin async operation', refresher);
-    refresher.complete();
-
+    this.postModel.PageIndex = 1;
+    this.PostData().then((currData) => {
+      refresher.complete();
+    })
   }
-  moreinfiniteScroll: any
+
   doInfinite(infiniteScroll): Promise<any> {
     this.moreinfiniteScroll = infiniteScroll;
     console.log('Begin async operation');
     return new Promise((resolve) => {
-      infiniteScroll.enable(true);
-      resolve();
+      this.postModel.PageIndex += 1;
+      this.PostData(1).then((currData) => {
+
+        this.DataList = this.DataList.concat(currData)
+        if (currData == null || currData.length == 0) {
+          this.postModel.PageIndex -= 1;
+          infiniteScroll.enable(false);
+        }
+        else {
+          infiniteScroll.enable(true);
+        }
+        resolve();
+      })
+
     })
+  }
+
+  call(phone) {
+    window.location.href = "tel:" + phone;
   }
 }
