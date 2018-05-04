@@ -2,7 +2,7 @@
 '''首页'''
 from iSoft.core.Fun import Fun
 from iSoft import auth, login_manager, app
-from flask import request, flash, g
+from flask import request, flash, g, send_from_directory
 from iSoft.dal.LoginDal import LoginDal
 from iSoft.dal.FileDal import FileDal
 import iSoft.entity.model
@@ -92,7 +92,7 @@ def lookfile(fileId):
     if file is None or file.URL is None:
         return send_from_directory(dirpath, "uploads/ian-avatar.png", as_attachment=True)
     if not os.path.exists("{0}{1}".format(dirpath, file.URL)):
-        return "{0}{1}".format(dirpath, file.URL)
+        return send_from_directory(dirpath, "uploads/ian-avatar.png", as_attachment=True)
     return send_from_directory(dirpath, file.URL, as_attachment=True)
     
 
