@@ -3,12 +3,6 @@
         <ion-title>
             {{title}}
         </ion-title>
-        <!-- <ion-buttons end>
-            <button ion-button icon-only (click)="SetOptions()">
-                <ion-icon name="options"></ion-icon>
-            </button>
-        </ion-buttons> -->
-
     </ion-navbar>
     <ion-toolbar no-border-top>
         <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">

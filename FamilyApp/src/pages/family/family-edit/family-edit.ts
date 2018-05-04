@@ -76,7 +76,7 @@ export class FamilyEditPage {
 
     this.userForm = this.formBuilder.group({
       NAME: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
-      ALIAS: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
+      ALIAS: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(20)]],
       SEX: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]],
       LEVEL_ID: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3)]],
       BIRTHDAY_PLACE: ['', [Validators.minLength(0), Validators.maxLength(200)]],

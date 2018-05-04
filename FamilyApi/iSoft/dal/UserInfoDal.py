@@ -63,8 +63,11 @@ class UserInfoDal(FaUserInfo):
             parentUser,is_succ = userDal.user_save_extend(user,in_dict, saveKeys)
             if not is_succ:
                 return user, is_succ
+
             # 更新配
-            FaUserInfo.query.filter(FaUserInfo.ID == in_dict["COUPLE_ID"]).update({FaUserInfo.COUPLE_ID:user.ID})
+            if "COUPLE_ID" in in_dict:
+                FaUserInfo.query.filter(FaUserInfo.ID == in_dict["COUPLE_ID"]).update({FaUserInfo.COUPLE_ID:user.ID})
+                
             db.session.commit()
         return user, is_succ
 

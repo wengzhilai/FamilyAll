@@ -82,9 +82,8 @@ export class UserProfilePage {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
             AppGlobal.LoginOut()
-            this.navCtrl.setRoot("TabsPage")
-
-          }
+            this.navCtrl.parent.select(1)
+           }
         }
       ]
     });

@@ -14,23 +14,30 @@
 
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText='{{"public.pullingText"|translate}}' refreshingSpinner="circles"
-      refreshingText='{{"public.refreshingText"|translate}}'>
-    </ion-refresher-content>
-  </ion-refresher>
-  <ion-list>
-    <ion-item *ngFor="let login of DataList" (click)="call(login.LOGIN_NAME)">
-      <div item-start style="width:80px;height:80px">
-          <img  src="{{'lookfile/'+login.ICON_FILES_ID+'.jpg'|ImgUrl:'api'}}" width="80" height="80" />
-      </div>
-      <h2>{{login.NAME}}</h2>
-      <p>{{login.LOGIN_NAME}}</p>
-    </ion-item>
-  </ion-list>
-
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <div *ngIf="DataList==null" style="height: 100%;width: 100%;background-color: #EFEFEF;">
+    <div style="position: absolute;top: 50%;transform: translateY(-50%); text-align: center;width: 100%;">
+      <ion-icon name="sad" style="font-size: 80px;"></ion-icon>
+      <p>请先登录</p>
+    </div>
+  </div>
+  <ng-container *ngIf="DataList!=null">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText='{{"public.pullingText"|translate}}' refreshingSpinner="circles"
+        refreshingText='{{"public.refreshingText"|translate}}'>
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+      <ion-item *ngFor="let login of DataList" (click)="call(login.LOGIN_NAME)">
+        <div item-start style="width:80px;height:80px">
+          <img src="{{'lookfile/'+login.ICON_FILES_ID+'.jpg'|ImgUrl:'api'}}" width="80" height="80" />
+        </div>
+        <h2>{{login.NAME}}</h2>
+        <p>{{login.LOGIN_NAME}}</p>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
 </ion-content>

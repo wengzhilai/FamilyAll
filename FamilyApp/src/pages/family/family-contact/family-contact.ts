@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonService, ToPostService } from "../../../Service";
+import { AppGlobal } from '../../../Classes/AppGlobal';
 
 @IonicPage()
 @Component({
@@ -10,7 +11,7 @@ import { CommonService, ToPostService } from "../../../Service";
 export class FamilyContactPage {
   /** 多语言 */
   public i18n = "family-contact"
-  DataList = []
+  DataList
   postModel: any = {};
 
   constructor(
@@ -26,8 +27,13 @@ export class FamilyContactPage {
     this.PostData()
   }
 
-  PostData(isPage=null) {
-
+  PostData(isPage = null) {
+    if (!AppGlobal.IsLogin) {
+      this.commonService.hint("请先登录")
+      return new Promise((resolve) => {
+        resolve(null);
+      });
+    }
     let PostData: any = {};
     console.log(this.postModel)
     PostData.PageIndex = this.postModel.PageIndex;
@@ -41,8 +47,8 @@ export class FamilyContactPage {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
-      } 
-      else if(isPage==null) {
+      }
+      else if (isPage == null) {
         this.DataList = currMsg.Data;
       }
       return currMsg.Data
@@ -66,14 +72,15 @@ export class FamilyContactPage {
     return new Promise((resolve) => {
       this.postModel.PageIndex += 1;
       this.PostData(1).then((currData) => {
-
-        this.DataList = this.DataList.concat(currData)
-        if (currData == null || currData.length == 0) {
-          this.postModel.PageIndex -= 1;
-          infiniteScroll.enable(false);
-        }
-        else {
-          infiniteScroll.enable(true);
+        if (currData != null) {
+          this.DataList = this.DataList.concat(currData)
+          if (currData == null || currData.length == 0) {
+            this.postModel.PageIndex -= 1;
+            infiniteScroll.enable(false);
+          }
+          else {
+            infiniteScroll.enable(true);
+          }
         }
         resolve();
       })

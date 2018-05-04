@@ -36,7 +36,7 @@ export class IonicUpSinglePicComponent implements OnInit {
     public fileUpService: FileUpService,
     public plt: Platform
   ) {
-    console.log('Hello IonicUpFileComponent Component');
+    console.log('ionic-up-single-pic');
     this.isApp = !this.plt.is('core')
   }
   ngOnInit() {

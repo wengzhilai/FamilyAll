@@ -22,6 +22,7 @@
   </ion-list>
   <ion-list *ngIf="fatherIsTrue" [formGroup]="userForm">
     <ion-item-divider color="light">账号信息</ion-item-divider>
+    
     <ion-item>
       <ion-icon name="call" item-left></ion-icon>
       <ion-input type="text" formControlName="loginName" placeholder="请输入手机号码"></ion-input>
@@ -37,14 +38,22 @@
     </ion-item>
     <ion-item-group>
       <ion-item-divider color="light">基础资料</ion-item-divider>
-      <ion-item>
-        <ion-label>用户姓名</ion-label>
-        <ion-label item-end>{{bean.parentArr[0].V}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>{{bean.parentArr[0].V}}父亲</ion-label>
-        <ion-label item-end>{{bean.parentArr[1].V}}</ion-label>
-      </ion-item>
+      <ion-item class="thumbnailMy">
+        <ion-thumbnail item-left>
+            <up-single-pic [FileDict]="bean.iconFiles" [PicStyle]="{W:80,H:80}" (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
+        </ion-thumbnail>
+        <div item-right style="width: 100%;">
+          <ion-item>
+            <ion-label>用户姓名</ion-label>
+            <ion-label item-end>{{bean.parentArr[0].V}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{bean.parentArr[0].V}}父亲</ion-label>
+            <ion-label item-end>{{bean.parentArr[1].V}}</ion-label>
+          </ion-item>
+        </div>
+    </ion-item>
+
       <ion-item>
         <ion-label>{{validationMessages.level_id.aliasName}}</ion-label>
         <ion-select formControlName="level_id" okText="确定" cancelText="取消">

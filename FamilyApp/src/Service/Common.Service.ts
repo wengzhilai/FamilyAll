@@ -555,7 +555,6 @@ export class CommonService {
    * @param value 
    */
   ListContains(arrObj,value){
-    console.log(arrObj)
     for (let index = 0; index < arrObj.length; index++) {
       const element = arrObj[index];
       if(element==value) return true
@@ -569,7 +568,6 @@ export class CommonService {
    * @param powerInt 权限值
    */
   GetPowerList(powerInt): any {
-    console.log(powerInt)
     switch (powerInt) {
       case "7":
         return [1, 2, 4]

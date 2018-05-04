@@ -35,7 +35,8 @@ export class UserRegPage {
     parentArr: [],
     password: "",
     pollCode: "",
-    sex: "男"
+    sex: "男",
+    ICON_FILES_ID: null
   }
   lunlarDate = ""
   solarDate = ""
@@ -168,7 +169,7 @@ export class UserRegPage {
                     return
                   }
                 }
-                else{ //表示添加子项
+                else { //表示添加子项
                   if (!this.commonService.ListContains(this.commonService.GetPowerList((data["AUTHORITY"] + "").substr(0, 1)), 1)) {
                     this.commonService.hint("该用户资料已被锁定，如有问题请联系管理员")
                     return
@@ -228,10 +229,10 @@ export class UserRegPage {
     console.log(inDate)
     let t = new Date(inDate)
 
-    let dataStr = inDate.substr(0, inDate.indexOf('T'))
+    let dataStr = inDate.substr(0, 15)
     let alert = this.alertCtrl.create({
       title: '日期类型',
-      message: "选择的时间为：" + dataStr,
+      message: "选择的时间为：" + dataStr.replace("T", " "),
       buttons: [
         {
           text: '阴历',
@@ -241,8 +242,7 @@ export class UserRegPage {
             this.solarDate = ""
             this.toPostService.Post("Public/GetSolarDate", { Data: { "Data": dataStr } }).then((currMsg) => {
               if (currMsg.IsSuccess) {
-                let nowDate = new Date(currMsg.Msg)
-                this.solarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+                this.solarDate = currMsg.Msg
               }
             });
           }
@@ -255,8 +255,7 @@ export class UserRegPage {
             this.lunlarDate = ""
             this.toPostService.Post("Public/GetLunarDate", { Data: { "Data": dataStr } }).then((currMsg) => {
               if (currMsg.IsSuccess) {
-                let nowDate = new Date(currMsg.Msg)
-                this.lunlarDate = nowDate.getFullYear() + "年" + (nowDate.getMonth() + 1) + "月" + nowDate.getDate() + "日" + t.getUTCHours() + "时"
+                this.lunlarDate = currMsg.Msg
               }
             });
           }
@@ -266,5 +265,12 @@ export class UserRegPage {
     alert.present();
   }
 
+  ChangeFileJson(obj) {
+    console.log('编辑界面获取到值')
+    this.commonService.PlatformsExists("core") ? console.log(obj) : console.log(JSON.stringify(obj));
+    if (obj != null) {
+      this.bean.ICON_FILES_ID = obj.ID;
+    }
+  }
 
 }

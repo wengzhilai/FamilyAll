@@ -151,7 +151,7 @@ export class FileUpService {
                 console.log(filePath)
                 if (filePath.length > 10) {
                   this.upLoad(filePath).then((fileJson: any) => {
-                    
+
                     if (fileJson != null) {
                       fileJson.key = this.inFile.key;
                       fileJson.indexNo = this.inFile.indexNo;
@@ -375,7 +375,9 @@ export class FileUpService {
 
 
   Download(DownfileUrl, fileName) {
-
+    if (fileName == null || fileName == undefined) {
+      return
+    }
     DownfileUrl = this.commonService.FormartUrl(DownfileUrl);
     console.log('打开文件：' + DownfileUrl)
     console.log('fileName：' + fileName)

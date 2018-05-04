@@ -98,21 +98,21 @@ def lookfile(fileId):
 
 
 @app.route('/Api/Public/upload', methods=['POST', 'GET'])
-@auth.login_required
 def ApiPublicUpload():
-    if g == None:
-        return Fun.class_to_JsonStr(AppReturnDTO(False,"重新登录"))
     if request.method == 'POST':
         f = request.files['file']
         basepath = os.path.dirname(__file__)
         newName="{0}{1}".format(str(time.time())[0:10], f.filename[f.filename.rfind("."):])
         upload_path = os.path.join(basepath, "../static/uploads", newName)
         f.save(upload_path)
+        userId = 0
+        if hasattr(g, "current_user"):
+            userId=g.current_user.ID
         addFile = {
             "NAME": f.filename,
             "URL": 'uploads/{0}'.format(newName),
             "PATH":upload_path,
-            "USER_ID":g.current_user.ID,
+            "USER_ID":userId,
             "LENGTH":len(f.read()),
             "UPLOAD_TIME":datetime.datetime.now(),
             }
