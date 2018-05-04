@@ -17,11 +17,11 @@ class AlchemyEncoder(json.JSONEncoder):
             # an SQLAlchemy class
             fields = {}
             useFields=[x for x in obj.__dict__ if not x.startswith('_') and x != 'parent' and x != 'metadata' and x != "query" and x != "query_class"]
-            # if len(useFields)==0:
-            #     try:
-            #         useFields=[x for x in dir(obj) if hasattr(obj, x) and not x.startswith('_') and x != 'parent' and x != 'metadata' and x != "query" and x != "query_class"]
-            #     except:
-            #         useFields=[x for x in dir(obj) if not x.startswith('fa_') and not x.startswith('_') and x != 'parent' and x != 'metadata' and x != "query" and x != "query_class"]
+            if len(useFields)==0:
+                try:
+                    useFields=[x for x in dir(obj) if hasattr(obj, x) and not x.startswith('_') and x != 'parent' and x != 'metadata' and x != "query" and x != "query_class"]
+                except:
+                    useFields=[x for x in dir(obj) if not x.startswith('fa_') and not x.startswith('_') and x != 'parent' and x != 'metadata' and x != "query" and x != "query_class"]
                 
             for field in useFields:
 
