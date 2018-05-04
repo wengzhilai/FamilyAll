@@ -223,7 +223,7 @@ export class AuthLoginPage {
           role: 'cancel',
           handler: data => {
             Cif.api = Cif._api
-            Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
+            Cif.imgUrl = Cif._imgUrl
             console.log("imgUrl:" + Cif.imgUrl);
             console.log("api:" + Cif.api);
             AppGlobal.CooksSet('apiUrl', Cif.api);

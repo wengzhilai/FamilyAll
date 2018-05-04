@@ -22,7 +22,7 @@
   <ion-list>
     <ion-item *ngFor="let login of DataList" (click)="call(login.LOGIN_NAME)">
       <div item-start style="width:80px;height:80px">
-          <img  src="{{'lookfile/'+login.ICON_FILES_ID+'.jpg'|ImgUrl}}" width="80" height="80" />
+          <img  src="{{'lookfile/'+login.ICON_FILES_ID+'.jpg'|ImgUrl:'api'}}" width="80" height="80" />
       </div>
       <h2>{{login.NAME}}</h2>
       <p>{{login.LOGIN_NAME}}</p>
