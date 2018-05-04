@@ -4,7 +4,11 @@
             {{title}}
         </ion-title>
     </ion-navbar>
-    <ion-toolbar no-border-top>
+
+</ion-header>
+
+<ion-content>
+    <ion-toolbar no-border-top *ngIf="isMarryed">
         <ion-segment [(ngModel)]="userType" (ionChange)="UserTypeChanged($event)">
             <ion-segment-button value="husband">
                 {{hasbandName}}
@@ -14,9 +18,6 @@
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
-</ion-header>
-
-<ion-content>
     <ion-list [formGroup]="userForm">
         <ion-item-group>
             <ion-item-divider color="light">{{i18n+'.baseInfo'|translate}}</ion-item-divider>
@@ -57,7 +58,10 @@
                     <ion-option value="女">女</ion-option>
                 </ion-select>
             </ion-item>
-
+            <ion-item>
+                <ion-label class="MyTitle">{{i18n+'.IS_Marryed'|translate}}</ion-label>
+                <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="isMarryed"></ion-toggle>
+            </ion-item>
             <ion-item>
                 <ion-label class="MyTitle">{{i18n+'.IS_LIVE'|translate}}</ion-label>
                 <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.IS_LIVE"></ion-toggle>
@@ -75,7 +79,8 @@
             </ion-item>
             <ion-item>
                 <ion-label class="MyTitle">{{i18n+'.YEARS_TYPE'|translate}}</ion-label>
-                <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.YEARS_TYPE" okText="{{'public.Okay' | translate}}" (ionChange)="DoneBirthdayTime()" cancelText="{{'public.Dismiss' | translate}}">
+                <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]="bean.YEARS_TYPE" okText="{{'public.Okay' | translate}}" (ionChange)="DoneBirthdayTime()"
+                    cancelText="{{'public.Dismiss' | translate}}">
                     <ion-option value="阴历">阴历</ion-option>
                     <ion-option value="阳历">阳历</ion-option>
                 </ion-select>

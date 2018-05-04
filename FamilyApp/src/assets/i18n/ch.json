@@ -103,12 +103,14 @@
     "ALIAS": "字号/小名",
     "SEX": "性别",
     "LEVEL_ID": "排行",
+
     "BIRTHDAY_PLACE": "出生地点",
     "REMARK": "个人概述",
     "BirthdayInfo": "出生信息",
     "DiedInfo": "逝世信息",
     "DIED_PLACE": "逝世地点",
     "IS_LIVE": "是否健在",
+    "IS_Marryed":"是否结婚",
     "YEARS_TYPE": "年份类型",
     "lunlar": "阴历",
     "solar": "阳历"

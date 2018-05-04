@@ -39,9 +39,7 @@ export class UserProfilePage {
     }
   }
   PostData() {
-    if (this.property.ID == null || this.property.ID == undefined || this.property.ID == "undefined") {
-      AppGlobal.LoginOut()
-      this.navCtrl.setRoot("TabsPage")
+    if(!AppGlobal.IsLogin){
       return
     }
     this.commonService.showLoading();

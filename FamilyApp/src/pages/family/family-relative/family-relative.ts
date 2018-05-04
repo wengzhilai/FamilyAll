@@ -254,6 +254,7 @@ export class FamilyRelativePage implements OnInit {
     },
     edit: (element: NetronElement, context, point: any) => { //点击事件
       this.tempCheckUser = element.Object;
+      console.log(this.tempCheckUser)
       this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = ""
     }
   }

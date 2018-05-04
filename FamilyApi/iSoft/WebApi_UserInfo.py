@@ -61,11 +61,27 @@ def ApiUserInfoSingle():
 @app.route('/Api/UserInfo/save', methods=['GET', 'POST'])
 @auth.login_required
 def ApiUserInfoSave():
+
     j_data = request.json
     if j_data is None:
         return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有误"))
     in_ent = RequestSaveModel(j_data)
     _modele = UserInfoDal()
+        
+    if hasattr(g, "current_user"):
+        # 表示添加
+        if "ID" not in in_ent.Data or in_ent.Data["ID"] is None or in_ent.Data["ID"]==0:
+            in_ent.Data["CREATE_USER_NAME"]=g.current_user.NAME
+            if "CREATE_USER_NAME" not in in_ent.SaveKeys:
+                in_ent.SaveKeys.append('CREATE_USER_NAME')
+            
+            in_ent.Data["CREATE_USER_ID"]=g.current_user.ID
+            if "CREATE_USER_ID" not in in_ent.SaveKeys:
+                in_ent.SaveKeys.append('CREATE_USER_ID') 
+    # 设置角色
+    in_dict["roleIdList"]="3"
+    if "roleIdList" not in saveKeys:
+        saveKeys.append('roleIdList')   
     re_ent, message = _modele.userInfo_Save(
         in_dict=in_ent.Data, saveKeys=in_ent.SaveKeys)
     if message.IsSuccess:

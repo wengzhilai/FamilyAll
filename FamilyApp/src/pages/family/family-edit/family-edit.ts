@@ -39,7 +39,8 @@ export class FamilyEditPage {
   diedTianDi
   // 过世的时间间隔
   diedDistantYears
-
+  // 是否结婚
+  isMarryed=false
   bean: any = {
     YEARS_TYPE: "阳历",
     SEX: "男",
@@ -127,7 +128,10 @@ export class FamilyEditPage {
         if (this.bean.iconFiles == null) this.bean.iconFiles = {}
 
         if (this.userType == "husband") this.hasbandName = this.bean.NAME
-
+        this.isMarryed=false;
+        if(this.bean.COUPLE_ID!=null){
+          this.isMarryed=true
+        }
         this.allFiles = currMsg.Data.filesList
         this.SetForm(this.bean);
       }
