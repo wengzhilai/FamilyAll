@@ -104,7 +104,9 @@ export class UserRegPage {
     var postBean: any = {
       Data: { "name": this.fatherName }
     }
+    this.commonService.showLoading();
     this.toPostService.Post("UserInfo/SingleByName", postBean).then((currMsg) => {
+      this.commonService.hideLoading();
       console.log(currMsg)
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)

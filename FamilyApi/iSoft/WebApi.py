@@ -105,11 +105,12 @@ def ApiPublicUpload():
     if request.method == 'POST':
         f = request.files['file']
         basepath = os.path.dirname(__file__)
-        upload_path = os.path.join(basepath, "../static/uploads", f.filename)
+        newName="{0}{1}".format(str(time.time())[0:10], f.filename[f.filename.rfind("."):])
+        upload_path = os.path.join(basepath, "../static/uploads", newName)
         f.save(upload_path)
         addFile = {
             "NAME": f.filename,
-            "URL": 'uploads/{0}'.format(f.filename),
+            "URL": 'uploads/{0}'.format(newName),
             "PATH":upload_path,
             "USER_ID":g.current_user.ID,
             "LENGTH":len(f.read()),

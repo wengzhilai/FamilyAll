@@ -115,7 +115,7 @@ class UserDal(FaUser):
                             WHERE
                                 m.ID IN ({1})
                     '''.format(user.ID, ','.join(
-                    str(i.ID) for i in in_dict["filesList"]))
+                    str(i["ID"]) for i in in_dict["filesList"]))
                 print(sqlStr)
                 execObj = db.session.execute(sqlStr)
         # --更新用户的角色--!>
