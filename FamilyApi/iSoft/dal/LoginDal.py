@@ -13,8 +13,10 @@ class LoginDal(FaLogin):
     def UpdateCode(self, loginName, verifyCode):
         '更新短验证码，如果号码不存在，则添加新有号码,并发送短信'
         
+        msg="成功"
         if not send_verify_code(loginName,verifyCode):
-            return AppReturnDTO(False, "短信发送失败")
+            msg=verifyCode
+            # return AppReturnDTO(False, "短信发送失败")
 
         loginEnt=FaLogin.query.filter(FaLogin.LOGIN_NAME==loginName).first()
         if loginEnt is None:
@@ -31,7 +33,7 @@ class LoginDal(FaLogin):
             loginEnt.VERIFY_TIME=datetime.datetime.now()
         db.session.commit()
         db.session.close()
-        return AppReturnDTO(True, "成功")
+        return AppReturnDTO(True, msg)
 
     def CheckOutVerifyCode(self, VerifyCode, LoginName):
         '''验证短信验证码是否正确'''
@@ -84,8 +86,14 @@ class LoginDal(FaLogin):
             return None, AppReturnDTO(False, "密码不能为空")
         db_ent = FaLogin.query.filter(
             FaLogin.LOGIN_NAME == self.LOGIN_NAME).first()
-        if db_ent is not None:
-            return db_ent, AppReturnDTO(True, "该登录名已经存在")
+        if db_ent is not None :
+            if db_ent.PASSWORD is not None:
+                return db_ent, AppReturnDTO(True, "该登录名已经存在")
+            db_ent.IS_LOCKED = 0
+            db_ent.REGION = 0
+            db_ent.FAIL_COUNT = 0
+            db_ent.PASSWORD = Fun.md5(self.PASSWORD)
+            return self, AppReturnDTO(True)
         self.IS_LOCKED = 0
         self.ID = Fun.GetSeqId(self)
         self.REGION = 0

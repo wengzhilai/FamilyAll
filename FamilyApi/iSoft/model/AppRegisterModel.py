@@ -19,5 +19,11 @@ class AppRegisterModel(object):
     pollCode = ""
     #性别
     sex = ""
+    # 小名
+    ALIAS=""
+    # 头像
+    ICON_FILES_ID=0
+    # 权限
+    AUTHORITY=777
     def __init__(self,jsonObj):
         self.__dict__=jsonObj

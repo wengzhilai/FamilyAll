@@ -41,7 +41,7 @@ var CONFIG_DEMO: any = {
 let apiUrl = AppGlobal.CooksGet('apiUrl');
 if (apiUrl != null && apiUrl != '') {
   Config.api = apiUrl;
-  Config.imgUrl = Config.api.toLowerCase().replace("/api", "")
+  // Config.imgUrl = Config.api.toLowerCase().replace("/api", "")
 }
 
 if (AppGlobal.CooksGet('configDemo')) {

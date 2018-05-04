@@ -236,7 +236,8 @@ export class AuthLoginPage {
           handler: data => {
             AppGlobal.CooksSet('apiUrl', data.apiUrl);
             Cif.api = data.apiUrl
-            Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
+            // Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
+            Cif.imgUrl = Cif._imgUrl
             console.log("imgUrl:" + Cif.imgUrl);
             console.log("api:" + Cif.api);
             // window.location.reload();

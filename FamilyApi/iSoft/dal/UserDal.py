@@ -123,8 +123,22 @@ class UserDal(FaUser):
         return user, AppReturnDTO(True)
 
     def user_delete(self, key):
-        is_succ = Fun.model_delete(FaUser, self, key)
-        return is_succ, is_succ
+        sqlStr = '''
+                DELETE FROM fa_user_role WHERE USER_ID = {0};
+                '''.format(key)
+        print(sqlStr)
+        execObj = db.session.execute(sqlStr)
+        sqlStr = '''
+                DELETE FROM fa_user_file WHERE USER_ID = {0};
+                '''.format(key) 
+        print(sqlStr)
+        execObj = db.session.execute(sqlStr)
+        sqlStr = '''
+                DELETE FROM fa_login WHERE LOGIN_NAME IN (select LOGIN_NAME from fa_user where ID={0});
+                '''.format(key)
+        print(sqlStr)
+        execObj = db.session.execute(sqlStr)
+        return Fun.model_delete(FaUser,key)
 
     def user_all_module(self, userId):
         db_ent = FaUser.query.filter(FaUser.ID == userId).first()

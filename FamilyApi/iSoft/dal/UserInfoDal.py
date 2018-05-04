@@ -57,6 +57,9 @@ class UserInfoDal(FaUserInfo):
             if "roleIdList" not in saveKeys:
                 saveKeys.append('roleIdList')
 
+            if "AUTHORITY" not in saveKeys:
+                saveKeys.append('AUTHORITY')
+
         user, is_succ = Fun.model_save(FaUserInfo, self, in_dict, saveKeys,FaUser)
         if is_succ.IsSuccess:  # 表示已经添加成功角色
             userDal=UserDal()
@@ -73,7 +76,8 @@ class UserInfoDal(FaUserInfo):
 
     def userInfo_delete(self, key):
         delMode,is_succ = Fun.model_delete(FaUserInfo, key)
-        return delMode,is_succ
+        userDal=UserDal()
+        return userDal.user_delete(key)
 
     def userInfo_single(self, key):
         '''查询一用户'''
@@ -153,7 +157,7 @@ class UserInfoDal(FaUserInfo):
         if not msg.IsSuccess or not checkOutPwd:
             return msg
         if len(in_ent.parentArr) < 2:
-            return AppReturnDTO(False, "你节点有问题")
+            return AppReturnDTO(False, "添加的辈份太多了")
 
         userDal = UserDal()
         if userDal.user_checkLoginExist(in_ent.loginName):
@@ -198,7 +202,10 @@ class UserInfoDal(FaUserInfo):
                         'sex': in_ent.sex,
                         'YEARS_TYPE': in_ent.YEARS_TYPE,
                         'BIRTHDAY_TIME': in_ent.BIRTHDAY_TIME,
-                        'birthday_place': in_ent.birthday_place
+                        'birthday_place': in_ent.birthday_place,
+                        'ICON_FILES_ID': in_ent.ICON_FILES_ID,
+                        'ALIAS': in_ent.ALIAS,
+                        'AUTHORITY': in_ent.AUTHORITY                        
                     }
                     self.AddUserInfoAndLogin(**para)
                     db.session.commit()
@@ -247,7 +254,7 @@ class UserInfoDal(FaUserInfo):
 
     def AddUserInfoAndLogin(self, parentId, loginName, password, name,
                             level_id, sex, YEARS_TYPE, BIRTHDAY_TIME,
-                            birthday_place):
+                            birthday_place,ICON_FILES_ID,ALIAS,AUTHORITY):
         '完善用户的基本资料以及登录账号'
 
         parentEnt = FaUserInfo.query.filter(FaUserInfo.ID == parentId).first()
@@ -288,6 +295,10 @@ class UserInfoDal(FaUserInfo):
         userInfoEnt.CREATE_USER_ID = userInfoEnt.ID
         userInfoEnt.UPDATE_TIME = datetime.datetime.now()
         userInfoEnt.UPDATE_USER_NAME = name
+        userInfoEnt.ICON_FILES_ID = ICON_FILES_ID
+        userInfoEnt.ALIAS = ALIAS
+        userInfoEnt.AUTHORITY = AUTHORITY
+        
         db.session.add(userInfoEnt)
         return userInfoEnt, AppReturnDTO(True)
 

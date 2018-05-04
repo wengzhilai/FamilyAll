@@ -64,7 +64,7 @@
     "Email": "邮箱",
     "loginName": "登录名",
     "Change_Lang": "切换语言",
-    "paassword": "密码",
+    "password": "密码",
     "Region": "注册",
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
@@ -135,6 +135,7 @@
     "Title": "查看个人信息",
     "setting": "功能设置",
     "api": "接口地址",
+    "imgUrl": "图片地址",
     "BaseUserInfo": "用户基本信息",
     "NAME": "姓名",
     "ALIAS": "字号/小名",

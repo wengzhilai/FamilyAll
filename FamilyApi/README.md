@@ -62,3 +62,13 @@ ssh 47.254.16.126
 cd  github/FamilyAll/FamilyApi/
 git pull
 systemctl restart gunicorn
+
+
+
+
+delete from fa_user_file where USER_ID in (select ID from fa_user where LOGIN_NAME='18828287939');
+delete from fa_user_role where USER_ID in (select ID from fa_user where LOGIN_NAME='18828287939');
+delete from fa_login where LOGIN_NAME='18828287939';
+delete from fa_user_info where ID in (select ID from fa_user where LOGIN_NAME='18828287939');
+delete from fa_user where LOGIN_NAME='18828287939';
+commit;
