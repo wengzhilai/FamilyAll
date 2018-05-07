@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>会员卡</ion-title>
+    <ion-title>{{i18n+'.'+Title|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -19,29 +19,20 @@
       <img src="./assets/images/vip.jpeg" />
     </ion-col>
   </ion-row>
+
   <ion-list>
-    <button ion-item>
+    <ion-item *ngFor="let item of beanItemList">
+      <ion-label class="MyTitle">{{i18n+'.'+item|translate}}</ion-label>
+      <ion-note item-end>{{bean[item]}}</ion-note>
+    </ion-item>
+    <!-- <button ion-item>
       <ion-label>线上积分</ion-label>
       <ion-note item-end>0</ion-note>
     </button>
     <button ion-item>
       <ion-label>线下积分</ion-label>
       <ion-note item-end>0</ion-note>
-    </button>
+    </button> -->
   </ion-list>
 
-  <ion-list>
-      <button ion-item>
-        <ion-label>性别</ion-label>
-        <ion-note item-end>0</ion-note>
-      </button>
-      <ion-item>
-        <ion-label>手机码码</ion-label>
-        <ion-note item-end>1888888888</ion-note>
-      </ion-item>
-      <ion-item>
-          <ion-label>生日</ion-label>
-          <ion-note item-end>2018-1-1</ion-note>
-        </ion-item>
-    </ion-list>
 </ion-content>

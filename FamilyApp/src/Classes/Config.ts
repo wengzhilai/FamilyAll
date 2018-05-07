@@ -13,17 +13,17 @@ export class Config {
   // static api:string = 'http://127.0.0.1:5000/Api/';
   // static imgUrl:string = 'http://127.0.0.1:5000/';
 
-  static api:string = 'http://192.168.0.200:5000/Api/';
-  static imgUrl:string = 'http://192.168.0.200:5000/download/';
-  static userType="user"
+  // static api:string = 'http://192.168.0.200:5000/Api/';
+  // static imgUrl:string = 'http://192.168.0.200:5000/download/';
+  // static userType="user"
   // static api:string = 'http://47.254.16.126:8080/Api/';
   // static imgUrl:string = 'http://47.254.16.126:8080/download/';
 
 
 
-  // static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
-  // static imgUrl:string = 'http://47.254.16.126:8080/';
-  // static userType="vip"
+  static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
+  static imgUrl:string = 'http://47.254.16.126:8080/';
+  static userType="vip"
 
 
   static _api:string = Config.api;
@@ -156,23 +156,28 @@ export class Config {
       // root:"FamilyRelativePage",
       children:[
         {
-          text:"tabs.Index2",
-          Icon:"keypad",
+          text:"home.Store",
+          Icon:"archive",
           root:"ActiveListPage"
         },
         {
-          text:"tabs.Index3",
-          Icon:"icomoon-unit",
+          text:"home.Member",
+          Icon:"card",
           root:"VipCardPage"
         },
         {
-          text:"tabs.Index4",
-          Icon:"icomoon-pie",
+          text:"home.Cinema",
+          Icon:"easel",
           root:"VipCardPage"
         },
         {
-          text:"home.Utilities",
-          Icon:"umbrella",
+          text:"home.Redemption",
+          Icon:"podium",
+          root:"VipRedemptionPage"
+        },
+        {
+          text:"home.Suggest",
+          Icon:"mail",
           root:"SuggestListPage"
         }
         

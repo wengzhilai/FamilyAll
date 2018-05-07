@@ -74,12 +74,13 @@ export class AppGlobal {
       this.SetPropertyId(null)
       return NgXCookies.setCookie('Property', null)
     } else {
-      this.SetPropertyId(property.ID)
+      if(property.ID!=null){
+        this.SetPropertyId(property.ID)
+      }
       console.log("保存特征：")
       console.log(property)
       return NgXCookies.setCookie('Property', JSON.stringify(property));
     }
-
   }
 
   public static GetProperty(): any {

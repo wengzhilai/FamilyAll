@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { VipCardPage } from './vip-card';
+import { VipRedemptionPage } from './vip-redemption';
 import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
-    VipCardPage,
+    VipRedemptionPage,
   ],
   imports: [
     TranslateModule,
-    IonicPageModule.forChild(VipCardPage),
+    IonicPageModule.forChild(VipRedemptionPage),
   ],
 })
-export class VipCardPageModule {}
+export class VipRedemptionPageModule {}

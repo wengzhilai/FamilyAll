@@ -46,17 +46,11 @@
     "MyProfile": "我的"
   },
   "home": {
-    "BuildingNum": "楼栋数",
-    "UnitNum": "单元数",
-    "RentUnitNum": "签约单元",
-    "RentArea": "总面积",
-    "RentUnitArea": "签约面积",
-    "RentAreaPer": "面积签约率",
-    "Todo": "待办",
-    "ContractExtHandleNum": "签到",
-    "ContractParkHandleNum": "停车缴费",
-    "contract": "打车",
-    "Utilities": "意见反馈"
+    "Store": "商户",
+    "Member": "会员",
+    "Cinema": "影院",
+    "Redemption":"兑换信息",
+    "Suggest": "意见反馈"
   },
   "auth-login": {
     "Sign_Title": "登录",
@@ -74,12 +68,38 @@
     "Sign_Title": "登录",
     "Remember_Pwd": "记住密码",
     "Email": "邮箱",
-    "loginName": "登录名",
+    "extId": "微信会员编号",
+    "loginName": "会员卡号",
     "Change_Lang": "切换语言",
-    "paassword": "密码",
+    "password": "密码",
     "Region": "注册",
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
+  },
+  "vip-card":{
+    "Title":"会员卡",
+    "Project": "会员编号",
+    "CardType": "会员卡类型",
+    "CardNo": "会员卡号",
+    "Region": "区域",
+    "SignDate": "办理日期",
+    "StartDate": "生效日期",
+    "ExpiryDate": "失效日期",
+    "IssueDate": "发卡日期",
+    "Deposit": "押金",
+    "Advance": "预付",
+    "Fee": "工本费"
+  },
+  "vip-redemption":{
+    "Title":"兑换信息",
+    "RedeemId":"兑换编号",
+    "Date":"兑换日期",
+    "Item":"赠品",
+    "Quantity":"数量",
+    "UnitPoint":"单价积分",
+    "DeductedPoint":"抵消积分",
+    "ManagePerson":"经办人",
+    "Remark":"备注"
   },
   "auth-reg": {
     "loginName": "登录名",
