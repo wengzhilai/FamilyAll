@@ -49,8 +49,11 @@
     "Store": "商户",
     "Member": "会员",
     "Cinema": "影院",
-    "Redemption":"兑换信息",
-    "Suggest": "意见反馈"
+    "Redemption": "兑换信息",
+    "Suggest": "意见反馈",
+    "Transaction": "交易信息",
+    "RedemptionItemListPage": "积分兑换",
+    "Ranking":"排名"
   },
   "auth-login": {
     "Sign_Title": "登录",
@@ -64,7 +67,7 @@
     "Login_Btn": "登录"
   },
   "vip-login": {
-    "Title":"登录凯丹会员系统",
+    "Title": "登录凯丹会员系统",
     "Sign_Title": "登录",
     "Remember_Pwd": "记住密码",
     "Email": "邮箱",
@@ -76,8 +79,8 @@
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
-  "vip-card":{
-    "Title":"会员卡",
+  "vip-card": {
+    "Title": "会员卡",
     "Project": "会员编号",
     "CardType": "会员卡类型",
     "CardNo": "会员卡号",
@@ -90,16 +93,75 @@
     "Advance": "预付",
     "Fee": "工本费"
   },
-  "vip-redemption":{
-    "Title":"兑换信息",
-    "RedeemId":"兑换编号",
-    "Date":"兑换日期",
-    "Item":"赠品",
-    "Quantity":"数量",
-    "UnitPoint":"单价积分",
-    "DeductedPoint":"抵消积分",
-    "ManagePerson":"经办人",
-    "Remark":"备注"
+  "vip-redemption": {
+    "Title": "兑换信息",
+    "RedeemId": "兑换编号",
+    "Date": "兑换日期",
+    "Item": "赠品",
+    "Quantity": "数量",
+    "UnitPoint": "单价积分",
+    "DeductedPoint": "抵消积分",
+    "ManagePerson": "经办人",
+    "Remark": "备注"
+  },
+  "vip-transaction": {
+    "Title": "交易信息",
+    "startDate": "期间开始",
+    "endDate": "期间结束",
+    "SendPointDTO": "赠送积分信息",
+    "Transaction": "交易信息",
+    "TransactionDetial": "消费明细",
+    "RecentSpentAmount": "最近一次消费金额",
+    "RecentMonthAmount": "最近一月消费金额",
+    "RecentYearAmount": "最近一年消费金额",
+    "AccumulatedAmount": "历史消费总额",
+    "AccumulatedPoint": "总产生积分",
+    "UsablePoint": "可用积分",
+    "AccumulatedBonusPoint": "总赠送积分",
+    "TransactionNo": "交易号",
+    "Name": "会员名称",
+    "CardNo": "会员卡号",
+    "Tenant": "所属租户",
+    "TradeMix": "业态",
+    "InputSource": "数据来源",
+    "TransactionTime": "交易时间",
+    "TransactionAmount": "消费金额",
+    "ReceivedAmount": "实收金额",
+    "Point": "产生积分",
+    "DiscountRate": "折扣比例",
+    "DiscountAmount": "折扣金额",
+    "BonusPoint": "赠送积分",
+    "CustomerFirstCnName": "会员中文名称",
+    "CustomerFirstEnName": "会员英文名称",
+    "TransactionDate": "日期",
+    "SendPoint": "积分"
+  },
+  "vip-redemption-item-list": {
+    "Title": "兑换列表",
+    "ItemId": "赠品编号",
+    "Item": "赠品名称",
+    "Date": "有效期",
+    "BeginDate": "有效开始日期",
+    "EndDate": "有效结束日期",
+    "QuantityLimit": "兑换数量上限",
+    "AvailableQuantity": "现有数量",
+    "Price": "单价",
+    "Point": "积分单价",
+    "Remark": "备注"
+  },
+  "vip-redeem-request": {
+    "Title": "积分兑换",
+    "quantity": "数量",
+    "date": "日期",
+    "submit": "提交"
+  },
+  "vip-ranking": {
+    "Title": "交易前10名",
+    "Name": "会员名",
+    "CardNo": "会员卡号",
+    "CardId": "会员ID",
+    "ActualAmount": "销售总额",
+    "Ranking": "排名"
   },
   "auth-reg": {
     "loginName": "登录名",
@@ -171,7 +233,6 @@
     "DiedlunlarDate": "逝世阴历",
     "DiedsolarDate": "逝世阳历",
     "ExitLogin": "退出登录"
-    
   },
   "vip-reg": {
     "extId": "微信会员编号",

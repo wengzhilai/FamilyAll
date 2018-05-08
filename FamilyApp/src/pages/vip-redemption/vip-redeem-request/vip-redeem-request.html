@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{i18n+'.Title'|translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-icon item-start name="contact"></ion-icon>
+      <ion-input type="text" [(ngModel)]="quantity" placeholder="{{i18n+'.quantity'|translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon item-start name="ios-calendar-outline"></ion-icon>
+      <ion-datetime placeholder="{{i18n+'.date'|translate}}" [(ngModel)]="date" doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}'
+        displayFormat="YYYY-MMM-DD"></ion-datetime>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button ion-button color="primary" block (click)="submit()">{{i18n+'.submit'|translate}}</button>
+  </div>
+</ion-content>

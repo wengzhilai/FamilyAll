@@ -166,14 +166,24 @@ export class Config {
           root:"VipCardPage"
         },
         {
-          text:"home.Cinema",
-          Icon:"easel",
-          root:"VipCardPage"
-        },
-        {
           text:"home.Redemption",
           Icon:"podium",
           root:"VipRedemptionPage"
+        },
+        {
+          text:"home.Transaction",
+          Icon:"logo-usd",
+          root:"VipTransactionPage"
+        },
+        {
+          text:"home.RedemptionItemListPage",
+          Icon:"cart",
+          root:"VipRedemptionItemListPage"
+        },
+        {
+          text:"home.Ranking",
+          Icon:"ribbon",
+          root:"VipRankingPage"
         },
         {
           text:"home.Suggest",

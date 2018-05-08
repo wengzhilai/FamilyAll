@@ -1,0 +1,37 @@
+
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>{{i18n+'.Title'|translate}}</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content>
+    <div *ngIf="DataList==null" style="height: 100%;width: 100%;background-color: #EFEFEF;">
+      <div style="position: absolute;top: 50%;transform: translateY(-50%); text-align: center;width: 100%;">
+        <ion-icon name="sad" style="font-size: 80px;"></ion-icon>
+        <p>无记录</p>
+      </div>
+    </div>
+    <ng-container *ngIf="DataList!=null">
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText='{{"public.pullingText"|translate}}' refreshingSpinner="circles"
+          refreshingText='{{"public.refreshingText"|translate}}'>
+        </ion-refresher-content>
+      </ion-refresher>
+      <ion-list>
+        <ion-item *ngFor="let item of DataList" (click)="OnclickItem(item)">
+          <h2>{{item.Item}}</h2>
+          <p>{{i18n+'.Date'|translate}}:{{item.BeginDate}}~{{item.EndDate}}</p>
+          <p>{{i18n+'.ManagePerson'|translate}}:{{item.QuantityLimit}}/AvailableQuantity</p>
+          <p>{{i18n+'.Price'|translate}}:{{item.Price}}</p>
+          <p>{{i18n+'.Point'|translate}}:{{item.Point}}</p>
+          <p>{{i18n+'.Remark'|translate}}:{{item.Remark}}</p>
+        </ion-item>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+  </ion-content>
