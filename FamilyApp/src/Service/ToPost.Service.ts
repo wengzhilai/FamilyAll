@@ -38,15 +38,18 @@ export class ToPostService {
         console.log("返回结果：");
         let response: any = res.json();
         this.commonService.PlatformsExists("core") ? console.log(response) : console.log(JSON.stringify(response));
-        if (response.Status == "Success") {
-          response.IsSuccess = true
-          if(response.Msg==null){
-            response.Msg=response.Message
+        if (response.Status!=null) {
+          if(response.Status == "Success"){
+            response.IsSuccess = true
+            if(response.Msg==null){
+              response.Msg=response.Message
+            }
+          }
+          else{
+            response.IsSuccess = false
           }
         }
-        else {
-          response.IsSuccess = false
-        }
+
         if (!response.IsSuccess) {
           this.commonService.PlatformsExists("core") ? console.warn(response.Msg) : console.warn(JSON.stringify(response.Msg));
         }

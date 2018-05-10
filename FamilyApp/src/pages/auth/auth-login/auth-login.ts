@@ -131,6 +131,7 @@ export class AuthLoginPage {
       this.commonService.hideLoading()
       if (isSuccess) { //认证成功
         let callBack=this.navParams.get("callBack")
+        
         if(callBack==null){
           this.navCtrl.push(TabsPage,this.navCtrl);
         }

@@ -88,15 +88,7 @@ export class VipPersonPage {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
             AppGlobal.LoginOut()
-            this.navCtrl.setRoot("TabsPage")
-
-            // this.navCtrl.push("AuthLoginPage", {
-            //   callBack: (isScuss, loginPageNav) => {
-            //     this.navCtrl.pop()
-            //     this.model = AppGlobal.GetProperty()
-            //   }
-            // })
-            // this.app.getRootNav().setRoot("AuthLoginPage",{reload:true});
+            this.navCtrl.parent.select(1)
           }
         }
       ]
