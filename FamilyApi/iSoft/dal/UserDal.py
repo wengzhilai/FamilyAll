@@ -42,7 +42,7 @@ class UserDal(FaUser):
                     json.dumps(file, cls=AlchemyEncoder))
         # 获取用户附件
         tmpList = [x for x in inModel.fa_files]
-        tmp.filesList = json.loads(json.dumps(tmp, cls=AlchemyEncoder))
+        tmp.filesList = json.loads(json.dumps(tmpList, cls=AlchemyEncoder))
 
         # 获取用户模块
         moduleIdList, msg = self.user_all_module(inModel.ID)

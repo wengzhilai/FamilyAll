@@ -3,7 +3,7 @@
     <name>iSoft商户</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.200:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -102,6 +102,6 @@
     <allow-navigation href="http://192.168.0.154:8100" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="com-darryncampbell-cordova-plugin-intent" spec="^1.0.1" />
-    <engine name="android" spec="~7.0.0" />
     <allow-navigation href="http://192.168.0.200:8100" />
+    <engine name="android" spec="~7.0.0" />
 </widget>

@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, FabContainer, AlertController } from 'ionic-angular';
 
 import { NetronGraph } from '../../../Classes/Netron/Graph';
@@ -17,9 +17,9 @@ import { Dictionary } from "../../../Classes/Dictionary";
   selector: 'page-family-relative',
   templateUrl: 'family-relative.html',
 })
-export class FamilyRelativePage implements OnInit {
-  i18n="auth-login"
-  
+export class FamilyRelativePage {
+  i18n = "family-relative"
+
   @ViewChild('canvas') mapElement: ElementRef;
   @ViewChild('fab') fab: FabContainer;
   public graph: NetronGraph = null;
@@ -38,12 +38,17 @@ export class FamilyRelativePage implements OnInit {
   ) {
 
   }
-  ngOnInit() {
+
+  isRun = false
+  ionViewWillEnter() {
+    if (this.isRun) return
+    this.isRun = true
     console.log(this.i18n)
     //加载用户有关系
-    this.LoadRelative().then(()=>{
+    this.LoadRelative().then(() => {
       // 更新用户基本资料
       this.LoandUser();
+      this.isRun = false
     });
 
     // this.test()
@@ -412,17 +417,17 @@ export class FamilyRelativePage implements OnInit {
    * @param type 判断的权限，1添加子项，2修改，4查看
    */
   GetIsPower(powerStr, type, createUserId = 0) {
-    if(powerStr==null || powerStr==undefined) return false
+    if (powerStr == null || powerStr == undefined) return false
     let user = AppGlobal.GetProperty()
     let powerNum = "7"
-    powerStr=""+powerStr
+    powerStr = "" + powerStr
     if (this.commonService.ListContains(user.roleIdList, 1)) { //表示超级管理员
       powerNum = powerStr.substr(2, 1) //取第3位
     }
     else if (this.commonService.ListContains(user.roleIdList, 2)) { //一般管理员
       powerNum = powerStr.substr(1, 1) //取第3位
     }
-    else if (createUserId == user.ID || createUserId==0) {
+    else if (createUserId == user.ID || createUserId == 0) {
       powerNum = powerStr.substr(0, 1) //取第3位
     } else {
       return false
@@ -432,9 +437,9 @@ export class FamilyRelativePage implements OnInit {
 
   GetIsEditPower(checkUser, type, createUserId = 0) {
     let user = AppGlobal.GetProperty()
-    if(user.ID==createUserId) return true
-    if(user.FATHER_ID==checkUser.Id) return true
+    if (user.ID == createUserId) return true
+    if (user.FATHER_ID == checkUser.Id) return true
     return this.GetIsPower(checkUser.Authority, type, createUserId)
   }
-  
+
 }
