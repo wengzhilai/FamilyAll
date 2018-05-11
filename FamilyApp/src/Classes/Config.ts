@@ -13,11 +13,11 @@ export class Config {
   // static api:string = 'http://127.0.0.1:5000/Api/';
   // static imgUrl:string = 'http://127.0.0.1:5000/';
 
-  static api:string = 'http://192.168.0.200:5000/Api/';
-  static imgUrl:string = 'http://192.168.0.200:5000/download/';
+  // static api:string = 'http://192.168.0.200:5000/Api/';
+  // static imgUrl:string = 'http://192.168.0.200:5000/download/';
   static userType="user"
-  // static api:string = 'http://47.254.16.126:8080/Api/';
-  // static imgUrl:string = 'http://47.254.16.126:8080/download/';
+  static api:string = 'http://47.254.16.126:8080/Api/';
+  static imgUrl:string = 'http://47.254.16.126:8080/download/';
 
 
 
@@ -97,21 +97,22 @@ export class Config {
   static loginSubscribeNotification:boolean=false;
 
 
+  /**
+   * 是否允许选择文件
+   */
+  static isAllowUpfile:boolean = false; 
+  /**
+   * 允许选择图片数量
+   */
   static maximumImagesCount:number = 1;
   /**
    * 上传图片的质量
    * 
-   * @static
-   * @type {number}
-   * @memberof Config
    */
   static quality:number = 50;
   /**
    * 拍照后是否允许简单编辑
    * 
-   * @static
-   * @type {boolean}
-   * @memberof Config
    */
   static isAllowEdit:boolean = false; 
   /**

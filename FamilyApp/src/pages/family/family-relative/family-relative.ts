@@ -93,6 +93,8 @@ export class FamilyRelativePage {
   }
 
   LoandUser() {
+    if(!AppGlobal.IsLogin)return
+
     let user = AppGlobal.GetProperty()
     this.toPostService.Post("UserInfo/Single", { "Key": user.ID }).then((currMsg) => {
       this.commonService.hideLoading();
@@ -150,6 +152,10 @@ export class FamilyRelativePage {
         canvas.style.width = canvas.width + "px";
         canvas.style.height = canvas.height + "px";
         // 计算高宽
+        if(this.graph!=null){
+          console.log("dispose")
+          this.graph.dispose();
+        }
         this.graph = new NetronGraph(this.mapElement.nativeElement);
         this.graph.ClickBlack = (x) => {
           this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
@@ -281,6 +287,7 @@ export class FamilyRelativePage {
     },
     edit: (element: NetronElement, context, point: any) => { //点击事件
       this.tempCheckUser = element.Object;
+      console.log(1111)
       this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = ""
     }
   }

@@ -185,6 +185,7 @@
     "LOGIN_NAME":"联系电话",
     "ALIAS": "字号/小名",
     "SEX": "性别",
+    "Married": "是否结婚",
     "LEVEL_ID": "排行",
     "BIRTHDAY_PLACE": "出生地点",
     "REMARK": "个人概述",

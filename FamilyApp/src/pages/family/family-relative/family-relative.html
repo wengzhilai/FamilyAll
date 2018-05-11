@@ -11,25 +11,26 @@
     <ion-fab-list side="top" style="margin-left: -90px;">
       <ng-container *ngIf="IsLogin()">
         <button ion-button icon-end color="primary" (click)="AddSon()" *ngIf="GetIsPower(tempCheckUser.Authority,1,tempCheckUser.CreateUserId)">
-          <ion-icon name="people"></ion-icon>
+          <ion-icon name="people"></ion-icon>&nbsp;
           <span class="fabTitle">添加子女</span>
         </button>
         <button ion-button icon-end color="primary" (click)="DeleteUserInfo()" *ngIf="GetIsPower(tempCheckUser.Authority,2,tempCheckUser.CreateUserId)">
-          <ion-icon name="trash"></ion-icon>
+          <ion-icon name="trash"></ion-icon>&nbsp;
           <span class="fabTitle">删除用户</span>
         </button>
         <button ion-button icon-end color="primary" (click)="EditUserInfo()" *ngIf="GetIsEditPower(tempCheckUser,2,tempCheckUser.CreateUserId)">
-          <ion-icon name="at"></ion-icon>
+          <ion-icon name="create"></ion-icon>&nbsp;
           <span class="fabTitle">修改用户</span>
         </button>
       </ng-container>
-      <button ion-button icon-end color="primary" (click)="LookRelative()">
-        <ion-icon name="git-network"></ion-icon>
-        <span class="fabTitle">查看关系</span>
-      </button>
+      
       <button ion-button icon-end color="primary" (click)="LookUserInfo()">
-        <ion-icon name="at"></ion-icon>
+        <ion-icon name="open"></ion-icon> &nbsp;
         <span class="fabTitle">查看详细</span>
+      </button>
+      <button ion-button icon-end color="primary" (click)="LookRelative()">
+        <ion-icon name="git-network"></ion-icon>&nbsp;
+        <span class="fabTitle">查看关系</span>
       </button>
     </ion-fab-list>
   </ion-fab>

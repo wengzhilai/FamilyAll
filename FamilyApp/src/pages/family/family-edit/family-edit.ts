@@ -25,7 +25,8 @@ export class FamilyEditPage {
   public i18n = "family-edit"
   /** 表单 */
   userForm: FormGroup;
-
+  // 是否结婚
+  Married = false
   hasbandName = ""
   /** 年份开始时间 用于计算非公元年的 */
   public yeasStart
@@ -127,7 +128,12 @@ export class FamilyEditPage {
         if (this.bean.iconFiles == null) this.bean.iconFiles = {}
 
         if (this.userType == "husband") this.hasbandName = this.bean.NAME
-
+        if (this.bean.COUPLE_ID == null) {
+          this.Married = false
+        }
+        else {
+          this.Married = true
+        }
         this.allFiles = currMsg.Data.filesList
         this.SetForm(this.bean);
       }
@@ -146,7 +152,7 @@ export class FamilyEditPage {
     this.userForm.get('REMARK').setValue(inEnt.REMARK)
     this.userForm.get('ALIAS').setValue(inEnt.ALIAS)
   }
-  
+
   save() {
     console.log(this.allFiles)
     if (this.userForm.invalid) {

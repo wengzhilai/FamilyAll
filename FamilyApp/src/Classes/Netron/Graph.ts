@@ -91,8 +91,8 @@ export class NetronGraph {
         this._keyUpHandler = (e: KeyboardEvent) => { this.keyUp(e); }
 
         this._canvas.addEventListener("mousedown", this._mouseDownHandler, false);
-        this._canvas.addEventListener("mouseup", this._mouseUpHandler, false);
-        this._canvas.addEventListener("mousemove", this._mouseMoveHandler, false);
+        // this._canvas.addEventListener("mouseup", this._mouseUpHandler, false);
+        // this._canvas.addEventListener("mousemove", this._mouseMoveHandler, false);
         // this._canvas.addEventListener("touchstart", this._touchStartHandler, false);
         // this._canvas.addEventListener("touchend", this._touchEndHandler, false);
         // this._canvas.addEventListener("touchmove", this._touchMoveHandler, false);
