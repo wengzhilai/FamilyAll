@@ -67,7 +67,7 @@ def ApiUserInfoSave():
         return Fun.class_to_JsonStr(AppReturnDTO(False, "参数有误"))
     in_ent = RequestSaveModel(j_data)
     _modele = UserInfoDal()
-        
+    # 更新添加的用户
     if hasattr(g, "current_user"):
         # 表示添加
         if "ID" not in in_ent.Data or in_ent.Data["ID"] is None or in_ent.Data["ID"]==0:

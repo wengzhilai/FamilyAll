@@ -10,14 +10,14 @@ export class Config {
   static debug:boolean = true;
   static pageSize:number = 10;
 
-  static api:string = 'http://192.168.5.15:5000/Api/';
-  static imgUrl:string = 'http://192.168.5.15:5000/download/';
+  // static api:string = 'http://192.168.5.15:5000/Api/';
+  // static imgUrl:string = 'http://192.168.5.15:5000/download/';
 
   // static api:string = 'http://192.168.0.200:5000/Api/';
   // static imgUrl:string = 'http://192.168.0.200:5000/download/';
   static userType="user"
-  // static api:string = 'http://47.254.16.126:8080/Api/';
-  // static imgUrl:string = 'http://47.254.16.126:8080/download/';
+  static api:string = 'http://www.wjbjp.cn/Api/';
+  static imgUrl:string = 'http://www.wjbjp.cn/download/';
 
 
 
