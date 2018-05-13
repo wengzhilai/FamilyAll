@@ -35,7 +35,9 @@ export class UserProfilePage {
       this.bean = null;
     }
     else {
-      this.PostData();
+      // this.PostData();
+      this.bean = this.property;
+      
     }
   }
   PostData() {
@@ -80,6 +82,7 @@ export class UserProfilePage {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
             AppGlobal.LoginOut()
+            console.log(1)
             this.navCtrl.parent.select(1)
            }
         }

@@ -1,6 +1,6 @@
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, FabContainer, AlertController, List } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, FabContainer, AlertController } from 'ionic-angular';
 
 import { NetronGraph } from '../../../Classes/Netron/Graph';
 import { NetronElement } from "../../../Classes/Netron/Element";
@@ -17,7 +17,9 @@ import { Dictionary } from "../../../Classes/Dictionary";
   selector: 'page-family-relative',
   templateUrl: 'family-relative.html',
 })
-export class FamilyRelativePage implements OnInit {
+export class FamilyRelativePage {
+  i18n = "family-relative"
+
   @ViewChild('canvas') mapElement: ElementRef;
   @ViewChild('fab') fab: FabContainer;
   public graph: NetronGraph = null;
@@ -36,15 +38,23 @@ export class FamilyRelativePage implements OnInit {
   ) {
 
   }
-  ngOnInit() {
 
+  isRun = false
+  ionViewWillEnter() {
+    if (this.isRun) return
+    this.isRun = true
+    console.log(this.i18n)
+    //加载用户有关系
+    this.LoadRelative().then(() => {
+      // 更新用户基本资料
+      this.LoandUser();
+      this.isRun = false
+    });
 
-    this.onSucc();
     // this.test()
     // var ctx=this.mapElement.nativeElement.getContext("2d");
     // ctx.fillStyle="#FF0000";
     // ctx.fillRect(0,0,100,100);
-
   }
   IsLogin() {
     return AppGlobal.IsLogin
@@ -82,9 +92,28 @@ export class FamilyRelativePage implements OnInit {
     }
   }
 
+  LoandUser() {
+    if(!AppGlobal.IsLogin)return
 
+    let user = AppGlobal.GetProperty()
+    this.toPostService.Post("UserInfo/Single", { "Key": user.ID }).then((currMsg) => {
+      this.commonService.hideLoading();
+      if (currMsg == null) return
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg)
+        this.navCtrl.pop();
+        return;
+      }
+      else {
+        AppGlobal.SetProperty(currMsg.Data)
+      }
+    }, (e) => {
+      console.log('错误了')
+      console.log(e)
+    })
+  }
 
-  onSucc(postUserId = null) {
+  LoadRelative(postUserId = null) {
     if (postUserId == null) {
       postUserId = AppGlobal.GetPropertyId()
     }
@@ -95,7 +124,7 @@ export class FamilyRelativePage implements OnInit {
     this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
 
     this.commonService.showLoading();
-    this.toPostService.Post("Family/Relative", { Key: postUserId }).then((currMsg) => {
+    return this.toPostService.Post("Family/Relative", { Key: postUserId }).then((currMsg) => {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
@@ -123,6 +152,10 @@ export class FamilyRelativePage implements OnInit {
         canvas.style.width = canvas.width + "px";
         canvas.style.height = canvas.height + "px";
         // 计算高宽
+        if(this.graph!=null){
+          console.log("dispose")
+          this.graph.dispose();
+        }
         this.graph = new NetronGraph(this.mapElement.nativeElement);
         this.graph.ClickBlack = (x) => {
           this.fab._mainButton.getElementRef().nativeElement.parentNode.style.display = "none"
@@ -365,7 +398,7 @@ export class FamilyRelativePage implements OnInit {
     this.userId = this.tempCheckUser.Id;
     this.graph.dispose();
     this.graph = new NetronGraph(this.mapElement.nativeElement);
-    this.onSucc(this.userId);
+    this.LoadRelative(this.userId);
   }
   LookUserInfo() {
     this.userName = this.tempCheckUser.Name;
@@ -382,26 +415,26 @@ export class FamilyRelativePage implements OnInit {
     this.graph = new NetronGraph(this.mapElement.nativeElement);
 
     this.CancelKey(null);
-    this.onSucc(userInfo.ID)
+    this.LoadRelative(userInfo.ID)
   }
 
   /**
    * 
    * @param powerStr 权限字符串，第一位表示创建者，第二位管理员，第三位表示超级管理员
-   * @param type 判断的权限，1添加，2修改，4查看
+   * @param type 判断的权限，1添加子项，2修改，4查看
    */
   GetIsPower(powerStr, type, createUserId = 0) {
-    if(powerStr==null || powerStr==undefined) return false
+    if (powerStr == null || powerStr == undefined) return false
     let user = AppGlobal.GetProperty()
     let powerNum = "7"
-    powerStr=""+powerStr
+    powerStr = "" + powerStr
     if (this.commonService.ListContains(user.roleIdList, 1)) { //表示超级管理员
       powerNum = powerStr.substr(2, 1) //取第3位
     }
     else if (this.commonService.ListContains(user.roleIdList, 2)) { //一般管理员
       powerNum = powerStr.substr(1, 1) //取第3位
     }
-    else if (createUserId == user.ID || createUserId==0) {
+    else if (createUserId == user.ID || createUserId == 0) {
       powerNum = powerStr.substr(0, 1) //取第3位
     } else {
       return false
@@ -409,5 +442,11 @@ export class FamilyRelativePage implements OnInit {
     return this.commonService.ListContains(this.commonService.GetPowerList(powerNum), type)
   }
 
-  
+  GetIsEditPower(checkUser, type, createUserId = 0) {
+    let user = AppGlobal.GetProperty()
+    if (user.ID == createUserId) return true
+    if (user.FATHER_ID == checkUser.Id) return true
+    return this.GetIsPower(checkUser.Authority, type, createUserId)
+  }
+
 }

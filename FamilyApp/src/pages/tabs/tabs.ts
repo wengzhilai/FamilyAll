@@ -166,10 +166,11 @@ export class TabsPage {
         let profileModal = this.modalCtrl.create((Config.userType == "user") ? "AuthLoginPage" : "VipLoginPage", {
           // let profileModal = this.modalCtrl.create("VipLoginPage", {
           callBack: (isScuss, loginPageNav) => {
-            this.tabs.getByIndex(2).root = personPage
-            setTimeout(() => {
-              this.tabs.select(2)
-            }, 100);
+            console.log(1111)
+            // this.tabs.getByIndex(2).root = personPage
+            // setTimeout(() => {
+            //   this.tabs.select(2)
+            // }, 100);
             profileModal.dismiss()
           }
         });

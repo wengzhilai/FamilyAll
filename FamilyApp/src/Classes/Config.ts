@@ -97,21 +97,22 @@ export class Config {
   static loginSubscribeNotification:boolean=false;
 
 
+  /**
+   * 是否允许选择文件
+   */
+  static isAllowUpfile:boolean = false; 
+  /**
+   * 允许选择图片数量
+   */
   static maximumImagesCount:number = 1;
   /**
    * 上传图片的质量
    * 
-   * @static
-   * @type {number}
-   * @memberof Config
    */
   static quality:number = 50;
   /**
    * 拍照后是否允许简单编辑
    * 
-   * @static
-   * @type {boolean}
-   * @memberof Config
    */
   static isAllowEdit:boolean = false; 
   /**
@@ -156,23 +157,38 @@ export class Config {
       // root:"FamilyRelativePage",
       children:[
         {
-          text:"tabs.Index2",
-          Icon:"keypad",
+          text:"home.Store",
+          Icon:"archive",
           root:"ActiveListPage"
         },
         {
-          text:"tabs.Index3",
-          Icon:"icomoon-unit",
+          text:"home.Member",
+          Icon:"card",
           root:"VipCardPage"
         },
         {
-          text:"tabs.Index4",
-          Icon:"icomoon-pie",
-          root:"VipCardPage"
+          text:"home.Redemption",
+          Icon:"podium",
+          root:"VipRedemptionPage"
         },
         {
-          text:"home.Utilities",
-          Icon:"umbrella",
+          text:"home.Transaction",
+          Icon:"logo-usd",
+          root:"VipTransactionPage"
+        },
+        {
+          text:"home.RedemptionItemListPage",
+          Icon:"cart",
+          root:"VipRedemptionItemListPage"
+        },
+        {
+          text:"home.Ranking",
+          Icon:"ribbon",
+          root:"VipRankingPage"
+        },
+        {
+          text:"home.Suggest",
+          Icon:"mail",
           root:"SuggestListPage"
         }
         

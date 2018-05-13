@@ -17,7 +17,11 @@
         <ion-list [formGroup]="userForm">
             <ion-item>
                 <ion-icon item-start name="contact"></ion-icon>
-                <ion-input type="text" formControlName="loginName" (change)="ChangeLoginName()" placeholder="{{i18n+'.loginName'|translate}}"></ion-input>
+                <ion-input type="text" formControlName="extId" placeholder="{{i18n+'.extId'|translate}}"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-icon item-start name="contact"></ion-icon>
+                <ion-input type="text" formControlName="loginName" placeholder="{{i18n+'.loginName'|translate}}"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-icon item-start name="unlock"></ion-icon>

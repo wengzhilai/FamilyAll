@@ -8,7 +8,6 @@ import { AppGlobal } from "../../../Classes/AppGlobal";
 import { Config as Cif } from "../../../Classes/Config";
 import { TabsPage } from "../../tabs/tabs";
 import { AlertController } from 'ionic-angular';
-import { AppReturnDTO } from "../../../Model/Transport/AppReturnDTO";
 import { TranslateService } from '@ngx-translate/core'
 @IonicPage()
 @Component({
@@ -22,9 +21,8 @@ export class VipLoginPage {
   msg: String;
   userForm: FormGroup;
   timer: any;
-  validationMessages: any;
   bean: any = {
-    openid: "",
+    extId: "",
     loginName: "",
     password: ""
   }
@@ -62,24 +60,17 @@ export class VipLoginPage {
 
 
     this.userForm = this.formBuilder.group({
+      extId: [''],
       loginName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       password: ['', [Validators.required]]
     });
-    this.validationMessages = {
-      'loginName': {
-        'aliasName': ""
-      },
-      'password': {
-        'aliasName': ""
-      }
-    }
 
 
     if (Cif.debug) {
-      this.userForm.get('loginName').setValue("18180770313");
-      this.userForm.get('password').setValue("123456");
+      this.userForm.get('extId').setValue("181807");
+      this.userForm.get('loginName').setValue("38810011");
+      this.userForm.get('password').setValue("18180770313");
     }
-
 
   }
 
@@ -91,7 +82,7 @@ export class VipLoginPage {
   submit() {
 
     if (this.userForm.invalid) {
-      let formErrors = this.commonService.FormValidMsg(this.userForm, this.validationMessages);
+      let formErrors = this.commonService.FormValidMsg(this.userForm, this.i18n);
       console.log(formErrors);
       this.commonService.hint(formErrors.ErrorMessage, this.translate.instant("public.Invalid_input"))
       return;
@@ -148,16 +139,22 @@ export class VipLoginPage {
   PostGetToken(loginName, password) {
 
 
-    return this.toPostService.Post('BindCard', { cardNo: this.userForm.value.loginName, password: this.userForm.value.password, extId: 1 })
-      // return this.toPostService.Post('BindCard', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
-      .then((res: AppReturnDTO) => {
+    return this.toPostService.Post('BindCard', {
+      cardNo: this.userForm.value.loginName,
+      password: this.userForm.value.password,
+      extId: this.userForm.value.extId
+    }
+    )
+      .then((res: any) => {
         this.commonService.hideLoading();
+        console.log(res)
         if (res == null) {
           this.commonService.hint('登录错误，请联系管理员')
           return false;
         }
         if (res.IsSuccess) {
-          AppGlobal.SetToken(res.Code);
+          AppGlobal.SetToken(res.Data.CustomerID);
+          res.Data.extId = this.userForm.value.extId;
           AppGlobal.SetProperty(res.Data);
           return true;
         }
@@ -181,12 +178,6 @@ export class VipLoginPage {
     this.translate.setDefaultLang(lang);
     this.translate.use(lang).toPromise().then(() => {
       console.log(this.translate);
-      this.translate.get("login.Login_Name").toPromise().then((res: string) => {
-        this.validationMessages.loginName.aliasName = res
-      })
-      this.translate.get("login.Password").toPromise().then((res: string) => {
-        this.validationMessages.password.aliasName = res
-      })
       let config = this._config.settings();
       this.commonService.LanguageStrGet("public.Back").toPromise().then((x) => {
         config.backButtonText = x;

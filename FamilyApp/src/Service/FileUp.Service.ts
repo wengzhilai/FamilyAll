@@ -137,7 +137,7 @@ export class FileUpService {
     /**
      * 选择文件
      */
-    if (this.plt.is("android")) {
+    if (this.plt.is("android") && Config.isAllowUpfile) {
       this.nowSheet.addButton({
         text: this.commonService.LanguageStr('public.ChoseFile'),
         icon: 'document',
@@ -232,12 +232,13 @@ export class FileUpService {
         icon: 'images',
         handler: () => {
           let options = {
-            maximumImagesCount: 1,
-            imgWidth: 800,
-            imgHeight: 800,
-            quality: 50,
+            maximumImagesCount: Config.maximumImagesCount,
+            imgWidth: Config.imgWidth,
+            imgHeight: Config.imgHeight,
+            quality: Config.quality,
             title: this.commonService.LanguageStr('public.ChosePic')
           }
+
           this.imagePicker.getPictures(options).then((results) => {
             console.log("图库文件：" + JSON.stringify(results))
             if (results == "OK" || results.length == 0) {
@@ -261,6 +262,8 @@ export class FileUpService {
             console.log("图库文件出错：" + JSON.stringify(x))
             this.retunBack(this.inFile, null, null);
           });
+
+
         }
       })
     }

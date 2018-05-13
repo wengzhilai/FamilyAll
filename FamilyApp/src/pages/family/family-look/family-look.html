@@ -21,18 +21,18 @@
   <ion-list>
     <ion-item-group>
       <ion-item-divider color="light">{{i18n+'.baseInfo'|translate}}</ion-item-divider>
-      <ion-item class="thumbnailMy">
-        <ion-thumbnail item-left>
-          <up-single-pic [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
-        </ion-thumbnail>
+      <ion-item >
+        <div item-left>
+          <up-single-pic [CanEdit]="false" [PicStyle]="{W:100,H:100}" [FileDict]="bean.iconFiles"></up-single-pic>
+        </div>
         <div item-right style="width: 100%;">
           <ion-item>
             <ion-label class="MyTitle">{{i18n+'.NAME'|translate}}</ion-label>
-            <ion-note item-end>{{bean.NAME}}</ion-note>
+            <ion-note item-end>{{bean.NAME}}({{bean.ALIAS}})</ion-note>
           </ion-item>
           <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.ALIAS'|translate}}</ion-label>
-            <ion-note item-end>{{bean.ALIAS}}</ion-note>
+            <ion-label class="MyTitle">{{i18n+'.LOGIN_NAME'|translate}}</ion-label>
+            <ion-note item-end>{{bean.LOGIN_NAME}}</ion-note>
           </ion-item>
           <ion-item>
             <ion-label class="MyTitle">{{i18n+'.LEVEL_ID'|translate}}</ion-label>

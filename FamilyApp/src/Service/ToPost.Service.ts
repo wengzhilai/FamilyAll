@@ -38,7 +38,19 @@ export class ToPostService {
         console.log("返回结果：");
         let response: any = res.json();
         this.commonService.PlatformsExists("core") ? console.log(response) : console.log(JSON.stringify(response));
-        if (!response.IsSuccess || response.Status!="Success") {
+        if (response.Status!=null) {
+          if(response.Status == "Success"){
+            response.IsSuccess = true
+            if(response.Msg==null){
+              response.Msg=response.Message
+            }
+          }
+          else{
+            response.IsSuccess = false
+          }
+        }
+
+        if (!response.IsSuccess) {
           this.commonService.PlatformsExists("core") ? console.warn(response.Msg) : console.warn(JSON.stringify(response.Msg));
         }
         console.timeEnd("Post时间");
@@ -55,7 +67,7 @@ export class ToPostService {
 
         console.groupEnd();
         // this.commonService.showError(error);
-        return { IsSuccess: false, Msg: "网络错误",Status:"Fail" }
+        return { IsSuccess: false, Msg: "网络错误", Status: "Fail" }
       })
       .catch(this.handleError);
   }
@@ -113,8 +125,8 @@ export class ToPostService {
   }
 
   handleError(error: any): Promise<any> {
-    console.error('请求失败'); 
-    console.error(error); 
+    console.error('请求失败');
+    console.error(error);
     //this.commonService.showError(error)
     let errorMsg: AppReturnDTO = new AppReturnDTO();
     errorMsg.IsSuccess = false;

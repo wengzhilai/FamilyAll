@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{i18n+'.Title'|translate}}</ion-title>
+  </ion-navbar>
+  <ion-row>
+    <ion-col>
+      <ion-datetime placeholder="{{i18n+'.startDate'|translate}}" [style.max-width]="maxWidth"  [(ngModel)]="appDTO.startDate"
+        (ngModelChange)="PostData()" doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}' displayFormat="YYYY-MMM-DD"></ion-datetime>
+      <ion-icon name="ios-calendar-outline" class="ion-icon"></ion-icon>
+    </ion-col>
+    <ion-col>
+      <ion-datetime placeholder="{{i18n+'.endDate'|translate}}" [style.max-width]="maxWidth" [(ngModel)]="appDTO.endDate"
+        (ngModelChange)="PostData()" doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}' displayFormat="YYYY-MMM-DD"></ion-datetime>
+      <ion-icon name="ios-calendar-outline" class="ion-icon"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="DataList==null" style="height: 100%;width: 100%;background-color: #EFEFEF;">
+    <div style="position: absolute;top: 50%;transform: translateY(-50%); text-align: center;width: 100%;">
+      <ion-icon name="sad" style="font-size: 80px;"></ion-icon>
+      <p>无记录</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="DataList!=null">
+    <ion-list *ngIf="bean!=null">
+      <ion-list-header>
+        {{i18n+'.Transaction'|translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.RecentSpentAmount'|translate}}</ion-label>
+        <ion-note item-end>{{bean.RecentSpentAmount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.RecentMonthAmount'|translate}}</ion-label>
+        <ion-note item-end>{{bean.RecentMonthAmount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.RecentYearAmount'|translate}}</ion-label>
+        <ion-note item-end>{{bean.RecentYearAmount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.AccumulatedAmount'|translate}}</ion-label>
+        <ion-note item-end>{{bean.AccumulatedAmount}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.AccumulatedPoint'|translate}}</ion-label>
+        <ion-note item-end>{{bean.AccumulatedPoint}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.UsablePoint'|translate}}</ion-label>
+        <ion-note item-end>{{bean.UsablePoint}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.AccumulatedBonusPoint'|translate}}</ion-label>
+        <ion-note item-end>{{bean.AccumulatedBonusPoint}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.UsablePoint'|translate}}</ion-label>
+        <ion-note item-end>{{bean.UsablePoint}}</ion-note>
+      </ion-item>
+      <ion-list-header>
+        {{i18n+'.TransactionDetial'|translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.RecentSpentAmount'|translate}}</ion-label>
+        <ion-note item-end>{{bean.RecentSpentAmount}}</ion-note>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngIf="bean!=null && bean.Details!=null">
+      <ion-item  *ngFor="let login of bean.Details">
+        <h2>{{i18n+'.TransactionNo'|translate}}:{{login.TransactionNo}}</h2>
+        <p>{{i18n+'.Tenant'|translate}}:{{login.Tenant}}</p>
+        <p>{{i18n+'.TradeMix'|translate}}:{{login.TradeMix}}</p>
+        <p>{{i18n+'.TransactionTime'|translate}}:{{login.TransactionTime}}</p>
+        <p>{{i18n+'.ReceivedAmount'|translate}}:{{login.ReceivedAmount}}</p>
+        <p>{{i18n+'.TransactionAmount'|translate}}:{{login.TransactionAmount}}</p>
+        <p>{{i18n+'.Point'|translate}}:{{login.Point}}</p>
+        <p>{{i18n+'.DiscountRate'|translate}}:{{login.DiscountRate}}</p>
+        <p>{{i18n+'.DiscountAmount'|translate}}:{{login.DiscountAmount}}</p>
+        <p>{{i18n+'.BonusPoint'|translate}}:{{login.BonusPoint}}</p>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-content>

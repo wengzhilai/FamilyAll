@@ -227,8 +227,6 @@ export class UserRegPage {
 
   DoneBirthdayTime(inDate: any) {
     console.log(inDate)
-    let t = new Date(inDate)
-
     let dataStr = inDate.substr(0, 15)
     let alert = this.alertCtrl.create({
       title: '日期类型',

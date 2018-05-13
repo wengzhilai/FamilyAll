@@ -83,17 +83,13 @@ class UserInfoDal(FaUserInfo):
         '''查询一用户'''
         
         user,is_succ = Fun.model_single(FaUserInfo, key)
-        if user.ICON_FILES_ID is not None:
-            file=FaFile.query.filter_by(ID=user.ICON_FILES_ID).first()
-            if file is not None:
-                user.iconFiles=json.loads(json.dumps(file, cls=AlchemyEncoder))
-
-        # 获取用户附件
-        tmp = [x for x in user.fa_files]
-        user.filesList = json.loads(json.dumps(tmp, cls=AlchemyEncoder))
-
-        converter = LunarSolarConverter()
+        userDal=UserDal()
         
+        user, msg = userDal.user_export(user)
+
+
+        # 计算阴阳历
+        converter = LunarSolarConverter()
         if user.YEARS_TYPE=="阳历":
             if user.BIRTHDAY_TIME is not None:
                 solar = Solar(user.BIRTHDAY_TIME.year, user.BIRTHDAY_TIME.month, user.BIRTHDAY_TIME.day)
@@ -106,7 +102,6 @@ class UserInfoDal(FaUserInfo):
                 solar = Solar(user.DIED_TIME.year, user.DIED_TIME.month, user.DIED_TIME.day)
                 lunar = converter.SolarToLunar(solar)
                 user.DiedlunlarDate = "%d年%02d月%02d日%02d时" % (lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay,user.DIED_TIME.hour)
-
         else:
             if user.BIRTHDAY_TIME is not None:
                 user.BirthdaylunlarDate = user.BIRTHDAY_TIME.strftime("%Y年%m月%d日%H时")
@@ -119,6 +114,7 @@ class UserInfoDal(FaUserInfo):
                 lunar = Lunar(user.DIED_TIME.year, user.DIED_TIME.month, user.DIED_TIME.day, isleap=False)
                 solar = converter.LunarToSolar(lunar)
                 user.DiedsolarDate = "%d年%02d月%02d日%02d时" % (solar.solarYear, solar.solarMonth, solar.solarDay,user.DIED_TIME.hour)
+        
         return user,is_succ
 
     def userInfo_SingleByName(self, name):

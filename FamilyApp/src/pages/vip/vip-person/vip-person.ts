@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
-import { CommonService } from "../../../Service";
+import { CommonService,ToPostService } from "../../../Service";
 import { AppGlobal } from '../../../Classes/AppGlobal';
 
 
@@ -40,11 +40,37 @@ export class VipPersonPage {
     public navParams: NavParams,    
     private alertCtrl: AlertController,
     public commonService: CommonService,
+    public toPostService: ToPostService,
   ) {
   }
 
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad VipPersonPage');
+    console.log(this.i18n);
+    this.GetSingleEnt()
+  }
+  GetSingleEnt() {
+    this.commonService.showLoading()
+
+    this.toPostService.Post("RetrieveCustomerBasicInfo",AppGlobal.GetProperty()).then((res: any) => {
+      this.commonService.hideLoading();
+      console.log(res)
+      if (res == null) {
+        this.commonService.hint('请求错误，请联系管理员')
+        return false;
+      }
+      if (res.IsSuccess) {
+        this.bean=res.Data
+        return true;
+      }
+      else {
+        this.commonService.hint(res.Msg);
+        return false;
+      };
+    }, (err) => {
+      this.commonService.hint(err, '错误');
+      return false;
+    })
   }
   Exit() {
     let alert = this.alertCtrl.create({
@@ -62,15 +88,7 @@ export class VipPersonPage {
           text: this.commonService.LanguageStr("public.Okay"),
           handler: () => {
             AppGlobal.LoginOut()
-            this.navCtrl.setRoot("TabsPage")
-
-            // this.navCtrl.push("AuthLoginPage", {
-            //   callBack: (isScuss, loginPageNav) => {
-            //     this.navCtrl.pop()
-            //     this.model = AppGlobal.GetProperty()
-            //   }
-            // })
-            // this.app.getRootNav().setRoot("AuthLoginPage",{reload:true});
+            this.navCtrl.parent.select(1)
           }
         }
       ]
