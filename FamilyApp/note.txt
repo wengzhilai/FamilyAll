@@ -21,3 +21,19 @@ adb install  /private/var/root/Desktop/work/family/FamilyApp/platforms/android/a
 CardNo:"38810011"
 CustomerID:"3081"
 密码：18180770313
+
+
+
+
+keytool -genkey -v -keystore wjbjp-wjb-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias wjbjp-wjb-alias
+
+ionic cordova build android --prod --release
+ionic cordova build android --release
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore wjbjp-wjb-key.jks /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk wjbjp-wjb-alias
+
+密码：123456
+
+zipalign -vf 4 /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.0.apk
+
+adb install  /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/BSPLS.2.0.0.apk

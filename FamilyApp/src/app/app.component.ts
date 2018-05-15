@@ -80,10 +80,9 @@ export class MyApp {
       //this.LoadEnum();
       this.registerBackButtonAction();//注册返回按键事件
 
-      // this.AutoSetup();
+      this.AutoSetup();
       //开始加载后台消息推送进程
       // this.BackgroundFetch();
-
     });
 
   }
@@ -262,7 +261,7 @@ export class MyApp {
         //获取服务器上版本
         var postBean: PostBaseModel = new PostBaseModel();
         postBean.Key = nowversionNum;
-        this.toPostService.Post("Common/CheckUpdate", postBean).then((ent: AppReturnDTO) => {
+        this.toPostService.Post("Public/CheckUpdate", postBean).then((ent: AppReturnDTO) => {
           if (!ent.IsSuccess) {
             this.commonService.hint(ent.Msg, '获取版本错误');
           }

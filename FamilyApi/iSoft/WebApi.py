@@ -94,8 +94,26 @@ def lookfile(fileId):
     if not os.path.exists("{0}{1}".format(dirpath, file.URL)):
         return send_from_directory(dirpath, "uploads/ian-avatar.png", as_attachment=True)
     return send_from_directory(dirpath, file.URL, as_attachment=True)
-    
 
+@app.route("/Api/Public/CheckUpdate",methods=['GET', 'POST'])
+def CheckUpdate():
+    '获取最新版本'
+    j_data, msg = Fun.post_to_dict(request)
+    if j_data is None:
+        return Fun.class_to_JsonStr(msg)
+    postEnt = RequestSaveModel(j_data)
+    
+    dirpath = os.path.join(app.root_path, '../static/')
+    #设置以utf-8解码模式读取文件，encoding参数必须设置，否则默认以gbk模式读取文件，当文件中包含中文时，会报错
+    f = open("{0}update/wjbjp/wjbjp.json".format(dirpath), encoding='utf-8')  
+    setting = json.load(f)
+    reJson=None
+    for item in setting:
+        if item["CODE"]>postEnt.Key:
+            reJson=item
+            print(item["CODE"])
+            break
+    return Fun.class_to_JsonStr(AppReturnDTO(True,"",reJson))
 
 @app.route('/Api/Public/upload', methods=['POST', 'GET'])
 def ApiPublicUpload():

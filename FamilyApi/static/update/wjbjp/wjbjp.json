@@ -1,0 +1,11 @@
+[
+    {
+      "ID": 1,
+      "CODE": 10000,
+      "NAME": "测试版本发布",
+      "REMARK": "添加自动更新功能",
+      "TYPE": "BSPLS",
+      "UPDATE_TIME": "2017-11-13",
+      "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.0.apk"
+    }
+]
