@@ -20,26 +20,6 @@
     </ion-list>
     <ion-list>
       <ion-list-header>
-        {{i18n+'.setting'|translate}}
-      </ion-list-header>
-      <ion-item>
-        <ion-label class="MyTitle"> {{"auth-login.Change_Lang"|translate}} </ion-label>
-        <ion-select placeholder="{{'auth-login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
-          (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
-          <ion-option *ngFor="let lang of fig.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.api'|translate}}</ion-label>
-        <ion-note item-end>{{fig.api}}</ion-note>
-      </ion-item>
-      <ion-item>
-          <ion-label class="MyTitle">{{i18n+'.imgUrl'|translate}}</ion-label>
-          <ion-note item-end>{{fig.imgUrl}}</ion-note>
-        </ion-item>
-    </ion-list>
-    <ion-list>
-      <ion-list-header>
         {{i18n+'.BaseUserInfo'|translate}}
       </ion-list-header>
       <ion-item>
@@ -65,6 +45,27 @@
       <ion-item>
         <ion-label class="MyTitle">{{i18n+'.REMARK'|translate}}</ion-label>
         <ion-note item-end>{{bean.REMARK}}</ion-note>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        {{i18n+'.setting'|translate}}
+      </ion-list-header>
+      <ion-item>
+        <ion-label class="MyTitle"> {{"auth-login.Change_Lang"|translate}} </ion-label>
+        <ion-select placeholder="{{'auth-login.Change_Lang'|translate}}" [ngModelOptions]="{standalone: true}" [(ngModel)]="langSelect"
+          (ngModelChange)="changeLang(langSelect)" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+          <ion-option *ngFor="let lang of fig.LanguageArray" value="{{lang.Key}}" [selected]="lang.Key === translate.currentLang">{{lang.Value}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <button  *ngIf="plt.is('android')" ion-item (click)="CheckNew()">{{"public.CheckNew"|translate}}</button>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.api'|translate}}</ion-label>
+        <ion-note item-end>{{fig.api}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.imgUrl'|translate}}</ion-label>
+        <ion-note item-end>{{fig.imgUrl}}</ion-note>
       </ion-item>
     </ion-list>
     <button ion-button block (click)="Exit()">{{i18n+'.ExitLogin'|translate}}</button>

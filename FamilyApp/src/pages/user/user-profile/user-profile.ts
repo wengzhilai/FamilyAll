@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController,Platform } from 'ionic-angular';
 import { AppGlobal } from "../../../Classes/AppGlobal";
 import { CommonService, ToPostService } from "../../../Service";
 import { TranslateService } from '@ngx-translate/core'
 import { Config } from "../../../Classes/Config";
+import { MyApp } from "../../../app/app.component";
 
 @IonicPage()
 @Component({
@@ -19,10 +20,12 @@ export class UserProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public commonService: CommonService,
-
+    public plt: Platform,
     private translate: TranslateService,
     private alertCtrl: AlertController,
-    public toPostService: ToPostService
+    public toPostService: ToPostService,
+    private myApp: MyApp,
+
 
   ) {
 
@@ -100,5 +103,11 @@ export class UserProfilePage {
   }
   edit() {
     this.navCtrl.push("FamilyEditPage", { "userId": this.property.ID, "optype": "edit" })
+  }
+  CheckNew() {
+    console.log("开始检测新版本")
+    this.myApp.AutoSetup((Msg) => {
+      this.commonService.hint(Msg);
+    });
   }
 }

@@ -7,5 +7,14 @@
       "TYPE": "BSPLS",
       "UPDATE_TIME": "2017-11-13",
       "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.0.apk"
+    },
+    {
+      "ID": 2,
+      "CODE": 10001,
+      "NAME": "测试版本发布",
+      "REMARK": "测试更新",
+      "TYPE": "BSPLS",
+      "UPDATE_TIME": "2017-11-13",
+      "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.0.apk"
     }
 ]
