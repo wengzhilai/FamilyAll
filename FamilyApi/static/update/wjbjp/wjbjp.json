@@ -2,28 +2,11 @@
     {
       "ID": 1,
       "CODE": 10000,
-      "NAME": "测试版本发布",
+      "NAME": "正式版本发布",
       "REMARK": "添加自动更新功能",
-      "TYPE": "BSPLS",
-      "UPDATE_TIME": "2017-11-13",
-      "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.0.apk"
-    },
-    {
-      "ID": 2,
-      "CODE": 10001,
-      "NAME": "测试版本发布",
-      "REMARK": "测试更新",
-      "TYPE": "BSPLS",
-      "UPDATE_TIME": "2017-11-13",
-      "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.1.apk"
-    },
-    {
-      "ID": 3,
-      "CODE": 10002,
-      "NAME": "测试版本发布",
-      "REMARK": "修改图标",
-      "TYPE": "BSPLS",
+      "TYPE": "wjbjp",
       "UPDATE_TIME": "2018-05-16",
-      "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.2.apk"
+      "UPDATE_URL": "http://www.wjbjp.cn/download/update/wjbjp/wjbjp.1.0.0.apk"
     }
+
 ]
