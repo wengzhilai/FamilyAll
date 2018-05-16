@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class Config {
   constructor() {}
   
-  static debug:boolean = true;
+  static debug:boolean = false;
   static pageSize:number = 10;
 
   // static api:string = 'http://192.168.5.15:5000/Api/';

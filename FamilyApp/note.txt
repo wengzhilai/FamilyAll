@@ -35,6 +35,6 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore wjbjp-wjb-key.j
 
 密码：123456
 
-zipalign -vf 4 /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.1.apk
+zipalign -vf 4 /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.2.apk
 
 adb install /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.0.apk
