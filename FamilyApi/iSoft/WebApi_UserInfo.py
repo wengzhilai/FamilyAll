@@ -79,9 +79,9 @@ def ApiUserInfoSave():
             if "CREATE_USER_ID" not in in_ent.SaveKeys:
                 in_ent.SaveKeys.append('CREATE_USER_ID') 
     # 设置角色
-    in_dict["roleIdList"]="3"
-    if "roleIdList" not in saveKeys:
-        saveKeys.append('roleIdList')   
+    in_ent.Data["roleIdList"]="3"
+    if "roleIdList" not in in_ent.SaveKeys:
+        in_ent.SaveKeys.append('roleIdList')   
     re_ent, message = _modele.userInfo_Save(
         in_dict=in_ent.Data, saveKeys=in_ent.SaveKeys)
     if message.IsSuccess:

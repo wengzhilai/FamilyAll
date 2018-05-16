@@ -13,11 +13,11 @@ export class Config {
   // static api:string = 'http://192.168.5.15:5000/Api/';
   // static imgUrl:string = 'http://192.168.5.15:5000/download/';
 
-  // static api:string = 'http://192.168.0.200:5000/Api/';
-  // static imgUrl:string = 'http://192.168.0.200:5000/download/';
+  static api:string = 'http://192.168.0.200:5000/Api/';
+  static imgUrl:string = 'http://192.168.0.200:5000/download/';
   static userType="user"
-  static api:string = 'http://www.wjbjp.cn/Api/';
-  static imgUrl:string = 'http://www.wjbjp.cn/download/';
+  // static api:string = 'http://www.wjbjp.cn/Api/';
+  // static imgUrl:string = 'http://www.wjbjp.cn/download/';
 
 
 
