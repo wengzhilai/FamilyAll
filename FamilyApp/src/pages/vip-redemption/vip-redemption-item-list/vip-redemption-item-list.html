@@ -21,12 +21,34 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor="let item of DataList" (click)="OnclickItem(item)">
-          <h2>{{item.Item}}</h2>
-          <p>{{i18n+'.Date'|translate}}:{{item.BeginDate}}~{{item.EndDate}}</p>
-          <p>{{i18n+'.ManagePerson'|translate}}:{{item.QuantityLimit}}/AvailableQuantity</p>
-          <p>{{i18n+'.Price'|translate}}:{{item.Price}}</p>
-          <p>{{i18n+'.Point'|translate}}:{{item.Point}}</p>
-          <p>{{i18n+'.Remark'|translate}}:{{item.Remark}}</p>
+            <ion-row>
+                <ion-col>
+                  <h2>{{item.Item}}
+                    <a *ngIf="item.Quantity">({{item.Quantity}})</a>
+                  </h2>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  {{i18n+'.Date'|translate}}:{{item.BeginDate}}-{{item.EndDate}}
+                </ion-col>
+                <ion-col>
+                  {{i18n+'.Point'|translate}}:{{item.Point|number}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  {{i18n+'.AvailableQuantity'|translate}}:{{item.AvailableQuantity|number}}
+                </ion-col>
+                <ion-col>
+                  {{i18n+'.QuantityLimit'|translate}}:{{item.QuantityLimit}}
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="item.Remark">
+                  <ion-col>
+                    {{i18n+'.Remark'|translate}}:{{item.Remark}}
+                  </ion-col>
+              </ion-row>
         </ion-item>
       </ion-list>
       <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">

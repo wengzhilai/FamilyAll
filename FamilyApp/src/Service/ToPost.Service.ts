@@ -41,12 +41,12 @@ export class ToPostService {
         if (response.Status!=null) {
           if(response.Status == "Success"){
             response.IsSuccess = true
-            if(response.Msg==null){
-              response.Msg=response.Message
-            }
           }
           else{
             response.IsSuccess = false
+          }
+          if(response.Msg==null){
+            response.Msg=response.Message
           }
         }
 

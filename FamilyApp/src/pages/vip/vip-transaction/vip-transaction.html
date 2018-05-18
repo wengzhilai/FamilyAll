@@ -4,13 +4,13 @@
   </ion-navbar>
   <ion-row>
     <ion-col>
-      <ion-datetime placeholder="{{i18n+'.startDate'|translate}}" [style.max-width]="maxWidth"  [(ngModel)]="appDTO.startDate"
-        (ngModelChange)="PostData()" doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}' displayFormat="YYYY-MMM-DD"></ion-datetime>
+      <ion-datetime placeholder="{{i18n+'.startDate'|translate}}" [style.max-width]="maxWidth" [(ngModel)]="appDTO.startDate" (ngModelChange)="PostData()"
+        doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}' displayFormat="YYYY-MMM-DD"></ion-datetime>
       <ion-icon name="ios-calendar-outline" class="ion-icon"></ion-icon>
     </ion-col>
     <ion-col>
-      <ion-datetime placeholder="{{i18n+'.endDate'|translate}}" [style.max-width]="maxWidth" [(ngModel)]="appDTO.endDate"
-        (ngModelChange)="PostData()" doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}' displayFormat="YYYY-MMM-DD"></ion-datetime>
+      <ion-datetime placeholder="{{i18n+'.endDate'|translate}}" [style.max-width]="maxWidth" [(ngModel)]="appDTO.endDate" (ngModelChange)="PostData()"
+        doneText='{{"public.Done"|translate}}' cancelText='{{"public.Cancel"|translate}}' displayFormat="YYYY-MMM-DD"></ion-datetime>
       <ion-icon name="ios-calendar-outline" class="ion-icon"></ion-icon>
     </ion-col>
   </ion-row>
@@ -27,7 +27,7 @@
 
   <ng-container *ngIf="DataList!=null">
     <ion-list *ngIf="bean!=null">
-      <ion-list-header>
+      <ion-list-header class="Title">
         {{i18n+'.Transaction'|translate}}
       </ion-list-header>
       <ion-item>
@@ -62,26 +62,54 @@
         <ion-label class="MyTitle">{{i18n+'.UsablePoint'|translate}}</ion-label>
         <ion-note item-end>{{bean.UsablePoint}}</ion-note>
       </ion-item>
-      <ion-list-header>
-        {{i18n+'.TransactionDetial'|translate}}
-      </ion-list-header>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.RecentSpentAmount'|translate}}</ion-label>
-        <ion-note item-end>{{bean.RecentSpentAmount}}</ion-note>
-      </ion-item>
     </ion-list>
-    <ion-list *ngIf="bean!=null && bean.Details!=null">
-      <ion-item  *ngFor="let login of bean.Details">
-        <h2>{{i18n+'.TransactionNo'|translate}}:{{login.TransactionNo}}</h2>
-        <p>{{i18n+'.Tenant'|translate}}:{{login.Tenant}}</p>
-        <p>{{i18n+'.TradeMix'|translate}}:{{login.TradeMix}}</p>
-        <p>{{i18n+'.TransactionTime'|translate}}:{{login.TransactionTime}}</p>
-        <p>{{i18n+'.ReceivedAmount'|translate}}:{{login.ReceivedAmount}}</p>
-        <p>{{i18n+'.TransactionAmount'|translate}}:{{login.TransactionAmount}}</p>
-        <p>{{i18n+'.Point'|translate}}:{{login.Point}}</p>
-        <p>{{i18n+'.DiscountRate'|translate}}:{{login.DiscountRate}}</p>
-        <p>{{i18n+'.DiscountAmount'|translate}}:{{login.DiscountAmount}}</p>
-        <p>{{i18n+'.BonusPoint'|translate}}:{{login.BonusPoint}}</p>
+    <ion-list *ngIf="bean!=null && DataList!=null">
+      <ion-list-header class="Title">
+        <h2>{{i18n+'.TransactionDetial'|translate}}</h2>
+      </ion-list-header>
+      <ion-item *ngFor="let login of DataList">
+        <ion-row>
+          <ion-col>
+            <h2>{{i18n+'.TransactionNo'|translate}}:{{login.TransactionNo}}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{i18n+'.Tenant'|translate}}:{{login.Tenant}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{i18n+'.TransactionTime'|translate}}:{{login.TransactionTime}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{i18n+'.ReceivedAmount'|translate}}:{{login.ReceivedAmount}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{i18n+'.TransactionAmount'|translate}}:{{login.TransactionAmount}}
+          </ion-col>
+          <ion-col>
+            {{i18n+'.Point'|translate}}:{{login.Point}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{i18n+'.DiscountRate'|translate}}:{{login.DiscountRate}}
+          </ion-col>
+          <ion-col>
+            {{i18n+'.DiscountAmount'|translate}}:{{login.DiscountAmount}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            {{i18n+'.BonusPoint'|translate}}:{{login.BonusPoint}}
+          </ion-col>
+
+        </ion-row>
       </ion-item>
     </ion-list>
   </ng-container>

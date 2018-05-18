@@ -82,13 +82,17 @@ export class VipRedemptionItemListPage {
   }
   OnclickItem(item) {
     let profileModal = this.modalCtrl.create("VipRedeemRequestPage", {
-      callBack: (quantity, date) => {
+      callBack: (quantity = null, date = null) => {
         profileModal.dismiss()
-        this.RedeemRequest(item, quantity, date).then((isSucc) => {
-          if (isSucc) {
-            this.PostData()
-          }
-        })
+        if (quantity != null && date != null) {
+          this.RedeemRequest(item, quantity, date).then((isSucc) => {
+            if (isSucc) {
+              this.commonService.hint("兑换成功")
+              this.PostData()
+            }
+          })
+        }
+
       }
     });
     profileModal.present();
@@ -101,11 +105,11 @@ export class VipRedemptionItemListPage {
    */
   RedeemRequest(item, quantity, date) {
     let postModel = AppGlobal.GetProperty();
-    postModel.itemId = item.itemId
+    postModel.itemId = item.ItemId
     postModel.quantity = quantity
     postModel.date = date
     this.commonService.showLoading();
-    return this.toPostService.Post("RetrieveRedemptionItemList", postModel).then((currMsg) => {
+    return this.toPostService.Post("RedeemRequest", postModel).then((currMsg) => {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);

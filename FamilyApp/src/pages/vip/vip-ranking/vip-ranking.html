@@ -33,13 +33,12 @@
       </ion-refresher>
       <ion-list>
         <ion-item *ngFor="let login of DataList">
-          <h2>{{i18n+'.Date'|translate}}:{{login.Date}}</h2>
+          <h2>{{i18n+'.Name'|translate}}:{{login.Name}}</h2>
+          <p>{{i18n+'.CardNo'|translate}}:{{login.CardNo}}</p>
+          <p>{{i18n+'.Ranking'|translate}}:{{login.Ranking}}</p>
           <p>{{i18n+'.ActualAmount'|translate}}:{{login.ActualAmount}}</p>
         </ion-item>
       </ion-list>
-      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+
     </ng-container>
   </ion-content>

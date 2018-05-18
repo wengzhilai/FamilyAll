@@ -13,14 +13,14 @@ export class VipTransactionPage {
   bean: any = {}
   appDTO: any = {}
   maxWidth = "100px"
-
+  DataList
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public commonService: CommonService,
     public toPostService: ToPostService
   ) {
-    this.appDTO.startDate = this.commonService.DateFormat(new Date(new Date().getFullYear()-1,new Date().getMonth(),new Date().getDate()),"yyyy-MM-dd")
+    this.appDTO.startDate = this.commonService.DateFormat(new Date(new Date().getFullYear() - 1, new Date().getMonth(), new Date().getDate()), "yyyy-MM-dd")
     this.appDTO.endDate = this.commonService.DateFormat(new Date(), "yyyy-MM-dd");
     this.maxWidth = ((screen.width / 2) - 8) + "px";
   }
@@ -47,9 +47,8 @@ export class VipTransactionPage {
         this.commonService.hint(currMsg.Msg);
       }
       else if (isPage == null) {
-        if (currMsg.Data.length > 0) {
-          this.bean = currMsg.Data;
-        }
+        this.bean = currMsg.Data;
+        this.DataList = this.bean.Details
       }
       return currMsg.Data
     })
