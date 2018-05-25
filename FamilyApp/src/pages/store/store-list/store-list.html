@@ -1,25 +1,19 @@
-
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>商户列表</ion-title>
+    <ion-title>{{i18n+".Title"|translate}}</ion-title>
   </ion-navbar>
   <ion-searchbar debounce=3000 placeholder='{{"public.Search"|translate}}'>
   </ion-searchbar>
   <ion-row>
     <ion-col>
-      <ion-select [style.max-width]="maxWidth" placeholder='全部楼层' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
-        <ion-option *ngFor="let item of AllBuilding" value="{{item.ID}}">{{item.NAME}}</ion-option>
+      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".TradeMix"|translate}}' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Business'" value="{{item.Value}}">{{item.CH}}</ion-option>
       </ion-select>
     </ion-col>
     <ion-col>
-      <ion-select [style.max-width]="maxWidth" placeholder='全部商户' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
-        <ion-option *ngFor="let item of AllFloor" value="{{item.ID}}">{{item.NAME}}</ion-option>
-      </ion-select>
-    </ion-col>
-    <ion-col>
-      <ion-select [style.max-width]="maxWidth" placeholder='默认排序' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
-        <ion-option *ngFor="let item of AllStatus" value="{{item.ID}}">{{item.NAME}}</ion-option>
+      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".recordStatus"|translate}}' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllStatus" value="{{item.ID}}">{{item.CH}}</ion-option>
       </ion-select>
     </ion-col>
   </ion-row>
@@ -32,33 +26,21 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-item class="thumbnailMy">
+    <ion-card *ngFor="let item of DataList">
+    <ion-item class="thumbnailMy" (click)="OnClickItem(item)">
       <ion-thumbnail item-left>
-        <img src="./assets/images/store01.png" />
+        <!-- <img src="./assets/images/store01.png" /> -->
+        <img src="{{item.Img|ImgUrl}}" />
       </ion-thumbnail>
-      <div item-right style="width: 100%;">
-          <ion-label class="MyTitle">星巴克（F1-1123）</ion-label>
-          <ion-label class="MyTitle">家居生活</ion-label>
+      <div item-right style="width: 100%;text-align: left">
+        <ion-label class="MyTitle"><h2 style="font-weight: bold">{{item.Name}}</h2></ion-label>
+        <ion-label class="MyTitle">
+          <ion-badge class="badge-ios todataType1">{{item.TradeMix}}</ion-badge>
+          <span style="margin-left: 10px">{{item.ProspectNo}}</span>
+        </ion-label>
       </div>
     </ion-item>
-    <ion-item class="thumbnailMy">
-      <ion-thumbnail item-left>
-        <img src="./assets/images/store01.png" />
-      </ion-thumbnail>
-      <div item-right style="width: 100%;">
-          <ion-label class="MyTitle">星巴克（F1-1123）</ion-label>
-          <ion-label class="MyTitle">家居生活</ion-label>
-      </div>
-    </ion-item>
-    <ion-item class="thumbnailMy">
-      <ion-thumbnail item-left>
-        <img src="./assets/images/store01.png" />
-      </ion-thumbnail>
-      <div item-right style="width: 100%;">
-          <ion-label class="MyTitle">星巴克（F1-1123）</ion-label>
-          <ion-label class="MyTitle">家居生活</ion-label>
-      </div>
-    </ion-item>
+  </ion-card>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>

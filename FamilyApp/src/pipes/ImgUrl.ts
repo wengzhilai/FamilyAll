@@ -13,6 +13,9 @@ export class ImgUrlPipe implements PipeTransform {
         str = Config.api + url.replace("~", "").replace("/YL", "");
       }
     }
+    else if(url == null || url == '' || url == undefined){
+      str="./assets/images/noPic.jpg"
+    }
     console.log("图片地址:" + str)
     return str;
   }

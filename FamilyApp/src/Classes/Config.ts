@@ -22,7 +22,7 @@ export class Config {
 
 
   static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
-  static imgUrl:string = 'http://47.254.16.126:8080/';
+  static imgUrl:string = 'http://192.168.0.88:82/Attachment/Image/';
   static userType="vip"
 
 
@@ -157,7 +157,7 @@ export class Config {
       // root:"FamilyRelativePage",
       children:[
         {
-          text:"home.Store",
+          text:"home.active",
           Icon:"archive",
           root:"ActiveListPage"
         },

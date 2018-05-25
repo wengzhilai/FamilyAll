@@ -77,12 +77,14 @@ export class MyApp {
       //启动后关闭splashscreen页面（不用设置）
       // (<any>window).navigator.splashscreen.hide();
       splashScreen.hide();
-      //this.LoadEnum();
       this.registerBackButtonAction();//注册返回按键事件
 
       this.AutoSetup();
       //开始加载后台消息推送进程
       // this.BackgroundFetch();
+
+      this.LoadEnum();
+      
     });
 
   }
@@ -92,11 +94,11 @@ export class MyApp {
    * 加载上枚举
    */
   LoadEnum() {
-    this.toPostService.Post("Fun/GetAllEnum", null).then((currMsg: AppReturnDTO) => {
+    this.toPostService.Post("GetAllEnum", null).then((currMsg: AppReturnDTO) => {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {
-        AppGlobal.enumModelArr = currMsg.Data as Array<EnumModel>;
+        AppGlobal.CooksSet("enumModelArr",JSON.stringify(currMsg.Data));
         console.log(AppGlobal.enumModelArr);
       }
     })

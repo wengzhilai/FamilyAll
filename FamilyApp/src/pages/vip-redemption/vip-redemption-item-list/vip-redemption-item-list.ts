@@ -80,6 +80,7 @@ export class VipRedemptionItemListPage {
 
     })
   }
+  
   OnclickItem(item) {
     let profileModal = this.modalCtrl.create("VipRedeemRequestPage", {
       callBack: (quantity = null, date = null) => {

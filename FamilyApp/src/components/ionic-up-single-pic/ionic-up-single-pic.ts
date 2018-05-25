@@ -17,9 +17,11 @@ export class IonicUpSinglePicComponent implements OnInit {
    */
   @Input()
   CanEdit: boolean = true
+  @Input()
+  Url = null
 
   @Input()
-  PicStyle = {W:80,H:80}
+  PicStyle = { W: 80, H: 80 }
 
   /**
    * 输入的文件对象
@@ -43,10 +45,17 @@ export class IonicUpSinglePicComponent implements OnInit {
     console.log("获取:")
     console.log("CanEdit:" + this.CanEdit)
     console.log("FileDict:" + this.FileDict)
+
+    if (this.FileDict == null || this.FileDict == undefined) this.FileDict = {}
+    if (this.PicStyle == null || this.PicStyle == undefined) this.PicStyle = { W: 80, H: 80 }
+    if (this.Url != null) {
+      this.FileDict = {
+        "URL": this.Url,
+        "NAME": this.Url
+      }
+    }
     console.log(this.FileDict)
     console.log(this.PicStyle)
-    if (this.FileDict == null) this.FileDict = {}
-    if (this.PicStyle == null) this.PicStyle = {W:80,H:80}
   }
 
   /**
@@ -56,6 +65,7 @@ export class IonicUpSinglePicComponent implements OnInit {
    * @memberof IncidentsAddPage
    */
   upImg(key: FileModel) {
+    key=this.FileDict;
     this.commonService.PlatformsExists("core") ? console.log(key) : console.log(JSON.stringify(key));
     if (!this.CanEdit) {
       this.showFile(key)

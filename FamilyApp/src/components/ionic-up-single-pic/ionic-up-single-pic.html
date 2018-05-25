@@ -1,14 +1,7 @@
 <!-- Generated template for the IonicUpFileComponent component -->
-<ng-container>
-        <img *ngIf="IsImage(FileDict.NAME)" width="{{PicStyle.W}}" height="{{PicStyle.H}}" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" src="{{FileDict.URL|ImgUrl}}" (click)="upImg(FileDict)"
-        />
-        <ng-container *ngIf="!IsImage(FileDict.NAME)">
-            <ion-icon name="camera" (click)="upImg(FileDict)" *ngIf="FileDict.URL==null || FileDict.URL==''"></ion-icon>
-            <ng-container *ngIf="FileDict.URL!=null && FileDict.URL!=''">
-                <img src="assets/images/{{GetFileMiMe(FileDict.NAME).Type}}.png" width="80" height="80" (click)="upImg(FileDict)"
-                />
-            </ng-container>
-        </ng-container>
+<ng-container *ngIf="FileDict!=null && FileDict.NAME">
+        <img *ngIf="IsImage(FileDict.NAME)" width="{{PicStyle.W}}" height="{{PicStyle.H}}" alt="{{FileDict.NAME}}" title="{{FileDict.NAME}}" src="{{FileDict.URL|ImgUrl}}" (click)="upImg(FileDict)"/>
+
 </ng-container>
 <!-- <ng-container *ngIf="!isApp">
     <ion-item>

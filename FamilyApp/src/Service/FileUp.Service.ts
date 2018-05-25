@@ -381,6 +381,7 @@ export class FileUpService {
     if (fileName == null || fileName == undefined) {
       return
     }
+    console.log(DownfileUrl)
     DownfileUrl = this.commonService.FormartUrl(DownfileUrl);
     console.log('打开文件：' + DownfileUrl)
     console.log('fileName：' + fileName)

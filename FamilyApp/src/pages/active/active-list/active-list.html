@@ -12,36 +12,16 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  <ion-item>
-    <img src="./assets/images/store01.png" />
-    <p>星巴克免费无限续杯</p>
-    <div>2018.03.13-2019.03.13</div>
-  </ion-item>
-  <ion-item>
-    <img src="./assets/images/store01.png" />
-    <p>星巴克免费无限续杯</p>
-    <div>2018.03.13-2019.03.13</div>
-  </ion-item>
-  <ion-item>
-    <img src="./assets/images/store01.png" />
-    <p>星巴克免费无限续杯</p>
-    <div>2018.03.13-2019.03.13</div>
-  </ion-item>
-  <ion-item>
-    <img src="./assets/images/store01.png" />
-    <p>星巴克免费无限续杯</p>
-    <div>2018.03.13-2019.03.13</div>
-  </ion-item>
-  <ion-item>
-    <img src="./assets/images/store01.png" />
-    <p>星巴克免费无限续杯</p>
-    <div>2018.03.13-2019.03.13</div>
-  </ion-item>
-  <ion-item>
-    <img src="./assets/images/store01.png" />
-    <p>星巴克免费无限续杯</p>
-    <div>2018.03.13-2019.03.13</div>
+  <ion-item *ngFor="let item of DataList">
+    <div style="text-align: center">
+        <img src="{{item.Img|ImgUrl}}" />
+    </div>
+    <ion-row>
+      <ion-col><h2>{{item.Title}}</h2></ion-col>
+      <ion-col style="text-align: right"><p>{{item.CampaignType}}</p></ion-col>
+    </ion-row>
+    <p>{{item.Content}}</p>
+    <div>{{item.StartDate|DataStrToString:"yyyy-MM-dd" }}~{{item.ExpiryDate|DataStrToString:"yyyy-MM-dd"}}</div>
   </ion-item>
 </ion-content>

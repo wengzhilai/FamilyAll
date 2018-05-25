@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonService, ToPostService } from "../../../Service";
+import { AppGlobal } from '../../../Classes/AppGlobal';
 
-/**
- * Generated class for the StoreListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -14,35 +10,90 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'store-list.html',
 })
 export class StoreListPage {
+  i18n = "store-list"
   maxWidth="100px"
   AllBuilding=[]
   AllFloor=[]
   AllStatus=[]
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.AllBuilding.push({ID:0,NAME:"一楼"})
-    this.AllFloor.push({ID:0,NAME:"星巴克"})
-    this.AllStatus.push({ID:0,NAME:"按人气排序"})
+  DataList=[]
+  postModel:any={}
+  AllEnum=[]
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public commonService: CommonService,
+    public toPostService: ToPostService,
+  ) {
+ 
+    this.postModel=AppGlobal.GetProperty();
+    this.postModel.PageIndex = 1;
+    this.postModel.PageSize = 10;
+    // this.AllEnum=JSON.parse(AppGlobal.CooksGet("enumModelArr"))
+    
+    console.log(AppGlobal.enumModelArr)
   }
 
   ionViewDidLoad() {
     this.maxWidth = ((screen.width / 4) - 8) + "px";
-    console.log('ionViewDidLoad StoreListPage');
+    console.log(this.i18n);
+    this.PostData()
   }
 
+  PostData(isPage = null) {
+    if (!AppGlobal.IsLogin) {
+      this.commonService.hint("请先登录")
+      return new Promise((resolve) => {
+        resolve(null);
+      });
+    }
+    this.commonService.showLoading();
+    return this.toPostService.Post("MerchantItemList", this.postModel).then((currMsg) => {
+      this.commonService.hideLoading();
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg);
+      }
+      else if (isPage == null) {
+        if (currMsg.Data.length > 0) {
+          this.DataList = currMsg.Data;
+        }
+      }
+      return currMsg.Data
+    })
+  }
+
+
+  moreinfiniteScroll: any
   doRefresh(refresher) {
     if (this.moreinfiniteScroll != null) this.moreinfiniteScroll.enable(true);
     console.log('Begin async operation', refresher);
-    refresher.complete();
-
+    this.postModel.PageIndex = 1;
+    this.PostData().then((currData) => {
+      refresher.complete();
+    })
   }
-  moreinfiniteScroll: any
+
   doInfinite(infiniteScroll): Promise<any> {
     this.moreinfiniteScroll = infiniteScroll;
     console.log('Begin async operation');
     return new Promise((resolve) => {
-      infiniteScroll.enable(true);
-      resolve();
+      this.postModel.PageIndex += 1;
+      this.PostData(1).then((currData) => {
+        if (currData != null) {
+          this.DataList = this.DataList.concat(currData)
+          if (currData == null || currData.length == 0) {
+            this.postModel.PageIndex -= 1;
+            infiniteScroll.enable(false);
+          }
+          else {
+            infiniteScroll.enable(true);
+          }
+        }
+        resolve();
+      })
+
     })
+  }
+  OnClickItem(item){
+    this.navCtrl.push("StoreLookPage",{item:item})
   }
 }
