@@ -20,3 +20,4 @@ ionic cordova plugin add com-darryncampbell-cordova-plugin-intent
 
 ionic cordova plugin add cordova-plugin-telerik-imagepicker --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="选择用户头像"
 
+

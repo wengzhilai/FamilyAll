@@ -1,4 +1,5 @@
 import { EnumModel } from "../Model/Transport/EnumModel";
+import { Language } from "../Classes/Language";
 import { PostBaseModel } from "../Model/Transport/PostBaseModel";
 import { NgXCookies } from '../Classes/ngx-cookies';
 
@@ -9,11 +10,12 @@ export class AppGlobal {
   /**
    * 系统用到的所有枚举
    * 
-   * @static
-   * @type {Array<EnumModel>}
-   * @memberof AppGlobal
-   */
+    */
   public static enumModelArr: Array<EnumModel> = new Array<EnumModel>();
+  /**
+   * 获取系统的多语言
+   */
+  public static LanguageModelArr: Array<Language> = new Array<Language>();
 
   constructor() {
     console.log("init AppGlobal")

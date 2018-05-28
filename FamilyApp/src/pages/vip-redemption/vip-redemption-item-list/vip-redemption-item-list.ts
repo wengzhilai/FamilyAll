@@ -28,7 +28,7 @@ export class VipRedemptionItemListPage {
 
   PostData(isPage = null) {
     if (!AppGlobal.IsLogin) {
-      this.commonService.hint("请先登录")
+      // this.commonService.hint("请先登录")
       return new Promise((resolve) => {
         resolve(null);
       });
@@ -113,7 +113,8 @@ export class VipRedemptionItemListPage {
     return this.toPostService.Post("RedeemRequest", postModel).then((currMsg) => {
       this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
-        this.commonService.hint(currMsg.Msg);
+        console.log(111)
+        this.commonService.hint(this.commonService.GetMessage(currMsg.Msg));
         return false
       }
       return true

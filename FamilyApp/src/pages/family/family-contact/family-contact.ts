@@ -29,7 +29,7 @@ export class FamilyContactPage {
 
   PostData(isPage = null) {
     if (!AppGlobal.IsLogin) {
-      this.commonService.hint("请先登录")
+      // this.commonService.hint("请先登录")
       return new Promise((resolve) => {
         resolve(null);
       });

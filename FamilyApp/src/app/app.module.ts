@@ -49,6 +49,11 @@ if (AppGlobal.CooksGet('configDemo')) {
   CONFIG_DEMO = JSON.parse(AppGlobal.CooksGet('configDemo'));
   console.log(CONFIG_DEMO)
 }
+if (AppGlobal.CooksGet('Language')) {
+  console.log("请取语言")
+  Config.Language = AppGlobal.CooksGet('Language');
+}
+
 
 @NgModule({
   declarations: [

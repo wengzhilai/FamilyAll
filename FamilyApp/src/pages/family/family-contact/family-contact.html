@@ -17,7 +17,7 @@
   <div *ngIf="DataList==null" style="height: 100%;width: 100%;background-color: #EFEFEF;">
     <div style="position: absolute;top: 50%;transform: translateY(-50%); text-align: center;width: 100%;">
       <ion-icon name="sad" style="font-size: 80px;"></ion-icon>
-      <p>请先登录</p>
+      <p>{{"public.NoPower":translate}}</p>
     </div>
   </div>
   <ng-container *ngIf="DataList!=null">

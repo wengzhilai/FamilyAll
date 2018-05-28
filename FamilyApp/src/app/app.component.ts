@@ -83,7 +83,15 @@ export class MyApp {
       //开始加载后台消息推送进程
       // this.BackgroundFetch();
 
-      this.LoadEnum();
+      /**
+       * 加载枚举
+       */
+      this.LoadEnum().then(x=>{
+        /**
+         * 加载消息的多语言
+         */
+        this.LoadLanguage()
+      });
       
     });
 
@@ -94,11 +102,24 @@ export class MyApp {
    * 加载上枚举
    */
   LoadEnum() {
-    this.toPostService.Post("GetAllEnum", null).then((currMsg: AppReturnDTO) => {
+    return this.toPostService.Post("GetAllEnum", null).then((currMsg: AppReturnDTO) => {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {
         AppGlobal.CooksSet("enumModelArr",JSON.stringify(currMsg.Data));
+        AppGlobal.enumModelArr=currMsg.Data;
+        console.log(AppGlobal.enumModelArr);
+      }
+    })
+  }
+
+  LoadLanguage() {
+    return this.toPostService.Post("GetAllLanguage", null).then((currMsg: AppReturnDTO) => {
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg)
+      } else {
+        AppGlobal.CooksSet("GetAllLanguage",JSON.stringify(currMsg.Data));
+        AppGlobal.LanguageModelArr=currMsg.Data;
         console.log(AppGlobal.enumModelArr);
       }
     })

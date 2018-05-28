@@ -185,12 +185,13 @@ export class Config {
           text:"home.Ranking",
           Icon:"ribbon",
           root:"VipRankingPage"
-        },
-        {
-          text:"home.Suggest",
-          Icon:"mail",
-          root:"SuggestListPage"
         }
+        // ,
+        // {
+        //   text:"home.Suggest",
+        //   Icon:"mail",
+        //   root:"SuggestListPage"
+        // }
         
     ]
     },

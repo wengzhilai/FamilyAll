@@ -11,25 +11,29 @@ import { AppGlobal } from '../../../Classes/AppGlobal';
 })
 export class StoreListPage {
   i18n = "store-list"
-  maxWidth="100px"
-  AllBuilding=[]
-  AllFloor=[]
-  AllStatus=[]
-  DataList=[]
-  postModel:any={}
-  AllEnum=[]
+  maxWidth = "100px"
+  AllBuilding = []
+  AllFloor = []
+  AllStatus = [
+    { "Value": "Active", "Type": "AllStatus", "CH": "有效", "EN": "Active" }, 
+    { "Value": "Closed", "Type": "AllStatus", "CH": "已结束", "EN": "Closed" }]
+  DataList = []
+  postModel: any = {}
+  AllEnum = []
+  tradeMixCode:any=""
+  recordStatus:any=""
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public commonService: CommonService,
     public toPostService: ToPostService,
   ) {
- 
-    this.postModel=AppGlobal.GetProperty();
+
+    this.postModel = AppGlobal.GetProperty();
     this.postModel.PageIndex = 1;
     this.postModel.PageSize = 10;
-    // this.AllEnum=JSON.parse(AppGlobal.CooksGet("enumModelArr"))
-    
+    this.AllEnum = AppGlobal.enumModelArr
+
     console.log(AppGlobal.enumModelArr)
   }
 
@@ -38,14 +42,22 @@ export class StoreListPage {
     console.log(this.i18n);
     this.PostData()
   }
+  ChangePost(){
+    this.DataList=[]
+    this.postModel.PageIndex = 1;
+    this.PostData()
+  }
 
   PostData(isPage = null) {
     if (!AppGlobal.IsLogin) {
-      this.commonService.hint("请先登录")
+      // this.commonService.hint("请先登录")
       return new Promise((resolve) => {
         resolve(null);
       });
     }
+    this.postModel.tradeMixCode=this.tradeMixCode
+    this.postModel.recordStatus=this.recordStatus
+    
     this.commonService.showLoading();
     return this.toPostService.Post("MerchantItemList", this.postModel).then((currMsg) => {
       this.commonService.hideLoading();
@@ -93,7 +105,7 @@ export class StoreListPage {
 
     })
   }
-  OnClickItem(item){
-    this.navCtrl.push("StoreLookPage",{item:item})
+  OnClickItem(item) {
+    this.navCtrl.push("StoreLookPage", { item: item })
   }
 }

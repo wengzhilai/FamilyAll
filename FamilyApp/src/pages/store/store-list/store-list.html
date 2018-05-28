@@ -7,13 +7,13 @@
   </ion-searchbar>
   <ion-row>
     <ion-col>
-      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".TradeMix"|translate}}' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".TradeMix"|translate}}' [(ngModel)]="tradeMixCode" (ionChange)="ChangePost()" (ionCancel)="tradeMixCode=''" okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
         <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Business'" value="{{item.Value}}">{{item.CH}}</ion-option>
       </ion-select>
     </ion-col>
     <ion-col>
-      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".recordStatus"|translate}}' okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
-        <ion-option *ngFor="let item of AllStatus" value="{{item.ID}}">{{item.CH}}</ion-option>
+      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".recordStatus"|translate}}' [(ngModel)]="recordStatus" (ionChange)="ChangePost()" (ionCancel)="recordStatus=''" okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllStatus" value="{{item.Value}}">{{item.CH}}</ion-option>
       </ion-select>
     </ion-col>
   </ion-row>

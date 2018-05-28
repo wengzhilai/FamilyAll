@@ -8,6 +8,7 @@ import { EnumModel } from "../Model/Transport/EnumModel";
 import { TranslateService } from '@ngx-translate/core'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DataStrToStringPipe } from '../pipes/DataStrToString';
+import { LanguagePipe } from '../pipes/Language';
 import { Config } from '../Classes/Config';
 import { JPush } from 'ionic3-jpush';
 import { File } from '@ionic-native/file';
@@ -76,6 +77,10 @@ export class CommonService {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return r[2];
     return null;
+  }
+
+  GetMessage(key){
+    return new LanguagePipe().transform(key)
   }
 
   /**

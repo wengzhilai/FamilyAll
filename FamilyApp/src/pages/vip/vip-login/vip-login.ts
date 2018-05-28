@@ -183,7 +183,6 @@ export class VipLoginPage {
         config.backButtonText = x;
         AppGlobal.CooksSet('configDemo', JSON.stringify(config));
         AppGlobal.CooksSet('Language', lang);
-
         console.log(AppGlobal.CooksGet('Language'))
         window.location.reload();
       })
