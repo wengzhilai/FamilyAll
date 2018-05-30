@@ -180,13 +180,13 @@ export class Config {
           text:"home.RedemptionItemListPage",
           Icon:"cart",
           root:"VipRedemptionItemListPage"
-        },
-        {
-          text:"home.Ranking",
-          Icon:"ribbon",
-          root:"VipRankingPage"
         }
         // ,
+        // {
+        //   text:"home.Ranking",
+        //   Icon:"ribbon",
+        //   root:"VipRankingPage"
+        // },
         // {
         //   text:"home.Suggest",
         //   Icon:"mail",

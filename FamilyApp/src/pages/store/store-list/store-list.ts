@@ -14,14 +14,12 @@ export class StoreListPage {
   maxWidth = "100px"
   AllBuilding = []
   AllFloor = []
-  AllStatus = [
-    { "Value": "Active", "Type": "AllStatus", "CH": "有效", "EN": "Active" }, 
-    { "Value": "Closed", "Type": "AllStatus", "CH": "已结束", "EN": "Closed" }]
   DataList = []
   postModel: any = {}
   AllEnum = []
   tradeMixCode:any=""
   recordStatus:any=""
+  zoneId:any=""
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,14 +47,10 @@ export class StoreListPage {
   }
 
   PostData(isPage = null) {
-    if (!AppGlobal.IsLogin) {
-      // this.commonService.hint("请先登录")
-      return new Promise((resolve) => {
-        resolve(null);
-      });
-    }
+
     this.postModel.tradeMixCode=this.tradeMixCode
     this.postModel.recordStatus=this.recordStatus
+    this.postModel.zoneId=this.zoneId
     
     this.commonService.showLoading();
     return this.toPostService.Post("MerchantItemList", this.postModel).then((currMsg) => {

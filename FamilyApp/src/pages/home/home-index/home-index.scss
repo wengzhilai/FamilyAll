@@ -55,7 +55,13 @@ page-home-index {
             text-align: center;
         }
     }
-
+    .storeList ion-row {
+        margin: 0px 0px;
+        ion-col {
+            flex-grow: 0;
+            min-width: 180px;
+        }
+    }
     .backG{
         margin: 5px;
         border-radius: 30px;

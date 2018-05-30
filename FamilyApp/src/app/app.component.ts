@@ -28,7 +28,7 @@ import { FilePath } from '@ionic-native/file-path';
 export class MyApp {
   // 默认进入的首页
   // rootPage: any = "AuthLoginPage";
-  rootPage: any="TabsPage"
+  rootPage: any = "TabsPage"
   backButtonPressed: boolean = false;  //用于判断返回键是否触发
   @ViewChild('myNav') nav: Nav;
   constructor(
@@ -86,13 +86,14 @@ export class MyApp {
       /**
        * 加载枚举
        */
-      this.LoadEnum().then(x=>{
+      this.LoadEnum().then(x => {
         /**
          * 加载消息的多语言
          */
-        this.LoadLanguage()
+        this.LoadLanguage().then(x => {
+        })
       });
-      
+
     });
 
   }
@@ -106,8 +107,8 @@ export class MyApp {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {
-        AppGlobal.CooksSet("enumModelArr",JSON.stringify(currMsg.Data));
-        AppGlobal.enumModelArr=currMsg.Data;
+        AppGlobal.CooksSet("enumModelArr", JSON.stringify(currMsg.Data));
+        AppGlobal.enumModelArr = currMsg.Data;
         console.log(AppGlobal.enumModelArr);
       }
     })
@@ -118,12 +119,15 @@ export class MyApp {
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg)
       } else {
-        AppGlobal.CooksSet("GetAllLanguage",JSON.stringify(currMsg.Data));
-        AppGlobal.LanguageModelArr=currMsg.Data;
+        AppGlobal.CooksSet("GetAllLanguage", JSON.stringify(currMsg.Data));
+        AppGlobal.LanguageModelArr = currMsg.Data;
         console.log(AppGlobal.enumModelArr);
       }
     })
   }
+
+
+
 
   /**
    * 接收到分享文件,并创建保存文件的目录

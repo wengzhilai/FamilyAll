@@ -1,29 +1,68 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, App } from 'ionic-angular';
-
+import { IonicPage, NavController, App, ModalController } from 'ionic-angular';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CommonService } from "../../../Service/Common.Service";
 import { ToPostService } from "../../../Service/ToPost.Service";
 import { FileUpService } from "../../../Service/FileUp.Service";
 import { Config } from "../../../Classes/Config";
+import { AppGlobal } from '../../../Classes/AppGlobal';
 
 @IonicPage()
 @Component({
   selector: 'page-home-index',
   templateUrl: 'home-index.html',
 })
-export class HomeIndexPage{
+export class HomeIndexPage {
+  i18n = "home-index"
+  
   config = Config;
-  title="成都金牛凯德购物中心"
+  title = ""
+  DataList = []
+  postModel: any = {}
+  sanitizeHtml="</ion-col><ion-col>"
   constructor(
     public navCtrl: NavController,
     public commonService: CommonService,
     public fileUpService: FileUpService,
+    public modalCtrl: ModalController,
     public appCtrl: App,
-    public toPostService: ToPostService
+    public toPostService: ToPostService,
+    private sanitize:DomSanitizer
   ) {
     console.log(this.config.AllMoudle[0].children)
-
+    this.LoadProject().then(x=>{
+      this.LoadStore()
+    })
   }
+  LoadProject() {
+    return this.toPostService.Post("GetProject", null).then((currMsg: any) => {
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg)
+      } else {
+        this.title = currMsg.Data.ProjectName
+      }
+    })
+  }
+
+  LoadStore() {
+    this.postModel = AppGlobal.GetProperty();
+    this.postModel.PageIndex = 1;
+    this.postModel.PageSize = 10;
+    this.postModel.recommand = 1;
+    
+    this.commonService.showLoading();
+    return this.toPostService.Post("MerchantItemList", this.postModel).then((currMsg) => {
+      this.commonService.hideLoading();
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg);
+      }
+      else {
+        this.DataList = currMsg.Data;
+      }
+      return currMsg.Data
+    })
+  }
+
   GoPage(pageName, text: string) {
     var r = /^\d$/;　　//正整数 
     if (r.test(pageName)) {
@@ -42,10 +81,27 @@ export class HomeIndexPage{
 
     } else {
       try {
-        this.navCtrl.push(pageName);
+        if (!AppGlobal.IsLogin && pageName != "ActiveListPage") {
+
+          let profileModal = this.modalCtrl.create("VipLoginPage", {
+            callBack: (isScuss, loginPageNav) => {
+              this.navCtrl.push(pageName);
+              profileModal.dismiss()
+            }
+          });
+          profileModal.present();
+
+        }
+        else {
+          this.navCtrl.push(pageName);
+        }
       } catch (error) {
-        
+
       }
     }
+  }
+
+  OnClickItem(item) {
+    this.navCtrl.push("StoreLookPage", { item: item })
   }
 }

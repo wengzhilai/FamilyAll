@@ -68,10 +68,14 @@
         "FindPwd": "Forgot your password?",
         "Login_Btn": "Login"
     },
+    "home-index": {
+        "popular": "Popular"
+    },
     "store-list": {
         "Title": "Store List",
         "TradeMix": "TradeMix",
-        "recordStatus": "TradeMix"
+        "recordStatus": "TradeMix",
+        "zoneId": "Zone"
     },
     "store-look": {
         "Title": "Business Details",

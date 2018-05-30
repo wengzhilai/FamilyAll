@@ -12,8 +12,8 @@
       </ion-select>
     </ion-col>
     <ion-col>
-      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".recordStatus"|translate}}' [(ngModel)]="recordStatus" (ionChange)="ChangePost()" (ionCancel)="recordStatus=''" okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
-        <ion-option *ngFor="let item of AllStatus" value="{{item.Value}}">{{item.CH}}</ion-option>
+      <ion-select [style.max-width]="maxWidth" placeholder='{{i18n+".zoneId"|translate}}' [(ngModel)]="zoneId" (ionChange)="ChangePost()" (ionCancel)="zoneId=''" okText='{{"public.Okay"|translate}}' cancelText='{{"public.Dismiss"|translate}}'>
+        <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Zone'" value="{{item.Value}}">{{item.CH}}</ion-option>
       </ion-select>
     </ion-col>
   </ion-row>
@@ -35,7 +35,8 @@
       <div item-right style="width: 100%;text-align: left">
         <ion-label class="MyTitle"><h2 style="font-weight: bold">{{item.Name}}</h2></ion-label>
         <ion-label class="MyTitle">
-          <ion-badge class="badge-ios todataType1">{{item.TradeMix}}</ion-badge>
+          <!-- <ion-badge class="badge-ios todataType1">{{item.TradeMix}}</ion-badge> -->
+          <span style="margin-left: 10px">{{item.TradeMix}}</span>
           <span style="margin-left: 10px">{{item.ProspectNo}}</span>
         </ion-label>
       </div>

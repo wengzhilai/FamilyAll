@@ -7,7 +7,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <ion-list>
     <ion-item-group>
       <ion-item>
@@ -21,31 +21,11 @@
           </ion-item>
           <ion-item>
             <ion-label class="MyTitle">{{i18n+'.Floor'|translate}}</ion-label>
-            <ion-note item-end>{{bean.Floor}}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.ProspectNo'|translate}}</ion-label>
-            <ion-note item-end>{{bean.ProspectNo}}</ion-note>
+            <ion-note item-end>{{bean.Floor}}-{{bean.ProspectNo}}</ion-note>
           </ion-item>
         </div>
       </ion-item>
-
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Area'|translate}}</ion-label>
-        <ion-note item-end>{{bean.Area}}</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Date'|translate}}</ion-label>
-        <ion-label item-end>{{bean.CLSBeginDate|DataStrToString:"yyyy-MM-dd"}}~{{bean.CLSEndDate|DataStrToString:"yyyy-MM-dd"}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Contact'|translate}}</ion-label>
-        <ion-note item-end>{{bean.Contact}}</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Email'|translate}}</ion-label>
-        <ion-note item-end>{{bean.Email}}</ion-note>
-      </ion-item>
+ 
       <ion-item>
         <ion-label class="MyTitle">{{i18n+'.Fax'|translate}}</ion-label>
         <ion-note item-end>{{bean.Fax}}</ion-note>
@@ -53,10 +33,6 @@
       <ion-item>
         <ion-label class="MyTitle">{{i18n+'.Phone'|translate}}</ion-label>
         <ion-note item-end>{{bean.Phone}}</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.TradeMix'|translate}}</ion-label>
-        <ion-note item-end>{{bean.TradeMix}}</ion-note>
       </ion-item>
       <ion-item>
         <ion-label class="MyTitle">{{i18n+'.WebSite'|translate}}</ion-label>

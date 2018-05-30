@@ -8,6 +8,7 @@ import { AppGlobal } from "../../../Classes/AppGlobal";
 import { Config as Cif } from "../../../Classes/Config";
 import { TabsPage } from "../../tabs/tabs";
 import { AlertController } from 'ionic-angular';
+import { AppReturnDTO } from "../../../Model/Transport/AppReturnDTO";
 import { TranslateService } from '@ngx-translate/core'
 @IonicPage()
 @Component({
@@ -22,7 +23,7 @@ export class VipLoginPage {
   userForm: FormGroup;
   timer: any;
   bean: any = {
-    extId: "",
+    openid: "",
     loginName: "",
     password: ""
   }
@@ -49,7 +50,6 @@ export class VipLoginPage {
 
   ) {
 
-
     let userAndPwdListStr = AppGlobal.CooksGet("userAndPwdList")
 
     if (userAndPwdListStr != null && userAndPwdListStr != "") {
@@ -60,18 +60,14 @@ export class VipLoginPage {
 
 
     this.userForm = this.formBuilder.group({
-      extId: [''],
       loginName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       password: ['', [Validators.required]]
     });
 
-
     if (Cif.debug) {
-      this.userForm.get('extId').setValue("181807");
-      this.userForm.get('loginName').setValue("38810011");
-      this.userForm.get('password').setValue("18180770313");
+      this.userForm.get('loginName').setValue("18180770313");
+      this.userForm.get('password').setValue("123456");
     }
-
   }
 
   ionViewDidLoad() {
@@ -131,6 +127,7 @@ export class VipLoginPage {
 
 
 
+
   /**
    * 认证登录，成功后，保存登录值
    * @param loginName 
@@ -138,16 +135,9 @@ export class VipLoginPage {
    */
   PostGetToken(loginName, password) {
 
-
-    return this.toPostService.Post('BindCard', {
-      cardNo: this.userForm.value.loginName,
-      password: this.userForm.value.password,
-      extId: this.userForm.value.extId
-    }
-    )
-      .then((res: any) => {
+    return this.toPostService.Post('UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
+      .then((res: AppReturnDTO) => {
         this.commonService.hideLoading();
-        console.log(res)
         if (res == null) {
           this.commonService.hint('登录错误，请联系管理员')
           return false;
@@ -183,8 +173,9 @@ export class VipLoginPage {
         config.backButtonText = x;
         AppGlobal.CooksSet('configDemo', JSON.stringify(config));
         AppGlobal.CooksSet('Language', lang);
+
         console.log(AppGlobal.CooksGet('Language'))
-        window.location.reload();
+        // window.location.reload();
       })
     });
 
@@ -214,12 +205,12 @@ export class VipLoginPage {
           role: 'cancel',
           handler: data => {
             Cif.api = Cif._api
-            Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
+            Cif.imgUrl = Cif._imgUrl
             console.log("imgUrl:" + Cif.imgUrl);
             console.log("api:" + Cif.api);
             AppGlobal.CooksSet('apiUrl', Cif.api);
 
-            window.location.reload();
+            // window.location.reload();
           }
         },
         {
@@ -227,10 +218,11 @@ export class VipLoginPage {
           handler: data => {
             AppGlobal.CooksSet('apiUrl', data.apiUrl);
             Cif.api = data.apiUrl
-            Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
+            // Cif.imgUrl = Cif.api.toLowerCase().replace("/api", "")
+            Cif.imgUrl = Cif._imgUrl
             console.log("imgUrl:" + Cif.imgUrl);
             console.log("api:" + Cif.api);
-            window.location.reload();
+            // window.location.reload();
           }
         }
       ]
@@ -251,7 +243,6 @@ export class VipLoginPage {
     this.navCtrl.push('UserFindPwdPage');
   }
   GoRegister() {
-    // this.navCtrl.push('UserRegPage');
     this.navCtrl.push('VipRegPage');
   }
 }

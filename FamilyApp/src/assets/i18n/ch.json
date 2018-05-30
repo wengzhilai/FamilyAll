@@ -69,10 +69,14 @@
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
+  "home-index":{
+    "popular":"推广"
+  },
   "store-list":{
     "Title":"商店列表",
     "TradeMix": "业态",
-    "recordStatus": "状态"
+    "recordStatus": "状态",
+    "zoneId":"区域"
   },
   "store-look": {
     "Title": "商户详情",
@@ -111,16 +115,16 @@
     "ProspectID": "ProspectID",
     "ProspectNo": "单元",
     "RecordStatus": "RecordStatus",
-    "Remark": "备注",
+    "Remark": "简介",
     "Requirements": "Requirements",
     "TenantID": "123",
     "TradeMix": "业态",
     "WebSite": "网页",
-    "Zone": "Zone",
+    "Zone": "区域",
     "ZoneID": "ZoneID"
   },
   "vip-login": {
-    "Title": "登录凯丹会员系统",
+    "Title": "会员系统",
     "Sign_Title": "登录",
     "Remember_Pwd": "记住密码",
     "Email": "邮箱",
@@ -295,7 +299,7 @@
     "ExitLogin": "退出登录"
   },
   "vip-reg": {
-    "extId": "微信会员编号",
+    "extId": "会员卡号(可不填)",
     "name": "名称",
     "credentialType": "类型",
     "credentialNo": "证件号码",

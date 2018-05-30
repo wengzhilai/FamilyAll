@@ -13,15 +13,39 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-item *ngFor="let item of DataList">
-    <div style="text-align: center">
-        <img src="{{item.Img|ImgUrl}}" />
-    </div>
-    <ion-row>
-      <ion-col><h2>{{item.Title}}</h2></ion-col>
-      <ion-col style="text-align: right"><p>{{item.CampaignType}}</p></ion-col>
-    </ion-row>
-    <p>{{item.Content}}</p>
-    <div>{{item.StartDate|DataStrToString:"yyyy-MM-dd" }}~{{item.ExpiryDate|DataStrToString:"yyyy-MM-dd"}}</div>
-  </ion-item>
+  <ion-card *ngFor="let item of DataList">
+    <ion-item>
+      <div style="text-align: left;">
+        <div *ngIf="item.IsPass==0" style="position:absolute;background-color: rgba(0, 132, 255, 0.8);color: white;padding: 5px">
+          进行中
+        </div>
+        <div *ngIf="item.IsPass==1" style="position:absolute;background-color: rgba(0, 132, 255, 0.8);color: white;padding: 5px">
+          已结束
+        </div>
+        <div *ngIf="item.IsPass==2" style="position:absolute;background-color: rgba(0, 132, 255, 0.8);color: white;padding: 5px">
+          期待中
+        </div>
+        <div>
+          <img src="{{item.Img|ImgUrl}}" />
+        </div>
+
+        <div style="position:absolute;bottom: 0px;width: 90%; background:rgba(0, 0, 0, 0.4);margin: 0px;padding: 5px;color: white">
+          <ion-row>
+            <ion-col>
+              <h2>{{item.Title}}</h2>
+            </ion-col>
+            <ion-col style="text-align: right">
+              <span>{{item.CampaignType}}</span>
+            </ion-col>
+          </ion-row>
+          <div>
+            <ion-icon name="time"></ion-icon>&nbsp;<span>{{item.StartDate|DataStrToString:"yyyy-MM-dd" }}~{{item.ExpiryDate|DataStrToString:"yyyy-MM-dd"}}</span>
+          </div>
+          <div>{{item.Content}}</div>
+          <div *ngIf="item.Remark">{{item.Remark}}</div>
+        </div>
+      </div>
+
+    </ion-item>
+  </ion-card>
 </ion-content>

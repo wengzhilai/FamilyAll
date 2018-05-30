@@ -30,12 +30,7 @@ export class ActiveListPage {
   }
 
   PostData(isPage = null) {
-    if (!AppGlobal.IsLogin) {
-      // this.commonService.hint("请先登录")
-      return new Promise((resolve) => {
-        resolve(null);
-      });
-    }
+
     this.commonService.showLoading();
     return this.toPostService.Post("CampaignItemList", this.postModel).then((currMsg) => {
       this.commonService.hideLoading();
@@ -44,7 +39,20 @@ export class ActiveListPage {
       }
       else if (isPage == null) {
         if (currMsg.Data.length > 0) {
-          this.DataList = currMsg.Data;
+          this.DataList=[]
+          currMsg.Data.forEach(element => {
+            if(new Date(element.ExpiryDate)<new Date()){
+              element.IsPass=1
+            }
+            else if(new Date(element.StartDate)>new Date()){
+              element.IsPass=2
+            }
+            else{
+              element.IsPass=0
+            }
+            this.DataList.push(element)
+          });
+          console.log(this.DataList)
         }
       }
       return currMsg.Data

@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-slides pager style="height: 200px;">
+    <ion-slides pager style="height: 200px;" loop="true" autoplay="5000">
         <ion-slide *ngFor="let image of [1,2,3,4]" style="background-image: url(./assets/images/slide01.png);background-size:100% 100%;">
 
         </ion-slide>
@@ -29,57 +29,17 @@
         <ion-row>
             <div class="columnTitle">
                 <div class="ico">&nbsp;</div>
-                <div style="width: 90%;">美食广场</div>
+                <div style="width: 90%;">{{i18n+".popular"|translate}}</div>
                 <div class="split"></div>
             </div>
-            <ion-row>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-            </ion-row>
-        </ion-row>
-        <div style="height: 10px;background-color: #EFEFEF;width: 100%">&nbsp;</div>
-        <ion-row>
-            <div class="columnTitle">
-                <div class="ico">&nbsp;</div>
-                <div style="width: 90%;">美食广场</div>
-                <div class="split"></div>
-            </div>
-            <ion-row>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-                <ion-col>
-                    <img src="./assets/images/store01.png" />
-                    <span>星巴克</span>
-                </ion-col>
-            </ion-row>
+            <ion-list class="storeList">
+                <ion-row row-wrap>
+                    <ion-col *ngFor="let item of DataList;index as i" style="width: 150px;" (click)="OnClickItem(item)">
+                        <img src="{{item.Img|ImgUrl}}" width="170" height="120" />
+                        <div>{{item.Name}}</div>
+                    </ion-col>
+                </ion-row>
+            </ion-list>
         </ion-row>
     </div>
 </ion-content>
