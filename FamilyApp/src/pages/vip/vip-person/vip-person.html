@@ -3,6 +3,11 @@
     <ion-title>
       {{i18n+'.Title'|translate}}
     </ion-title>
+    <ion-buttons right (click)="edit()">
+      <button ion-button icon-only>
+        <ion-icon name="create" style="font-size:30px"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -11,7 +16,8 @@
     <ion-item-group>
       <ion-item class="thumbnailMy">
         <ion-thumbnail item-left>
-          <up-single-pic [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
+          <up-single-pic *ngIf="bean!=null && bean.iconFiles!=null" [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
+          <ion-icon *ngIf="bean==null || bean.iconFiles==null" name="person" style="font-size: 100px"></ion-icon>
         </ion-thumbnail>
         <div item-right style="width: 100%;">
           <ion-item>

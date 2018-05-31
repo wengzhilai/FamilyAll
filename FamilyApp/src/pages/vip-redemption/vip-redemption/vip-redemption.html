@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>{{i18n+'.Title'|translate}}</ion-title>
@@ -21,16 +20,22 @@
     </ion-refresher>
     <ion-list>
       <ion-item *ngFor="let login of DataList">
-        <h2>{{i18n+'.Date'|translate}}:{{login.Date}}</h2>
-        <p>{{login.Item}}({{login.Quantity}})</p>
-        <p>{{i18n+'.DeductedPoint'|translate}}:{{login.DeductedPoint}}</p>
-        <p>{{i18n+'.ManagePerson'|translate}}:{{login.ManagePerson}}</p>
-        <p>{{i18n+'.Remark'|translate}}:{{login.Remark}}</p>
+        <ion-row>
+          <ion-col>{{login.Item}}({{login.Quantity}})</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{i18n+'.Date'|translate}}:{{login.Date}}</ion-col>
+          <ion-col>{{i18n+'.DeductedPoint'|translate}}:{{login.DeductedPoint}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{i18n+'.Remark'|translate}}:{{login.Remark}}</ion-col>
+        </ion-row>
       </ion-item>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+    <!-- <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText='{{"public.loadingText"|translate}}'>
       </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    </ion-infinite-scroll> -->
   </ng-container>
 </ion-content>

@@ -66,7 +66,7 @@ export class VipLoginPage {
 
     if (Cif.debug) {
       this.userForm.get('loginName').setValue("18180770313");
-      this.userForm.get('password').setValue("123456");
+      this.userForm.get('password').setValue("18180770313");
     }
   }
 
@@ -240,7 +240,7 @@ export class VipLoginPage {
   }
 
   GoFindPwd() {
-    this.navCtrl.push('UserFindPwdPage');
+    this.navCtrl.push('AuthFindPwdPage');
   }
   GoRegister() {
     this.navCtrl.push('VipRegPage');

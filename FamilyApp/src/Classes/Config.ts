@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class Config {
   constructor() {}
   
-  static debug:boolean = true;
+  static debug:boolean = false;
   static pageSize:number = 10;
 
   // static api:string = 'http://192.168.5.15:5000/Api/';
@@ -21,8 +21,16 @@ export class Config {
 
 
 
-  static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
-  static imgUrl:string = 'http://192.168.0.88:82/Attachment/Image/';
+  // static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
+  // static imgUrl:string = 'http://192.168.0.88:82/Attachment/Image/';
+
+  static api:string = 'http://192.168.0.110:8066/WebApi/';
+  static imgUrl:string = 'http://192.168.0.110:8077/Attachment/Image/';
+
+  // static api:string = 'http://540982e4.nat123.cc/WebApi/';
+  // static imgUrl:string = 'http://540982e4.nat123.cc/Attachment/Image/';
+  
+
   static userType="vip"
 
 

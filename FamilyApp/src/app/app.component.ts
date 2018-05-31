@@ -28,7 +28,7 @@ import { FilePath } from '@ionic-native/file-path';
 export class MyApp {
   // 默认进入的首页
   // rootPage: any = "AuthLoginPage";
-  rootPage: any = "TabsPage"
+  rootPage: any = ""
   backButtonPressed: boolean = false;  //用于判断返回键是否触发
   @ViewChild('myNav') nav: Nav;
   constructor(
@@ -87,17 +87,62 @@ export class MyApp {
        * 加载枚举
        */
       this.LoadEnum().then(x => {
-        /**
-         * 加载消息的多语言
-         */
-        this.LoadLanguage().then(x => {
-        })
+        if (x.IsSuccess) {
+          /**
+           * 加载消息的多语言
+           */
+          this.LoadLanguage().then(y => {
+            this.rootPage = "TabsPage"
+          })
+        }
+        else {
+          console.log(111111)
+          this.CheckAppUrl()
+        }
       });
-
     });
-
   }
-
+  /**
+   * 初始化值的时候，出错，可以修改接口地址
+   */
+  CheckAppUrl() {
+    let alert = this.alertCtrl.create({
+      title: 'API地址有错<br />请修改API连接地址',
+      inputs: [
+        {
+          name: 'apiUrl',
+          value: Config.api,
+          placeholder: 'API连接地址'
+        }
+      ],
+      buttons: [
+        {
+          text: '初始值',
+          role: 'cancel',
+          handler: data => {
+            Config.api = Config._api
+            Config.imgUrl = Config._imgUrl
+            console.log("imgUrl:" + Config.imgUrl);
+            console.log("api:" + Config.api);
+            AppGlobal.CooksSet('apiUrl', Config.api);
+            window.location.reload();
+          }
+        },
+        {
+          text: '确认',
+          handler: data => {
+            AppGlobal.CooksSet('apiUrl', data.apiUrl);
+            Config.api = data.apiUrl
+            Config.imgUrl = Config._imgUrl
+            console.log("imgUrl:" + Config.imgUrl);
+            console.log("api:" + Config.api);
+            window.location.reload();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   /**
    * 加载上枚举
@@ -105,24 +150,26 @@ export class MyApp {
   LoadEnum() {
     return this.toPostService.Post("GetAllEnum", null).then((currMsg: AppReturnDTO) => {
       if (!currMsg.IsSuccess) {
-        this.commonService.hint(currMsg.Msg)
+        // this.commonService.hint(currMsg.Msg)
       } else {
         AppGlobal.CooksSet("enumModelArr", JSON.stringify(currMsg.Data));
         AppGlobal.enumModelArr = currMsg.Data;
         console.log(AppGlobal.enumModelArr);
       }
+      return currMsg
     })
   }
 
   LoadLanguage() {
     return this.toPostService.Post("GetAllLanguage", null).then((currMsg: AppReturnDTO) => {
       if (!currMsg.IsSuccess) {
-        this.commonService.hint(currMsg.Msg)
+        // this.commonService.hint(currMsg.Msg)
       } else {
         AppGlobal.CooksSet("GetAllLanguage", JSON.stringify(currMsg.Data));
         AppGlobal.LanguageModelArr = currMsg.Data;
         console.log(AppGlobal.enumModelArr);
       }
+      return currMsg
     })
   }
 

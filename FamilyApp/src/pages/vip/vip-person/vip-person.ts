@@ -61,6 +61,7 @@ export class VipPersonPage {
       }
       if (res.IsSuccess) {
         this.bean=res.Data
+        this.bean.CredentialNo=this.bean.CredentialNo.substr(0,6)+"****"
         return true;
       }
       else {
@@ -94,5 +95,8 @@ export class VipPersonPage {
       ]
     });
     alert.present();
+  }
+  edit() {
+    this.navCtrl.push("VipPersonEditPage", { "user": this.bean })
   }
 }

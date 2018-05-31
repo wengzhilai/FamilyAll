@@ -92,4 +92,7 @@ export class ActiveListPage {
     })
   }
 
+  OnClickItem(item) {
+    this.navCtrl.push("ActiveLookPage", { item: item })
+  }
 }

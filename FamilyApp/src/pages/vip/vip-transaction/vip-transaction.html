@@ -68,11 +68,7 @@
         <h2>{{i18n+'.TransactionDetial'|translate}}</h2>
       </ion-list-header>
       <ion-item *ngFor="let login of DataList">
-        <ion-row>
-          <ion-col>
-            <h2>{{i18n+'.TransactionNo'|translate}}:{{login.TransactionNo}}</h2>
-          </ion-col>
-        </ion-row>
+
         <ion-row>
           <ion-col>
             {{i18n+'.Tenant'|translate}}:{{login.Tenant}}

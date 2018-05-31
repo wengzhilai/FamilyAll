@@ -7,46 +7,45 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
-    <ion-item-group>
+    <ion-card>
       <ion-item>
-        <div item-left *ngIf="bean.Img!=null">
-          <up-single-pic [CanEdit]="false" [PicStyle]="{W:100,H:100}" [Url]="bean.Img"></up-single-pic>
+        <div style="text-align: left;">
+          <div style="min-height: 200px;min-width: 300px;">
+            <img src="{{bean.Img|ImgUrl}}" />
+          </div>
+          <div style="position:absolute;bottom: 0px;width: 90%; background:rgba(0, 0, 0, 0.4);margin: 0px;padding: 5px;color: white">
+            <ion-row>
+              <ion-col>
+                <h2>{{bean.Name}}</h2>
+              </ion-col>
+              <ion-col style="text-align: right">
+                <span>{{bean.Floor}}-{{bean.ProspectNo}}</span>
+              </ion-col>
+            </ion-row>
+          </div>
         </div>
-        <div item-right style="width: 100%;">
-          <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.Name'|translate}}</ion-label>
-            <ion-note item-end>{{bean.Name}}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.Floor'|translate}}</ion-label>
-            <ion-note item-end>{{bean.Floor}}-{{bean.ProspectNo}}</ion-note>
-          </ion-item>
-        </div>
       </ion-item>
- 
+    </ion-card>
+
+
+    <ion-item-group style="padding: 5px">
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Fax'|translate}}</ion-label>
-        <ion-note item-end>{{bean.Fax}}</ion-note>
+        <ion-label fixed class="MyTitle"><ion-icon name="call" style="font-size: 20px"></ion-icon></ion-label>
+        <span item-content>{{bean.Phone}}</span>
       </ion-item>
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Phone'|translate}}</ion-label>
-        <ion-note item-end>{{bean.Phone}}</ion-note>
+        <ion-label stacked class="MyTitle">{{i18n+'.WebSite'|translate}}</ion-label>
+        <ion-note item-content>{{bean.WebSite}}</ion-note>
       </ion-item>
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.WebSite'|translate}}</ion-label>
-        <ion-note item-end>{{bean.WebSite}}</ion-note>
+        <ion-label fixed class="MyTitle">{{i18n+'.Address'|translate}}</ion-label>
+        <ion-note item-content>{{bean.Address}}</ion-note>
       </ion-item>
-      <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Address'|translate}}</ion-label>
-        <ion-note item-end>{{bean.WebSite}}</ion-note>
-      </ion-item>
-    </ion-item-group>
-    <ion-item-group>
       <ion-item-divider color="light">{{i18n+'.Remark'|translate}}</ion-item-divider>
       <ion-item>
-        <ion-label item-end>{{bean.Remark}}</ion-label>
+        <ion-note item-content>{{bean.Remark}}</ion-note>
       </ion-item>
     </ion-item-group>
   </ion-list>

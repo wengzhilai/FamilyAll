@@ -24,17 +24,13 @@ export class VipCardPage {
     "Fee": "工本费"
   }
   beanItemList = [
-    "Project",
     "CardType",
     "CardNo",
     "Region",
     "SignDate",
     "StartDate",
     "ExpiryDate",
-    "IssueDate",
-    "Deposit",
-    "Advance",
-    "Fee"
+    "IssueDate"
   ]
   constructor(
     public navCtrl: NavController, 

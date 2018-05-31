@@ -38,3 +38,9 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore wjbjp-wjb-key.j
 zipalign -vf 4 /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.0.apk
 
 adb install /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.0.apk
+
+
+
+alter table RT_Prospect add Img varchar(50)
+alter table RT_Prospect add Recommend int
+alter table RT_Prospect add RecommendIndex int

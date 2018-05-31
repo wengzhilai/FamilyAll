@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      {{i18n+'.Title'|translate}}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list [formGroup]="userForm">
+    <ion-item-group>
+      <ion-item-divider color="light"></ion-item-divider>
+      <ion-item class="thumbnailMy">
+        <ion-thumbnail item-left>
+          <up-single-pic *ngIf="bean!=null && bean.iconFiles!=null" [FileDict]="bean.iconFiles" [PicStyle]="{W:80,H:80}" (ChangeFileJson)="ChangeFileJson($event)"></up-single-pic>
+          <ion-icon *ngIf="bean==null || bean.iconFiles==null" name="person" style="font-size: 100px"></ion-icon>
+        </ion-thumbnail>
+        <div item-right style="width: 100%;">
+          <ion-item>
+            <ion-label class="MyTitle">{{i18n+'.Name'|translate}}</ion-label>
+            <ion-input formControlName="Name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="MyTitle">{{i18n+'.Gender'|translate}}</ion-label>
+            <ion-select formControlName="Gender" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+              <ion-option value="男">男</ion-option>
+              <ion-option value="女">女</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-item>
+
+      
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.Nationlity'|translate}}</ion-label>
+        <ion-input formControlName="Nationlity"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.MaritalStatus'|translate}}</ion-label>
+        <ion-input formControlName="MaritalStatus"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.DOB'|translate}}</ion-label>
+        <ion-datetime formControlName="DOB" displayFormat="YYYY年MMM月DD日" min="1661" doneText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.Occupation'|translate}}</ion-label>
+        <ion-input formControlName="Occupation"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.EducationLevel'|translate}}</ion-label>
+        <ion-input formControlName="EducationLevel"></ion-input>
+      </ion-item>
+    </ion-item-group>
+
+    <!-- <ion-item-group>
+      <ion-item-divider color="light">{{i18n+'.REMARK'|translate}}</ion-item-divider>
+      <ion-item>
+        <ion-textarea formControlName="REMARK" rows="5" placeholder="{{i18n+'.REMARK'|translate}}"></ion-textarea>
+      </ion-item>
+    </ion-item-group> -->
+  </ion-list>
+  <div padding>
+    <button ion-button block (click)="save()">{{'public.Okay'|translate}}</button>
+  </div>
+</ion-content>

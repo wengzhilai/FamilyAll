@@ -7,11 +7,17 @@
 </ion-header>
 
 <ion-content>
-    <ion-slides pager style="height: 200px;" loop="true" autoplay="5000">
-        <ion-slide *ngFor="let image of [1,2,3,4]" style="background-image: url(./assets/images/slide01.png);background-size:100% 100%;">
-
+    <ion-slides *ngIf="ActivePicList!=null && ActivePicList.length>0" pager style="height: 200px;" loop="true" autoplay="5000">
+        <ion-slide *ngFor="let item of ActivePicList" style="background-color: white">
+            <img style="height: 200px;" src="{{item.Img|ImgUrl:'imgUrl':'./assets/images/shishangdanpin.jpg'}}" />
         </ion-slide>
     </ion-slides>
+    <ion-slides *ngIf="ActivePicList==null || ActivePicList.length==0" pager style="height: 200px;">
+        <ion-slide style="background-color: white">
+            <img style="height: 200px;" src="./assets/images/shishangdanpin.jpg" />
+        </ion-slide>
+    </ion-slides>
+    
     <ion-list class="moduleIco">
         <ion-row row-wrap>
             <ion-col (click)="GoPage(item.root,item.text)" *ngFor="let item of config.AllMoudle[0].children;index as i">

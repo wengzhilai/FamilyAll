@@ -23,17 +23,17 @@ export class VipRegPage {
     public alertCtrl: AlertController,
     public toPostService: ToPostService) {
     this.userForm = this.formBuilder.group({
-      extId: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(11)]],
+      extId: ['', [Validators.minLength(0), Validators.maxLength(11)]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
       credentialType: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
       credentialNo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
-      mobileNo: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
+      mobileNo: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       password: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]],
     });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AuthRegPage');
+    console.log(this.i18n);
   }
 
   submit() {
@@ -50,9 +50,12 @@ export class VipRegPage {
     console.log(this.bean)
 
     this.toPostService.Post("Register", this.bean).then((currMsg) => {
-      if(currMsg.Status=="Success"){
+      if(currMsg.IsSuccess){
         this.commonService.hint("注册成功");
         this.navCtrl.pop();
+      }
+      else{
+        this.commonService.hint(this.commonService.GetMessage(currMsg.Msg));
       }
     })
   }

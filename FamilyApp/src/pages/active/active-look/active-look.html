@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      {{i18n+'.Title'|translate}}
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card>
+      <ion-item>
+        <div style="text-align: left;">
+          <div style="min-height: 200px;min-width: 300px;">
+            <img src="{{bean.Img|ImgUrl:'imgUrl':'./assets/images/shishangdanpin.jpg'}}" />
+          </div>
+          <div style="position:absolute;bottom: 0px;width: 90%; background:rgba(0, 0, 0, 0.4);margin: 0px;padding: 5px;color: white">
+            <ion-row>
+              <ion-col>
+                <h2>{{bean.Title}}</h2>
+              </ion-col>
+            </ion-row>
+            <div>
+              <ion-icon name="time"></ion-icon>&nbsp;
+              <span>{{bean.StartDate|DataStrToString:"yyyy-MM-dd" }}~{{bean.ExpiryDate|DataStrToString:"yyyy-MM-dd"}}</span>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-card>
+
+
+    <ion-item-group style="padding: 5px">
+      <ion-item>
+        <ion-label class="MyTitle">{{i18n+'.CampaignType'|translate}}</ion-label>
+        <ion-note item-end>{{bean.CampaignType}}</ion-note>
+      </ion-item>
+      <ion-item-divider color="light" style="font-size: 14px;">{{i18n+'.Content'|translate}}</ion-item-divider>
+      <ion-item>
+        <ion-note item-content>{{bean.Content}}</ion-note>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

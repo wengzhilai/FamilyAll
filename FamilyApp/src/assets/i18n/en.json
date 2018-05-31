@@ -77,6 +77,13 @@
         "recordStatus": "TradeMix",
         "zoneId": "Zone"
     },
+    "active-look": {
+        "Title": "Title",
+        "CampaignType": "Campaign Type",
+        "Content": "Content",
+        "StartDate": "Start Date",
+        "ExpiryDate": "Expiry Date"
+    },
     "store-look": {
         "Title": "Business Details",
         "AccountID": "AccountID",
@@ -314,5 +321,15 @@
         "EducationLevel": "Educational level",
         "CredentialType": "Voucher Type",
         "CredentialNo": "Voucher Number"
+    },
+    "vip-person-edit": {
+        "Title": "Person edit",
+        "Name": "Name",
+        "Gender": "Gender",
+        "Nationlity": "Nationlity",
+        "MaritalStatus": "MaritalStatus",
+        "DOB": "DOB",
+        "Occupation": "Occupation",
+        "EducationLevel": "EducationLevel"
     }
 }

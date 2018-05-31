@@ -66,10 +66,11 @@ export class AuthFindPwdPage {
     this.i = 60;
     this.SetTimeValue();
     this.toPostService.Post("Public/SendCode", { "Data": { "phoneNum": control.value } }).then((currMsg) => {
-      if (currMsg.IsError) {
-        this.commonService.hint(currMsg.Message)
-      } else {
+      console.log(currMsg)
+      if (currMsg.IsSuccess) {
         this.commonService.showLongToast("发送成功");
+      } else {
+        this.commonService.hint(currMsg.Msg)
       }
     })
   }

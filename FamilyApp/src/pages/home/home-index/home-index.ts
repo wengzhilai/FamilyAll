@@ -18,6 +18,7 @@ export class HomeIndexPage {
   config = Config;
   title = ""
   DataList = []
+  ActivePicList=[]
   postModel: any = {}
   sanitizeHtml="</ion-col><ion-col>"
   constructor(
@@ -30,8 +31,14 @@ export class HomeIndexPage {
     private sanitize:DomSanitizer
   ) {
     console.log(this.config.AllMoudle[0].children)
+    this.postModel = AppGlobal.GetProperty();
+    this.postModel.PageIndex = 1;
+    this.postModel.PageSize = 10;
+
     this.LoadProject().then(x=>{
-      this.LoadStore()
+      this.LoadStore().then(x=>{
+        this.LoadActive();
+      })
     })
   }
   LoadProject() {
@@ -45,11 +52,7 @@ export class HomeIndexPage {
   }
 
   LoadStore() {
-    this.postModel = AppGlobal.GetProperty();
-    this.postModel.PageIndex = 1;
-    this.postModel.PageSize = 10;
     this.postModel.recommand = 1;
-    
     this.commonService.showLoading();
     return this.toPostService.Post("MerchantItemList", this.postModel).then((currMsg) => {
       this.commonService.hideLoading();
@@ -58,6 +61,24 @@ export class HomeIndexPage {
       }
       else {
         this.DataList = currMsg.Data;
+      }
+      return currMsg.Data
+    })
+  }
+  /**
+   * 加载活动图片
+   */
+  LoadActive() {
+    this.commonService.showLoading();
+    return this.toPostService.Post("CampaignItemList", this.postModel).then((currMsg) => {
+      this.commonService.hideLoading();
+      if (!currMsg.IsSuccess) {
+        this.commonService.hint(currMsg.Msg);
+      }
+      else {
+        this.ActivePicList = currMsg.Data;
+        console.log(111)
+        console.log(this.ActivePicList)
       }
       return currMsg.Data
     })
