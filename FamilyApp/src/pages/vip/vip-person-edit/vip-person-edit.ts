@@ -16,14 +16,15 @@ export class VipPersonEditPage {
 
   /** 表单 */
   userForm: FormGroup;
+  AllEnum = AppGlobal.enumModelArr
   bean:any = {
     "Name": "名称",
-    "Gender": "性别",
-    "Nationlity": "国籍",
-    "MaritalStatus": "婚姻状况",
+    "SexID": "性别",
+    "CountryID": "国籍",
+    "MarriageID": "婚姻状况",
     "DOB": "生日",
-    "Occupation": "职业",
-    "EducationLevel": "教育程度",
+    "ProfessionID": "职业",
+    "EducationID": "教育程度",
   }
   constructor(
     private formBuilder: FormBuilder,
@@ -36,23 +37,23 @@ export class VipPersonEditPage {
   ) {
     this.userForm = this.formBuilder.group({
       Name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
-      Gender: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-      Nationlity: ['', [Validators.minLength(1), Validators.maxLength(20)]],
-      MaritalStatus: ['', [Validators.minLength(1), Validators.maxLength(3)]],
+      SexID: ['', [Validators.required]],
+      CountryID: [''],
+      MarriageID: [''],
       DOB: ['',[Validators.minLength(1), Validators.maxLength(20)]],
-      Occupation: ['',[Validators.minLength(1), Validators.maxLength(20)]],
-      EducationLevel: ['',[Validators.minLength(1), Validators.maxLength(20)]]
+      ProfessionID: [''],
+      EducationID: ['']
     });
   }
 
   SetForm(inEnt) {
     this.userForm.get('Name').setValue(inEnt.Name)
-    this.userForm.get('Gender').setValue(inEnt.Gender)
-    this.userForm.get('Nationlity').setValue(inEnt.Nationlity)
-    this.userForm.get('MaritalStatus').setValue(inEnt.MaritalStatus)
+    this.userForm.get('SexID').setValue(inEnt.SexID)
+    this.userForm.get('CountryID').setValue(inEnt.CountryID)
+    this.userForm.get('MarriageID').setValue(inEnt.MarriageID)
     this.userForm.get('DOB').setValue(inEnt.DOB)
-    this.userForm.get('Occupation').setValue(inEnt.Occupation)
-    this.userForm.get('EducationLevel').setValue(inEnt.EducationLevel)
+    this.userForm.get('ProfessionID').setValue(inEnt.ProfessionID)
+    this.userForm.get('EducationID').setValue(inEnt.EducationID)
   }
 
   ionViewDidLoad() {
@@ -77,6 +78,8 @@ export class VipPersonEditPage {
       this.commonService.hint(formErrors.ErrorMessage, '输入无效')
       return;
     }
+    this.bean=AppGlobal.GetProperty()
+
     for (var key in this.userForm.value) {
       this.bean[key] = this.userForm.value[key];
     }

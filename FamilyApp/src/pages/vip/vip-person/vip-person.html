@@ -3,41 +3,49 @@
     <ion-title>
       {{i18n+'.Title'|translate}}
     </ion-title>
-    <ion-buttons right (click)="edit()">
+    <!-- <ion-buttons right (click)="edit()">
       <button ion-button icon-only>
         <ion-icon name="create" style="font-size:30px"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item-group>
-      <ion-item class="thumbnailMy">
-        <ion-thumbnail item-left>
-          <up-single-pic *ngIf="bean!=null && bean.iconFiles!=null" [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
-          <ion-icon *ngIf="bean==null || bean.iconFiles==null" name="person" style="font-size: 100px"></ion-icon>
-        </ion-thumbnail>
-        <div item-right style="width: 100%;">
-          <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.Name'|translate}}</ion-label>
-            <ion-note item-end>{{bean.Name}}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.Gender'|translate}}</ion-label>
-            <ion-note item-end>{{bean.Gender}}</ion-note>
-          </ion-item>
-        </div>
-      </ion-item>
 
-      <ion-item *ngFor="let item of beanItemList">
-        <ion-label class="MyTitle">{{i18n+'.'+item|translate}}</ion-label>
-        <ion-note item-end>{{bean[item]}}</ion-note>
-      </ion-item>
+  <ion-card>
+    <ion-item class="thumbnailMy">
+      <ion-thumbnail item-left>
+        <up-single-pic *ngIf="bean!=null && bean.iconFiles!=null" [CanEdit]="false" [FileDict]="bean.iconFiles"></up-single-pic>
+        <ion-icon *ngIf="bean==null || bean.iconFiles==null" name="person" style="font-size: 100px"></ion-icon>
+      </ion-thumbnail>
+      <div item-right style="width: 100%;">
+        <ion-item>
+          <ion-label class="MyTitle">{{i18n+'.Name'|translate}}</ion-label>
+          <ion-note item-end>{{bean.Name}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label class="MyTitle">{{i18n+'.Gender'|translate}}</ion-label>
+          <ion-note item-end>{{bean.Gender}}</ion-note>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-card>
 
-    </ion-item-group>
-    <button ion-button block (click)="Exit()">{{"setting.ExitLogin"|translate}}</button>
- 
+  <ion-list padding style="padding-bottom: 0px;">
+    <!-- <ion-item *ngFor="let item of beanItemList">
+      <ion-label class="MyTitle">{{i18n+'.'+item|translate}}</ion-label>
+      <ion-note item-end>{{bean[item]}}</ion-note>
+    </ion-item> -->
+    <button ion-item (click)="edit()">
+      {{i18n+'.EditPerson'|translate}}
+    </button>
+    <button ion-item (click)="EditPwd()">
+      {{i18n+'.EditPwd'|translate}}
+    </button>
+
   </ion-list>
+  <div padding style="padding-top: 0px">
+    <button ion-button block (click)="Exit()">{{"setting.ExitLogin"|translate}}</button>
+  </div>
 </ion-content>

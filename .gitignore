@@ -12,6 +12,11 @@ log.txt
 .vscode/
 npm-debug.log*
 
+*/resources/android/
+*/resources/ios/
+FamilyApp/resources/ios/
+FamilyApp/resources/android/
+
 .idea/
 .sourcemaps/
 .sass-cache/
@@ -43,3 +48,4 @@ flask
 *venv
 iSoft/download
 package-lock.json
+

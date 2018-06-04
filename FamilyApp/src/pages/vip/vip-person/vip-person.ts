@@ -16,7 +16,7 @@ export class VipPersonPage {
     "CustomerNo": "会员编码",
     "Name": "名称",
     "Gender": "性别",
-    "Nationlity": "国籍",
+    "Nationality": "国籍",
     "MaritalStatus": "婚姻状况",
     "DOB": "生日",
     "Occupation": "职业",
@@ -27,7 +27,7 @@ export class VipPersonPage {
   beanItemList = [
     "CustomerId",
     "CustomerNo",
-    "Nationlity",
+    "Nationality",
     "MaritalStatus",
     "DOB",
     "Occupation",
@@ -45,11 +45,14 @@ export class VipPersonPage {
   }
 
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log(this.i18n);
     this.GetSingleEnt()
   }
   GetSingleEnt() {
+    if(!AppGlobal.IsLogin){
+      return
+    }
     this.commonService.showLoading()
 
     this.toPostService.Post("RetrieveCustomerBasicInfo",AppGlobal.GetProperty()).then((res: any) => {
@@ -98,5 +101,8 @@ export class VipPersonPage {
   }
   edit() {
     this.navCtrl.push("VipPersonEditPage", { "user": this.bean })
+  }
+  EditPwd(){
+    this.navCtrl.push("VipEditPwdPage", { "user": this.bean })
   }
 }

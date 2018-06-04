@@ -14,13 +14,13 @@ import { AppGlobal } from '../../../Classes/AppGlobal';
 })
 export class HomeIndexPage {
   i18n = "home-index"
-  
+
   config = Config;
   title = ""
   DataList = []
-  ActivePicList=[]
+  ActivePicList = []
   postModel: any = {}
-  sanitizeHtml="</ion-col><ion-col>"
+  sanitizeHtml = "</ion-col><ion-col>"
   constructor(
     public navCtrl: NavController,
     public commonService: CommonService,
@@ -28,16 +28,20 @@ export class HomeIndexPage {
     public modalCtrl: ModalController,
     public appCtrl: App,
     public toPostService: ToPostService,
-    private sanitize:DomSanitizer
+    private sanitize: DomSanitizer
   ) {
     console.log(this.config.AllMoudle[0].children)
     this.postModel = AppGlobal.GetProperty();
     this.postModel.PageIndex = 1;
     this.postModel.PageSize = 10;
 
-    this.LoadProject().then(x=>{
-      this.LoadStore().then(x=>{
-        this.LoadActive();
+    this.commonService.showLoading();
+    this.LoadProject().then(x => {
+      this.LoadStore().then(y => {
+        this.LoadActive().then(z => {
+          this.commonService.hideLoading();
+
+        });
       })
     })
   }
@@ -53,9 +57,7 @@ export class HomeIndexPage {
 
   LoadStore() {
     this.postModel.recommand = 1;
-    this.commonService.showLoading();
     return this.toPostService.Post("MerchantItemList", this.postModel).then((currMsg) => {
-      this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
       }
@@ -69,9 +71,7 @@ export class HomeIndexPage {
    * 加载活动图片
    */
   LoadActive() {
-    this.commonService.showLoading();
     return this.toPostService.Post("CampaignItemList", this.postModel).then((currMsg) => {
-      this.commonService.hideLoading();
       if (!currMsg.IsSuccess) {
         this.commonService.hint(currMsg.Msg);
       }

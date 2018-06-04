@@ -12,10 +12,8 @@
             <img style="height: 200px;" src="{{item.Img|ImgUrl:'imgUrl':'./assets/images/shishangdanpin.jpg'}}" />
         </ion-slide>
     </ion-slides>
-    <ion-slides *ngIf="ActivePicList==null || ActivePicList.length==0" pager style="height: 200px;">
-        <ion-slide style="background-color: white">
-            <img style="height: 200px;" src="./assets/images/shishangdanpin.jpg" />
-        </ion-slide>
+    <ion-slides *ngIf="ActivePicList==null || ActivePicList.length==0" pager style="height: 200px;background-color: white">
+  
     </ion-slides>
     
     <ion-list class="moduleIco">

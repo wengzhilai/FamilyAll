@@ -37,7 +37,8 @@
         "UnValid": "Invalid",
         "NoData": "No data",
         "CheckNew": "Check New Version",
-        "NoVersion": "Failed to get the file path. It may be that the version of the phone system is too low or there is no permission to get the file path."
+        "NoVersion": "Failed to get the file path. It may be that the version of the phone system is too low or there is no permission to get the file path.",
+        "submit": "提交"
     },
     "tabs": {
         "IndexStore": "Business",
@@ -310,11 +311,13 @@
     },
     "vip-person": {
         "Title": "View personal information",
+        "EditPwd": "Edit Password",
+        "EditPerson": "Edit Person",
         "CustomerId": "Member ID",
         "CustomerNo": "Member Code",
         "Name": "Name",
         "Gender": "Sex",
-        "Nationlity": "Nationality",
+        "Nationality": "Nationality",
         "Marital Status": "Marital Status",
         "DOB": "Birthday",
         "Occupation": "Occupation",
@@ -325,11 +328,19 @@
     "vip-person-edit": {
         "Title": "Person edit",
         "Name": "Name",
-        "Gender": "Gender",
-        "Nationlity": "Nationlity",
-        "MaritalStatus": "MaritalStatus",
+        "SexID": "Gender",
+        "CountryID": "Nationlity",
+        "MarriageID": "MaritalStatus",
         "DOB": "DOB",
-        "Occupation": "Occupation",
-        "EducationLevel": "EducationLevel"
+        "ProfessionID": "Occupation",
+        "EducationID": "EducationLevel"
+    },
+    "vip-edit-pwd": {
+        "Title": "Password edit",
+        "OldPwd": "Old Password",
+        "NewPwd": "New Password",
+        "ReNewPwd": "Replay New Password",
+        "DifPwd":"Two passwords are different"
+        
     }
 }

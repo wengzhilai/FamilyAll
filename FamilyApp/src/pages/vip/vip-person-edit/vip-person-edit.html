@@ -4,7 +4,6 @@
       {{i18n+'.Title'|translate}}
     </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content>
@@ -23,35 +22,42 @@
             <ion-input formControlName="Name"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label class="MyTitle">{{i18n+'.Gender'|translate}}</ion-label>
-            <ion-select formControlName="Gender" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
-              <ion-option value="男">男</ion-option>
-              <ion-option value="女">女</ion-option>
+            <ion-label class="MyTitle">{{i18n+'.SexID'|translate}}</ion-label>
+            <ion-select formControlName="SexID" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+              <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Sex'" value="{{item.Value}}">{{item.CH}}</ion-option>
             </ion-select>
           </ion-item>
         </div>
       </ion-item>
 
-      
+
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Nationlity'|translate}}</ion-label>
-        <ion-input formControlName="Nationlity"></ion-input>
+        <ion-label class="MyTitle">{{i18n+'.CountryID'|translate}}</ion-label>
+        <ion-select formControlName="CountryID" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+          <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Country'" value="{{item.Value}}">{{item.CH}}</ion-option>
+        </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.MaritalStatus'|translate}}</ion-label>
-        <ion-input formControlName="MaritalStatus"></ion-input>
+        <ion-label class="MyTitle">{{i18n+'.MarriageID'|translate}}</ion-label>
+        <ion-select formControlName="MarriageID" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+          <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Marriage'" value="{{item.Value}}">{{item.CH}}</ion-option>
+        </ion-select>
       </ion-item>
       <ion-item>
         <ion-label class="MyTitle">{{i18n+'.DOB'|translate}}</ion-label>
         <ion-datetime formControlName="DOB" displayFormat="YYYY年MMM月DD日" min="1661" doneText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.Occupation'|translate}}</ion-label>
-        <ion-input formControlName="Occupation"></ion-input>
+        <ion-label class="MyTitle">{{i18n+'.ProfessionID'|translate}}</ion-label>
+        <ion-select formControlName="ProfessionID" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+          <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Profession'" value="{{item.Value}}">{{item.CH}}</ion-option>
+        </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label class="MyTitle">{{i18n+'.EducationLevel'|translate}}</ion-label>
-        <ion-input formControlName="EducationLevel"></ion-input>
+        <ion-label class="MyTitle">{{i18n+'.EducationID'|translate}}</ion-label>
+        <ion-select formControlName="EducationID" okText="{{'public.Okay' | translate}}" cancelText="{{'public.Dismiss' | translate}}">
+          <ion-option *ngFor="let item of AllEnum | JsonFilter : 'Type' : 'Education'" value="{{item.Value}}">{{item.CH}}</ion-option>
+        </ion-select>
       </ion-item>
     </ion-item-group>
 
