@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
 import { CommonService,ToPostService } from "../../../Service";
 import { AppGlobal } from '../../../Classes/AppGlobal';
-import { JPush } from 'ionic3-jpush';
-
+// import { JPush } from 'ionic3-jpush';
+import { JPush } from '@jiguang-ionic/jpush';
 
 @IonicPage()
 @Component({
@@ -112,6 +112,7 @@ export class VipPersonPage {
   CheckJiguangPush(){
     console.log("init")
 
+    this.jPush.setDebugMode(true)
     this.jPush.init().then(x=>{
       console.log("init")
       console.log(x)

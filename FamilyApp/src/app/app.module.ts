@@ -22,7 +22,8 @@ import { FileUpService } from "../Service/FileUp.Service";
 import { CommonService } from "../Service/Common.Service";
 
 import { HttpClientModule } from "@angular/common/http";
-import { JPush } from 'ionic3-jpush';
+// import { JPush } from 'ionic3-jpush';
+import { JPush } from '@jiguang-ionic/jpush';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AppTranslationModule } from './app.translation.module';
