@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonService, ToPostService } from "../../../Service";
 import { AppGlobal } from '../../../Classes/AppGlobal';
+import { ImgUrlPipe } from "../../../pipes/ImgUrl";
 
 @IonicPage()
 @Component({
@@ -94,5 +95,8 @@ export class ActiveListPage {
 
   OnClickItem(item) {
     this.navCtrl.push("ActiveLookPage", { item: item })
+  }
+  GetPicUrl(url: string, type: string = "imgUrl", defaultPic: string = "./assets/images/noPic.jpg") {
+    return new ImgUrlPipe().transform(url, type, defaultPic)
   }
 }

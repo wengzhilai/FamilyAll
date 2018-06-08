@@ -21,7 +21,7 @@
                 <h2>{{bean.Name}}</h2>
               </ion-col>
               <ion-col style="text-align: right">
-                <span>{{bean.Floor}}-{{bean.ProspectNo}}</span>
+                <span *ngIf="bean.Floor">{{bean.Floor}}-</span><span>{{bean.ProspectNo}}</span>
               </ion-col>
             </ion-row>
           </div>

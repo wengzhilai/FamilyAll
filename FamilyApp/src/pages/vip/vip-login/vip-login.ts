@@ -135,7 +135,13 @@ export class VipLoginPage {
    */
   PostGetToken(loginName, password) {
 
-    return this.toPostService.Post('UserLogin', { loginName: this.userForm.value.loginName, passWord: this.userForm.value.password })
+    let postBean = {
+      loginName: this.userForm.value.loginName,
+      passWord: this.userForm.value.password,
+      EquipmentCode: AppGlobal.CooksGet("EquipmentCode")
+    }
+
+    return this.toPostService.Post('UserLogin', postBean)
       .then((res: AppReturnDTO) => {
         this.commonService.hideLoading();
         if (res == null) {

@@ -6,7 +6,7 @@ import { ToPostService } from "../../../Service/ToPost.Service";
 import { FileUpService } from "../../../Service/FileUp.Service";
 import { Config } from "../../../Classes/Config";
 import { AppGlobal } from '../../../Classes/AppGlobal';
-
+import { ImgUrlPipe } from "../../../pipes/ImgUrl";
 @IonicPage()
 @Component({
   selector: 'page-home-index',
@@ -124,5 +124,8 @@ export class HomeIndexPage {
 
   OnClickItem(item) {
     this.navCtrl.push("StoreLookPage", { item: item })
+  }
+  GetPicUrl(url: string, type: string = "imgUrl", defaultPic: string = "./assets/images/noPic.jpg") {
+    return new ImgUrlPipe().transform(url, type, defaultPic)
   }
 }

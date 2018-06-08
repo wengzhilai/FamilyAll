@@ -9,8 +9,6 @@ import { ToPostService } from "../Service/ToPost.Service";
 import { CommonService } from "../Service/Common.Service";
 import { FileUpService } from "../Service/FileUp.Service";
 import { AppReturnDTO } from "../Model/Transport/AppReturnDTO";
-import { EnumModel } from "../Model/Transport/EnumModel";
-
 import { AppVersion } from '@ionic-native/app-version';
 import { FileOpener } from '@ionic-native/file-opener';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
@@ -28,7 +26,7 @@ import { FilePath } from '@ionic-native/file-path';
 export class MyApp {
   // 默认进入的首页
   // rootPage: any = "AuthLoginPage";
-  rootPage: any = ""
+  rootPage: any = "VipPersonPage"
   backButtonPressed: boolean = false;  //用于判断返回键是否触发
   @ViewChild('myNav') nav: Nav;
   constructor(
@@ -68,9 +66,9 @@ export class MyApp {
       else {
         statusBar.backgroundColorByHexString("#57A7FC");
         statusBar.overlaysWebView(false)
-        if (platform.is("android")) {
-          this.ReceiveShareFile()
-        }
+        // if (platform.is("android")) {
+        //   this.ReceiveShareFile()
+        // }
       }
       statusBar.styleBlackTranslucent()
 
@@ -79,27 +77,27 @@ export class MyApp {
       splashScreen.hide();
       this.registerBackButtonAction();//注册返回按键事件
 
-      this.AutoSetup();
+      // this.AutoSetup();
       //开始加载后台消息推送进程
-      // this.BackgroundFetch();
+      this.BackgroundFetch();
 
       /**
        * 加载枚举
        */
-      this.LoadEnum().then(x => {
-        if (x.IsSuccess) {
-          /**
-           * 加载消息的多语言
-           */
-          this.LoadLanguage().then(y => {
-            this.rootPage = "TabsPage"
-          })
-        }
-        else {
-          console.log(111111)
-          this.CheckAppUrl()
-        }
-      });
+      // this.LoadEnum().then(x => {
+      //   if (x.IsSuccess) {
+      //     /**
+      //      * 加载消息的多语言
+      //      */
+      //     this.LoadLanguage().then(y => {
+      //       this.rootPage = "TabsPage"
+      //     })
+      //   }
+      //   else {
+      //     console.log(111111)
+      //     this.CheckAppUrl()
+      //   }
+      // });
     });
   }
   /**
@@ -154,7 +152,7 @@ export class MyApp {
       } else {
         AppGlobal.CooksSet("enumModelArr", JSON.stringify(currMsg.Data));
         AppGlobal.enumModelArr = currMsg.Data;
-        console.log(AppGlobal.enumModelArr);
+        // console.log(AppGlobal.enumModelArr);
       }
       return currMsg
     })
@@ -419,12 +417,15 @@ export class MyApp {
   /**
    * 注册消息推送
    */
+    /**
+   * 注册消息推送
+   */
   BackgroundFetch() {
+    this.jPush.init()
+
     if ((this.platform.is('android') || this.platform.is('ios')) && !Config.loginSubscribeNotification) {
       Config.loginSubscribeNotification = true
       console.log("运行jPush监听的注册和")
-
-
       this.commonService.JpushGetRegistrationID().then(regid => {
         if (regid == null || regid == "") {
           setTimeout(() => {

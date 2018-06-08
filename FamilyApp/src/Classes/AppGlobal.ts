@@ -110,12 +110,22 @@ export class AppGlobal {
     return tmp;
   }
   public static CooksSet(_k: string, _v: string, validity?: number, validityType?: string) {
-    console.log("设置cookie:" + _k + "=》" + _v)
+    if(_v.length>100){
+      console.log("设置cookie长度:" + _k + "=》" + _v.length)
+    }
+    else{
+      console.log("设置cookie:" + _k + "=》" + _v)
+    }
     return NgXCookies.setCookie(_k, _v, 60 * 24 * 365 * 10);
   }
   public static CooksGet(_k: string): string {
     var tmpStr = NgXCookies.getCookie(_k);
-    console.log("读取cookies:" + _k + "=>" + tmpStr)
+    if(tmpStr.length>100){
+      console.log("读取cookies长度:" + _k + "=>" + tmpStr.length)
+    }
+    else{
+      console.log("读取cookies:" + _k + "=>" + tmpStr)
+    }
     return tmpStr
   }
   public static CooksRemove(_k: string) {

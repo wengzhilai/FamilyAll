@@ -14,8 +14,8 @@
 
 <ion-content>
   <ion-card *ngFor="let item of DataList">
-    <ion-item (click)="OnClickItem(item)">
-      <div style="text-align: left;">
+    <ion-item (click)="OnClickItem(item)" style="padding: 0px">
+      <div style="text-align: left;min-height: 200px;">
         <div *ngIf="item.IsPass==0" style="position:absolute;background-color: rgba(0, 132, 255, 0.8);color: white;padding: 5px">
           进行中
         </div>
@@ -25,10 +25,11 @@
         <div *ngIf="item.IsPass==2" style="position:absolute;background-color: rgba(0, 132, 255, 0.8);color: white;padding: 5px">
           期待中
         </div>
-        <div style="min-height: 200px;min-width: 300px;">
-          <img src="{{item.Img|ImgUrl:'imgUrl':'./assets/images/blank.jpg'}}" />
+        <div style="min-height: 200px;;min-width: 300px;background-size:100% 100%" [style.background-image]="'url(' + GetPicUrl(item.Img,'imgUrl','./assets/images/blank.jpg')+ ')'">
+          &nbsp;
+          <!-- <img src="{{item.Img|ImgUrl:'imgUrl':'./assets/images/blank.jpg'}}" /> -->
         </div>
-        <div style="position:absolute;bottom: 0px;width: 90%; background:rgba(0, 0, 0, 0.4);margin: 0px;padding: 5px;color: white">
+        <div style="position:absolute;bottom: 0px;width: 100%; background:rgba(0, 0, 0, 0.4);margin: 0px;padding: 5px;color: white">
           <ion-row>
             <ion-col>
               <h2>{{item.Title}}</h2>

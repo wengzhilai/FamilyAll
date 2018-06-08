@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToPostService, CommonService } from "../../../Service";
-
+import { ImgUrlPipe } from "../../../pipes/ImgUrl";
 
 @IonicPage()
 @Component({
@@ -34,5 +34,7 @@ export class ActiveLookPage {
     console.log(this.navParams);
     this.bean=this.navParams.get("item")
   }
-
+  GetPicUrl(url: string, type: string = "imgUrl", defaultPic: string = "./assets/images/noPic.jpg") {
+    return new ImgUrlPipe().transform(url, type, defaultPic)
+  }
 }

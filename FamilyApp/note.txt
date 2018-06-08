@@ -33,14 +33,12 @@ ionic cordova build android --prod --release
 
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore wjbjp-wjb-key.jks /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk wjbjp-wjb-alias
 
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore wjbjp-wjb-key.jks /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk wjbjp-wjb-alias
-
 
 密码：123456
 
-zipalign -vf 4 /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.0.apk
+zipalign -vf 4 /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/android-release-unsigned.apk /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/clx.1.0.0.apk
 
-adb install /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/wjbjp.1.0.0.apk
+adb install /private/var/root/Desktop/FamilyAll/FamilyApp/platforms/android/build/outputs/apk/release/clx.1.0.0.apk
 
 
 

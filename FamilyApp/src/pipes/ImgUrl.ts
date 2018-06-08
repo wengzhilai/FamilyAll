@@ -16,7 +16,7 @@ export class ImgUrlPipe implements PipeTransform {
     else if (url == null || url == '' || url == undefined) {
       str = defaultPic
     }
-    console.log("图片地址:" + str)
+    // console.log("图片地址:" + str)
     return str;
   }
 }

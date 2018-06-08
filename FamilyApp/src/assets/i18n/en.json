@@ -313,6 +313,7 @@
         "Title": "View personal information",
         "EditPwd": "Edit Password",
         "EditPerson": "Edit Person",
+        "CheckJiguangPush": "Check Jiguang Push",
         "CustomerId": "Member ID",
         "CustomerNo": "Member Code",
         "Name": "Name",
@@ -340,7 +341,6 @@
         "OldPwd": "Old Password",
         "NewPwd": "New Password",
         "ReNewPwd": "Replay New Password",
-        "DifPwd":"Two passwords are different"
-        
+        "DifPwd": "Two passwords are different"
     }
 }

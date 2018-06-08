@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
 import { CommonService,ToPostService } from "../../../Service";
 import { AppGlobal } from '../../../Classes/AppGlobal';
+import { JPush } from 'ionic3-jpush';
 
 
 @IonicPage()
@@ -41,6 +42,9 @@ export class VipPersonPage {
     private alertCtrl: AlertController,
     public commonService: CommonService,
     public toPostService: ToPostService,
+    public plt: Platform,
+    public jPush: JPush,
+
   ) {
   }
 
@@ -104,5 +108,36 @@ export class VipPersonPage {
   }
   EditPwd(){
     this.navCtrl.push("VipEditPwdPage", { "user": this.bean })
+  }
+  CheckJiguangPush(){
+    console.log("init")
+
+    this.jPush.init().then(x=>{
+      console.log("init")
+      console.log(x)
+    },y=>{
+      console.log("init:y")
+      console.log(y)
+    }).catch(err => alert(err))
+    console.log("开始获取设备ID")
+    this.jPush.getRegistrationID().then(regid => {
+      console.log("获取到Jpush的设备ID:")
+      console.log(JSON.stringify(regid))
+      this.commonService.hint("获取了设备ID："+regid)
+      // this.commonService.Confirm("注册","获取了设备ID："+JSON.stringify(regid)+"\n 是否注册",()=>{
+      //   this.PostUpdateEquipmentCode(JSON.stringify(regid)).then(x=>{
+      //     if(x){
+      //       this.commonService.hint("注册成功")
+      //     }
+      //   })
+      // },()=>{})
+      return regid
+    }, (e) => {
+      console.log("获取到Jpush的设备ID失败:"+JSON.stringify(e))
+      return ""
+    }).catch(x => {
+      console.log("获取到Jpush的设备ID失败:"+JSON.stringify(x))
+      return ""
+    })
   }
 }

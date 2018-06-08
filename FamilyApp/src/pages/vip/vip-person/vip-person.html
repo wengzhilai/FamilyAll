@@ -43,6 +43,7 @@
     <button ion-item (click)="EditPwd()">
       {{i18n+'.EditPwd'|translate}}
     </button>
+    <button  *ngIf="plt.is('ios') || plt.is('android')" ion-item (click)="CheckJiguangPush()">{{i18n+".CheckJiguangPush"|translate}}</button>
 
   </ion-list>
   <div padding style="padding-top: 0px">
