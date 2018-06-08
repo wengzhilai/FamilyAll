@@ -15,8 +15,7 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { PostBaseModel } from "../Model/Transport/PostBaseModel";
 import { AppVersionModel } from "../Model/Transport/AppVersionModel";
-// import { JPush } from 'ionic3-jpush';
-import { JPush } from '@jiguang-ionic/jpush';
+import { JPush } from 'ionic3-jpush';
 import { WebIntent } from '@ionic-native/web-intent';
 import { FilePath } from '@ionic-native/file-path';
 
@@ -26,8 +25,8 @@ import { FilePath } from '@ionic-native/file-path';
 })
 export class MyApp {
   // 默认进入的首页
-  // rootPage: any = "AuthLoginPage";
-  rootPage: any = "VipPersonPage"
+  // rootPage: any = "VipPersonPage";
+  rootPage: any = ""
   backButtonPressed: boolean = false;  //用于判断返回键是否触发
   @ViewChild('myNav') nav: Nav;
   constructor(
@@ -85,20 +84,20 @@ export class MyApp {
       /**
        * 加载枚举
        */
-      // this.LoadEnum().then(x => {
-      //   if (x.IsSuccess) {
-      //     /**
-      //      * 加载消息的多语言
-      //      */
-      //     this.LoadLanguage().then(y => {
-      //       this.rootPage = "TabsPage"
-      //     })
-      //   }
-      //   else {
-      //     console.log(111111)
-      //     this.CheckAppUrl()
-      //   }
-      // });
+      this.LoadEnum().then(x => {
+        if (x.IsSuccess) {
+          /**
+           * 加载消息的多语言
+           */
+          this.LoadLanguage().then(y => {
+            this.rootPage = "TabsPage"
+          })
+        }
+        else {
+          console.log(111111)
+          this.CheckAppUrl()
+        }
+      });
     });
   }
   /**
@@ -422,40 +421,40 @@ export class MyApp {
    * 注册消息推送
    */
   BackgroundFetch() {
-    // this.jPush.init()
+    this.jPush.init()
 
-    // if ((this.platform.is('android') || this.platform.is('ios')) && !Config.loginSubscribeNotification) {
-    //   Config.loginSubscribeNotification = true
-    //   console.log("运行jPush监听的注册和")
-    //   this.commonService.JpushGetRegistrationID().then(regid => {
-    //     if (regid == null || regid == "") {
-    //       setTimeout(() => {
-    //         this.commonService.JpushGetRegistrationID().then(regid => {
-    //           AppGlobal.CooksSet("EquipmentCode", regid)
-    //         })
-    //       }, 15000);
-    //     }
-    //     else {
-    //       AppGlobal.CooksSet("EquipmentCode", regid)
-    //     }
-    //   })
-    //   //注册
+    if ((this.platform.is('android') || this.platform.is('ios')) && !Config.loginSubscribeNotification) {
+      Config.loginSubscribeNotification = true
+      console.log("运行jPush监听的注册和")
+      this.commonService.JpushGetRegistrationID().then(regid => {
+        if (regid == null || regid == "") {
+          setTimeout(() => {
+            this.commonService.JpushGetRegistrationID().then(regid => {
+              AppGlobal.CooksSet("EquipmentCode", regid)
+            })
+          }, 15000);
+        }
+        else {
+          AppGlobal.CooksSet("EquipmentCode", regid)
+        }
+      })
+      //注册
 
-    //   //打开推送信息
-    //   this.jPush.openNotification().subscribe((v: any) => {
-    //     if (!Config.homeSubscribeNotification) {
-    //       console.log('登录页注册监听到推送消息');
-    //       try {
-    //         console.log(JSON.stringify(v));
-    //       }
-    //       catch (e) {
-    //         console.log(v);
-    //       }
-    //       if (AppGlobal.jpushArrMsg == null) AppGlobal.jpushArrMsg = []
-    //       AppGlobal.jpushArrMsg.push(v);
-    //       console.log('当前消息数:' + AppGlobal.jpushArrMsg.length);
-    //     }
-    //   })
-    // }
+      //打开推送信息
+      this.jPush.openNotification().subscribe((v: any) => {
+        if (!Config.homeSubscribeNotification) {
+          console.log('登录页注册监听到推送消息');
+          try {
+            console.log(JSON.stringify(v));
+          }
+          catch (e) {
+            console.log(v);
+          }
+          if (AppGlobal.jpushArrMsg == null) AppGlobal.jpushArrMsg = []
+          AppGlobal.jpushArrMsg.push(v);
+          console.log('当前消息数:' + AppGlobal.jpushArrMsg.length);
+        }
+      })
+    }
   }
 }

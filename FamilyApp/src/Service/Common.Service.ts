@@ -10,8 +10,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DataStrToStringPipe } from '../pipes/DataStrToString';
 import { LanguagePipe } from '../pipes/Language';
 import { Config } from '../Classes/Config';
-// import { JPush } from 'ionic3-jpush';
-import { JPush } from '@jiguang-ionic/jpush';
+import { JPush } from 'ionic3-jpush';
 
 import { File } from '@ionic-native/file';
 

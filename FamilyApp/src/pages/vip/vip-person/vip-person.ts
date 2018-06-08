@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,AlertController,Platform } from 'ionic-angular';
-import { CommonService,ToPostService } from "../../../Service";
+import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { CommonService, ToPostService } from "../../../Service";
 import { AppGlobal } from '../../../Classes/AppGlobal';
-// import { JPush } from 'ionic3-jpush';
-import { JPush } from '@jiguang-ionic/jpush';
+import { JPush } from 'ionic3-jpush';
 
 @IonicPage()
 @Component({
@@ -37,8 +36,8 @@ export class VipPersonPage {
     "CredentialNo"
   ]
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,    
+    public navCtrl: NavController,
+    public navParams: NavParams,
     private alertCtrl: AlertController,
     public commonService: CommonService,
     public toPostService: ToPostService,
@@ -54,12 +53,12 @@ export class VipPersonPage {
     this.GetSingleEnt()
   }
   GetSingleEnt() {
-    if(!AppGlobal.IsLogin){
+    if (!AppGlobal.IsLogin) {
       return
     }
     this.commonService.showLoading()
 
-    this.toPostService.Post("RetrieveCustomerBasicInfo",AppGlobal.GetProperty()).then((res: any) => {
+    this.toPostService.Post("RetrieveCustomerBasicInfo", AppGlobal.GetProperty()).then((res: any) => {
       this.commonService.hideLoading();
       console.log(res)
       if (res == null) {
@@ -67,8 +66,8 @@ export class VipPersonPage {
         return false;
       }
       if (res.IsSuccess) {
-        this.bean=res.Data
-        this.bean.CredentialNo=this.bean.CredentialNo.substr(0,6)+"****"
+        this.bean = res.Data
+        this.bean.CredentialNo = this.bean.CredentialNo.substr(0, 6) + "****"
         return true;
       }
       else {
@@ -106,38 +105,52 @@ export class VipPersonPage {
   edit() {
     this.navCtrl.push("VipPersonEditPage", { "user": this.bean })
   }
-  EditPwd(){
+  EditPwd() {
     this.navCtrl.push("VipEditPwdPage", { "user": this.bean })
   }
-  CheckJiguangPush(){
-    console.log("init")
+  CheckJiguangPush() {
+    if (!this.plt.is('android') && !this.plt.is('ios')) return Promise.resolve(true);
 
-    this.jPush.setDebugMode(true)
-    this.jPush.init().then(x=>{
+    console.log("init")
+    this.jPush.init().then(x => {
       console.log("init")
       console.log(x)
-    },y=>{
+    }, y => {
       console.log("init:y")
       console.log(y)
     }).catch(err => alert(err))
+
     console.log("开始获取设备ID")
     this.jPush.getRegistrationID().then(regid => {
+      if (regid == null || regid == "") {
+        console.log("没有获取到设备ID")
+        return;
+      }
       console.log("获取到Jpush的设备ID:")
-      console.log(JSON.stringify(regid))
-      this.commonService.hint("获取了设备ID："+regid)
-      // this.commonService.Confirm("注册","获取了设备ID："+JSON.stringify(regid)+"\n 是否注册",()=>{
-      //   this.PostUpdateEquipmentCode(JSON.stringify(regid)).then(x=>{
-      //     if(x){
-      //       this.commonService.hint("注册成功")
-      //     }
-      //   })
-      // },()=>{})
+      console.log(regid)
+      this.commonService.Confirm("是否注册", "获取了设备ID：" + JSON.stringify(regid), () => {
+        let postEnt=AppGlobal.GetProperty()
+        postEnt.EquipmentCode= regid;
+        postEnt.Platform=(this.plt.is('ios')) ? "ios" : "android"
+        return this.toPostService.Post("UpdateEquipmentCode", postEnt).then((currMsg) => {
+          if (currMsg == null) return false;
+          if (!currMsg.IsSuccess) {
+            this.commonService.showLongToast(currMsg.Msg)
+            return false
+          }
+          else {
+            this.commonService.showLongToast("注册成功")
+            return true
+          }
+        })
+
+      }, () => { })
       return regid
     }, (e) => {
-      console.log("获取到Jpush的设备ID失败:"+JSON.stringify(e))
+      console.log("获取到Jpush的设备ID失败:" + JSON.stringify(e))
       return ""
     }).catch(x => {
-      console.log("获取到Jpush的设备ID失败:"+JSON.stringify(x))
+      console.log("获取到Jpush的设备ID失败:" + JSON.stringify(x))
       return ""
     })
   }

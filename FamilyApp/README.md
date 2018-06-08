@@ -14,7 +14,7 @@ ionic cordova plugin rm com-darryncampbell-cordova-plugin-intent
 ionic cordova plugin rm cordova-plugin-telerik-imagepicker
 ionic cordova plugin rm com.synconset.imagepicker
 ionic cordova plugin rm https://github.com/Findiglay/cordova-imagePicker.git 
-ionic cordova platform add android@6.4.0
+ionic cordova platform add android
 ionic cordova plugin add https://github.com/Findiglay/cordova-imagePicker.git  
 
 //ionic cordova plugin add com-darryncampbell-cordova-plugin-intent
