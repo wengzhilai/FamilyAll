@@ -55,7 +55,8 @@
         "Suggest": "Feedback",
         "Transaction": "Transaction Information",
         "RedemptionItemListPage": "Invoice Redemption",
-        "Ranking": "Rank"
+        "Ranking": "Rank",
+        "Message": "Message"
     },
     "auth-login": {
         "Title": "Login Wengjiaba Cluster",
@@ -70,7 +71,8 @@
         "Login_Btn": "Login"
     },
     "home-index": {
-        "popular": "Popular"
+        "popular": "Popular",
+        "Message": "Message"
     },
     "store-list": {
         "Title": "Store List",
@@ -342,5 +344,10 @@
         "NewPwd": "New Password",
         "ReNewPwd": "Replay New Password",
         "DifPwd": "Two passwords are different"
-    }
+    },
+    "message-list": {
+    "Title": "Message Title",
+    "TITLE": "Title",
+    "CONTENT": "Content"
+  }
 }

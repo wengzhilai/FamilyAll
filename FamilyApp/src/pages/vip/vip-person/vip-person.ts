@@ -67,7 +67,9 @@ export class VipPersonPage {
       }
       if (res.IsSuccess) {
         this.bean = res.Data
-        this.bean.CredentialNo = this.bean.CredentialNo.substr(0, 6) + "****"
+        if (this.bean.CredentialNo != null && this.bean.CredentialNo.length > 0) {
+          this.bean.CredentialNo = this.bean.CredentialNo.substr(0, 6) + "****"
+        }
         return true;
       }
       else {
@@ -129,9 +131,9 @@ export class VipPersonPage {
       console.log("获取到Jpush的设备ID:")
       console.log(regid)
       this.commonService.Confirm("是否注册", "获取了设备ID：" + JSON.stringify(regid), () => {
-        let postEnt=AppGlobal.GetProperty()
-        postEnt.EquipmentCode= regid;
-        postEnt.Platform=(this.plt.is('ios')) ? "ios" : "android"
+        let postEnt = AppGlobal.GetProperty()
+        postEnt.EquipmentCode = regid;
+        postEnt.Platform = (this.plt.is('ios')) ? "ios" : "android"
         return this.toPostService.Post("UpdateEquipmentCode", postEnt).then((currMsg) => {
           if (currMsg == null) return false;
           if (!currMsg.IsSuccess) {

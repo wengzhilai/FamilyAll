@@ -56,7 +56,8 @@
     "Suggest": "意见反馈",
     "Transaction": "交易信息",
     "RedemptionItemListPage": "积分兑换",
-    "Ranking": "排名"
+    "Ranking": "排名",
+    "Message": "消息"
   },
   "auth-login": {
     "Title": "登录翁家坝簇记",
@@ -70,16 +71,17 @@
     "FindPwd": "忘记密码?",
     "Login_Btn": "登录"
   },
-  "home-index":{
-    "popular":"精选商铺"
+  "home-index": {
+    "popular": "精选商铺",
+    "Message": "消息"
   },
-  "store-list":{
-    "Title":"商店列表",
+  "store-list": {
+    "Title": "商店列表",
     "TradeMix": "业态",
     "recordStatus": "状态",
-    "zoneId":"区域"
+    "zoneId": "区域"
   },
-  "active-look":{
+  "active-look": {
     "Title": "活动详情",
     "CampaignType": "活动类型",
     "Content": "内容",
@@ -95,7 +97,7 @@
     "BusinessID": "BusinessID",
     "CF_Account": "CF_Account",
     "CF_PopupLstElement": "CF_PopupLstElement",
-    "Date":"日期",
+    "Date": "日期",
     "CLSBeginDate": "起始日期",
     "CLSEndDate": "结束日期",
     "Contact": "联系",
@@ -316,8 +318,8 @@
   },
   "vip-person": {
     "Title": "查看个人信息",
-    "EditPwd":"修改密码",
-    "EditPerson":"修改资料",
+    "EditPwd": "修改密码",
+    "EditPerson": "修改资料",
     "CheckJiguangPush": "检测消息推送",
     "CustomerId": "会员编号",
     "CustomerNo": "会员编码",
@@ -331,7 +333,7 @@
     "CredentialType": "证件类型",
     "CredentialNo": "证件号码"
   },
-  "vip-person-edit":{
+  "vip-person-edit": {
     "Title": "修改个人资料",
     "Name": "名称",
     "SexID": "性别",
@@ -341,11 +343,16 @@
     "ProfessionID": "职业",
     "EducationID": "教育程度"
   },
-  "vip-edit-pwd":{
+  "vip-edit-pwd": {
     "Title": "修改密码",
-    "OldPwd":"原密码",
-    "NewPwd":"新密码",
-    "ReNewPwd":"重复新密码",
-    "DifPwd":"两次密码不一样"
+    "OldPwd": "原密码",
+    "NewPwd": "新密码",
+    "ReNewPwd": "重复新密码",
+    "DifPwd": "两次密码不一样"
+  },
+  "message-list": {
+    "Title": "消息列表",
+    "TITLE": "标题",
+    "CONTENT": "内容"
   }
 }

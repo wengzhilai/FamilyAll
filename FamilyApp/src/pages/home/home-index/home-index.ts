@@ -128,4 +128,7 @@ export class HomeIndexPage {
   GetPicUrl(url: string, type: string = "imgUrl", defaultPic: string = "./assets/images/noPic.jpg") {
     return new ImgUrlPipe().transform(url, type, defaultPic)
   }
+  GoMessage(){
+    this.navCtrl.push("MessageListPage")
+  }
 }

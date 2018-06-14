@@ -441,20 +441,20 @@ export class MyApp {
       //注册
 
       //打开推送信息
-      this.jPush.openNotification().subscribe((v: any) => {
-        if (!Config.homeSubscribeNotification) {
-          console.log('登录页注册监听到推送消息');
-          try {
-            console.log(JSON.stringify(v));
-          }
-          catch (e) {
-            console.log(v);
-          }
-          if (AppGlobal.jpushArrMsg == null) AppGlobal.jpushArrMsg = []
-          AppGlobal.jpushArrMsg.push(v);
-          console.log('当前消息数:' + AppGlobal.jpushArrMsg.length);
-        }
-      })
+      // this.jPush.openNotification().subscribe((v: any) => {
+      //   if (!Config.homeSubscribeNotification) {
+      //     console.log('登录页注册监听到推送消息');
+      //     try {
+      //       console.log(JSON.stringify(v));
+      //     }
+      //     catch (e) {
+      //       console.log(v);
+      //     }
+      //     if (AppGlobal.jpushArrMsg == null) AppGlobal.jpushArrMsg = []
+      //     AppGlobal.jpushArrMsg.push(v);
+      //     console.log('当前消息数:' + AppGlobal.jpushArrMsg.length);
+      //   }
+      // })
     }
   }
 }

@@ -46,8 +46,8 @@ export class TabsPage {
   ) {
 
     console.log("开户首页订阅");
-    // Config.homeSubscribeNotification = true;
-    // this.JPushNotification();
+    Config.homeSubscribeNotification = true;
+    this.JPushNotification();
   }
 
   ionViewDidEnter() {
@@ -58,14 +58,11 @@ export class TabsPage {
   }
 
   JPushNotification() {
-    if ((this.platform.is('android') || this.platform.is('ios')) && !Config.homeMarkNotification) {
-      Config.homeMarkNotification = true
+    if (this.platform.is('android') || this.platform.is('ios')) {
       //打开推送信息
       this.jPush.openNotification().subscribe((v: any) => {
-        if (Config.homeSubscribeNotification) {
-          console.log('监听到Tabs的推送信息');
-          this.JPushNotificationHandle(v)
-        }
+        console.log('监听到Tabs的推送信息');
+        this.JPushNotificationHandle(v)
       })
     }
   }
@@ -111,7 +108,7 @@ export class TabsPage {
           AppGlobal.SetPropertyId(propertyId); //保存物业
           return this.navCtrl.push(nowTodo.PageName, { model: nowTodo, prodertyId: propertyId, pushType: "jpush" })
         default:
-          return this.navCtrl.push(nowTodo.PageName)
+          return this.navCtrl.push(nowTodo.PageName,{model: nowTodo})
       }
 
     }
