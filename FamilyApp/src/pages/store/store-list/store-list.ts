@@ -36,8 +36,8 @@ export class StoreListPage {
   }
 
   ionViewDidLoad() {
-    this.maxWidth = ((screen.width / 4) - 8) + "px";
     console.log(this.i18n);
+    this.maxWidth = ((screen.width / 4) - 8) + "px";
     this.PostData()
   }
   ChangePost(){

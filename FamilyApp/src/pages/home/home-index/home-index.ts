@@ -30,6 +30,7 @@ export class HomeIndexPage {
     public toPostService: ToPostService,
     private sanitize: DomSanitizer
   ) {
+    console.log(this.i18n);
     console.log(this.config.AllMoudle[0].children)
     this.postModel = AppGlobal.GetProperty();
     this.postModel.PageIndex = 1;
@@ -123,7 +124,7 @@ export class HomeIndexPage {
   }
 
   OnClickItem(item) {
-    this.navCtrl.push("StoreLookPage", { item: item })
+    this.navCtrl.push("ActiveLookPage", { item: item })
   }
   GetPicUrl(url: string, type: string = "imgUrl", defaultPic: string = "./assets/images/noPic.jpg") {
     return new ImgUrlPipe().transform(url, type, defaultPic)

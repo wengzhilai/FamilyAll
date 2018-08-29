@@ -15,12 +15,12 @@ export class Config {
 
   // static api:string = 'http://192.168.0.200:5000/Api/';
   // static imgUrl:string = 'http://192.168.0.200:5000/download/';
-  // static userType="user"
-  // static api:string = 'http://www.wjbjp.cn/Api/';
-  // static imgUrl:string = 'http://www.wjbjp.cn/download/';
+  static userType="user"
+  static api:string = 'http://www.wjbjp.cn/Api/';
+  static imgUrl:string = 'http://www.wjbjp.cn/download/';
 
-  static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
-  static imgUrl:string = 'http://192.168.0.88:82/Attachment/Image/';
+  // static api:string = 'http://192.168.0.88/CLXApp/WebApi/';
+  // static imgUrl:string = 'http://192.168.0.88:82/Attachment/Image/';
 
   // static api:string = 'http://192.168.0.110:8066/WebApi/';
   // static imgUrl:string = 'http://192.168.0.110:8077/Attachment/Image/';
@@ -29,7 +29,7 @@ export class Config {
   // static imgUrl:string = 'http://2509716e.nat123.cc/Attachment/Image/';
   
 
-  static userType="vip"
+  // static userType="vip"
 
 
   static _api:string = Config.api;

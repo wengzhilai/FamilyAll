@@ -32,7 +32,7 @@ export class TabsPage {
     {
       text: "tabs.MyProfile",
       Icon: "person",
-      root: "HomeIndexPage"
+      root: (Config.userType == "user") ? "UserProfilePage" : "VipPersonPage"
     }
   ]
   constructor(

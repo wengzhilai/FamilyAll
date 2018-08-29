@@ -81,23 +81,28 @@ export class MyApp {
       //开始加载后台消息推送进程
       this.BackgroundFetch();
 
-      /**
-       * 加载枚举
-       */
-      this.LoadEnum().then(x => {
-        if (x.IsSuccess) {
-          /**
-           * 加载消息的多语言
-           */
-          this.LoadLanguage().then(y => {
-            this.rootPage = "TabsPage"
-          })
-        }
-        else {
-          console.log(111111)
-          this.CheckAppUrl()
-        }
-      });
+      if (Config.userType == "vip") {
+        /**
+         * 加载枚举
+         */
+        this.LoadEnum().then(x => {
+          if (x.IsSuccess) {
+            /**
+             * 加载消息的多语言
+             */
+            this.LoadLanguage().then(y => {
+              this.rootPage = "TabsPage"
+            })
+          }
+          else {
+            console.log(111111)
+            this.CheckAppUrl()
+          }
+        });
+      }
+      else{
+        this.rootPage = "TabsPage"
+      }
     });
   }
   /**
@@ -417,9 +422,9 @@ export class MyApp {
   /**
    * 注册消息推送
    */
-    /**
-   * 注册消息推送
-   */
+  /**
+ * 注册消息推送
+ */
   BackgroundFetch() {
     this.jPush.init()
 
