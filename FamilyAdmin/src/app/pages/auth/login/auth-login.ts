@@ -49,25 +49,25 @@ export class AuthLoginPage {
 
         this.userForm = this.formBuilder.group({
             loginName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-            password: ['', [Validators.required]]
+            passWord: ['', [Validators.required]]
         });
         this.validationMessages = {
             'loginName': {
                 'aliasName': ""
             },
-            'password': {
+            'passWord': {
                 'aliasName': ""
             }
         }
 
         if (Cif.debug) {
             this.userForm.get('loginName').setValue("sysadmin");
-            this.userForm.get('password').setValue("123456");
+            this.userForm.get('passWord').setValue("123456");
         }
         if (this.userAndPwdList.length > 0) {
             console.log("设置值")
             this.userForm.get('loginName').setValue(this.userAndPwdList[this.userAndPwdList.length - 1].loginName);
-            this.userForm.get('password').setValue(this.userAndPwdList[this.userAndPwdList.length - 1].password);
+            this.userForm.get('passWord').setValue(this.userAndPwdList[this.userAndPwdList.length - 1].passWord);
         }
         let nowRememberPwd = AppGlobal.CooksGet("rememberPwd")
         if (nowRememberPwd == null || nowRememberPwd == '' || nowRememberPwd == 'false') {
@@ -99,13 +99,13 @@ export class AuthLoginPage {
             if (element.loginName == this.user.loginName) {
                 this.userAndPwdList.splice(index, 1)
                 now = element;
-                element.password = this.rememberPwd ? this.user.password : "";
+                element.passWord = this.rememberPwd ? this.user.passWord : "";
             }
         }
         if (now == null) {
             now = {
                 "loginName": this.user.loginName,
-                "password": this.rememberPwd ? this.user.password : "",
+                "passWord": this.rememberPwd ? this.user.passWord : "",
             }
         }
         this.userAndPwdList.push(now)
@@ -188,10 +188,10 @@ export class AuthLoginPage {
     }
     ChangeLoginName() {
         console.log(this.userForm.value.loginName)
-        this.userForm.get('password').setValue("");
+        this.userForm.get('passWord').setValue("");
         this.userAndPwdList.forEach(element => {
             if (element.loginName == this.userForm.value.loginName) {
-                this.userForm.get('password').setValue(element.password);
+                this.userForm.get('passWord').setValue(element.passWord);
             }
         });
     }

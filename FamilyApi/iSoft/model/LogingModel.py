@@ -17,7 +17,7 @@ class LogingModel(object):
         # 密码
         # </summary>
         #[Required, MaxLength(32)]
-        password=None
+        passWord=None
         # <summary>
         # 手机串号
         # </summary>
